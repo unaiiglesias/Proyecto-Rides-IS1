@@ -8,6 +8,7 @@ package gui;
 import javax.swing.*;
 
 import domain.Driver;
+import domain.Rider;
 import businessLogic.BLFacade;
 
 import java.awt.Color;
@@ -24,7 +25,7 @@ import java.awt.event.ActionEvent;
 
 public class MainGUI extends JFrame {
 	
-    private Driver driver;
+    private Rider rider;
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -46,18 +47,24 @@ public class MainGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_2;
 	private JPanel panel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton loginJButton;
+	private JButton signUpJButton;
+	private JLabel currentUserJLabel;
 	
 	/**
 	 * This is the default constructor
 	 */
-	public MainGUI(Driver d) {
+	public MainGUI(Rider d) {
 		super();
 
-		driver=d;
+		rider=d;
+		
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		// this.setSize(271, 295);
-		this.setSize(495, 290);
+		this.setSize(660, 427);
 		jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
+		jLabelSelectOption.setBounds(0, 0, 644, 97);
 		jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
 		jLabelSelectOption.setForeground(Color.BLACK);
 		jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,20 +98,23 @@ public class MainGUI extends JFrame {
 		buttonGroup.add(rdbtnNewRadioButton_2);
 	
 		panel = new JPanel();
+		panel.setBounds(0, 291, 644, 97);
 		panel.add(rdbtnNewRadioButton_1);
 		panel.add(rdbtnNewRadioButton_2);
 		panel.add(rdbtnNewRadioButton);
 		
 		jButtonCreateQuery = new JButton();
+		jButtonCreateQuery.setBounds(0, 97, 644, 97);
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				JFrame a = new CreateRideGUI(driver);
+				JFrame a = new CreateRideGUI((Driver) rider);
 				a.setVisible(true);
 			}
 		});
 		
 		jButtonQueryQueries = new JButton();
+		jButtonQueryQueries.setBounds(0, 194, 644, 97);
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -115,7 +125,7 @@ public class MainGUI extends JFrame {
 		});
 		
 		jContentPane = new JPanel();
-		jContentPane.setLayout(new GridLayout(4, 1, 0, 0));
+		jContentPane.setLayout(null);
 		jContentPane.add(jLabelSelectOption);
 		jContentPane.add(jButtonCreateQuery);
 		jContentPane.add(jButtonQueryQueries);
@@ -123,7 +133,39 @@ public class MainGUI extends JFrame {
 		
 		
 		setContentPane(jContentPane);
-		setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :"+driver.getName());
+		
+		loginJButton = new JButton("Log in");
+		if(rider!=null) loginJButton.setVisible(false);
+		loginJButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new LoginGUI();
+				a.setVisible(true);
+				dispose();
+			}
+		});
+		loginJButton.setBounds(555, 0, 89, 23);
+		jContentPane.add(loginJButton);
+		
+		signUpJButton = new JButton("Sign up");
+		if(rider!=null) signUpJButton.setVisible(false);
+		signUpJButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new RegisterGUI();
+				a.setVisible(true);
+				dispose();
+			}
+		});
+		signUpJButton.setBounds(555, 24, 89, 23);
+		jContentPane.add(signUpJButton);
+		
+		currentUserJLabel = new JLabel("");
+		currentUserJLabel.setBounds(430, 4, 214, 19);
+		if(rider!=null) currentUserJLabel.setText("Account: "+rider.getEmail());
+		else currentUserJLabel.setVisible(false);
+		jContentPane.add(currentUserJLabel);
+		
+		if(rider!=null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :"+rider.getName());
+		else setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle"));
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -137,7 +179,7 @@ public class MainGUI extends JFrame {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle")+ " - driver :"+driver.getName());
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle")+ " - driver :"+rider.getName());
 	}
 	
 } // @jve:decl-index=0:visual-constraint="0,0"

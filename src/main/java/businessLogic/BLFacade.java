@@ -5,9 +5,13 @@ import java.util.List;
 
 //import domain.Booking;
 import domain.Ride;
+import domain.Rider;
 import domain.Driver;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.RideAlreadyExistException;
+import exceptions.UserAlreadyExistException;
+import exceptions.UserDoesNotExistException;
+import exceptions.IncorrectCredentialsException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -74,6 +78,29 @@ public interface BLFacade  {
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */	
 	@WebMethod public void initializeBD();
-
 	
+	/**
+	 * This method does the registration of a new Rider in the database
+	 * @throws UserAlreadyExistException if the Rider already exist
+	 */
+	public void addRider(String email, String password, String name, String surname, int age) throws UserAlreadyExistException;
+	
+	/**
+	 * This method does the registration of a new Driver in the database
+	 * @throws UserAlreadyExistException if the Driver already exist
+	 */
+	public void addDriver(String email, String password, String name, String surname, int age, String licensePlate, String vehicleModel) throws UserAlreadyExistException;
+	
+	/**
+	 * This method does the login of a Rider or Driver
+	 * @return instance of Rider (or Driver) 
+	 * @throws IncorrectCredentialsException if the password is incorrect
+	 * @throws UserDoesNotExistException if given email doesn't match any Rider (or Driver) one's 
+	 */
+	public Rider login(String email, String password) throws IncorrectCredentialsException, UserDoesNotExistException;
+	
+	/**
+	 * This method finds a Rider in the database
+	 */
+	public Rider getRider(String email);
 }

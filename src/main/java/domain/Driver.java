@@ -13,17 +13,17 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+// Rider and Driver instances will be saved in the same database table.
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Entity
-public class Driver implements Serializable {
+public class Driver extends Rider implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@XmlID
-	@Id 
-	private String email;
-	private String name; 
+	private String licensePlate;
+	private String vehicleModel;
 	@XmlIDREF
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Ride> rides=new Vector<Ride>();
@@ -32,32 +32,15 @@ public class Driver implements Serializable {
 		super();
 	}
 
-	public Driver(String email, String name) {
-		this.email = email;
-		this.name = name;
+	public Driver(String email, String password, String name, String surname, int age, String licensePlate, String vehicleModel) {
+		super(email, password, name, surname, age);
+		this.licensePlate = licensePlate;
+		this.vehicleModel = vehicleModel;
 	}
-	
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	
 	
 	public String toString(){
-		return email+";"+name+rides;
+		return this.getEmail()+";"+this.getName()+rides;
 	}
 	
 	/**
@@ -98,7 +81,7 @@ public class Driver implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Driver other = (Driver) obj;
-		if (email != other.email)
+		if (this.getEmail() != other.getEmail())
 			return false;
 		return true;
 	}

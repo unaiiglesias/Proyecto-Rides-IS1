@@ -20,8 +20,10 @@ import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Driver;
 import domain.Ride;
+import domain.Rider;
 import exceptions.RideAlreadyExistException;
 import exceptions.RideMustBeLaterThanTodayException;
+import exceptions.UserAlreadyExistException;
 
 /**
  * It implements the data access to the objectDb database
@@ -80,10 +82,9 @@ public class DataAccess  {
 	    
 		   
 		    //Create drivers 
-			Driver driver1=new Driver("driver1@gmail.com","Aitor Fernandez");
-			Driver driver2=new Driver("driver2@gmail.com","Ane Gaztañaga");
-			Driver driver3=new Driver("driver3@gmail.com","Test driver");
-
+			Driver driver1=new Driver("driver1@gmail.com", "password","Aitor", "Fernandez", 34, "00000X", "Peugeot 360");
+			Driver driver2=new Driver("driver2@gmail.com","password", "Ane","Gaztañaga", 27,  "00001X", "Alfa Romeo");
+			Driver driver3=new Driver("driver3@gmail.com","password", "Test driver", " ",0, "00002X", "Tesla Model S");
 			
 			//Create rides
 			driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 4, 7);
@@ -112,6 +113,29 @@ public class DataAccess  {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * This method stores a new user (Rider or Driver) instance
+	 * @throws UserAlreadyExistException 
+	 */
+	public void userRegistration(Rider rider) throws UserAlreadyExistException {
+		/*
+		  Note: due to Driver`s extending Riders, this method applies for both users: Rider and Driver
+		 */
+		// First, check if Rider already exists
+		if(db.find(Rider.class, rider.getEmail())==null) {
+			db.getTransaction().begin();
+			db.persist(rider);
+			db.getTransaction().commit();
+		} else {
+			throw new UserAlreadyExistException("Error: email is already being used");
+		}
+	}
+	
+	public Rider getRider(String email) {
+		return db.find(Rider.class, email);
+	}
+
 	
 	/**
 	 * This method returns all the cities where rides depart 

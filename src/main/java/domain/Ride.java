@@ -2,8 +2,10 @@ package domain;
 
 import java.io.*;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+import javax.persistence.metamodel.Type.PersistenceType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlID;
@@ -25,7 +27,9 @@ public class Ride implements Serializable {
 	private int nPlaces;
 	private Date date;
 	private float price;
-	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<ReservationRequest> reservations;
+	@ManyToOne
 	private Driver driver;  
 	
 	public Ride(){
@@ -53,6 +57,14 @@ public class Ride implements Serializable {
 		this.date=date;
 		this.price=price;
 		this.driver = driver;
+	}
+	
+	public void addReservationRequest(ReservationRequest r) {
+		this.reservations.add(r);
+	}
+	
+	public void removeReservationRequest(ReservationRequest r) {
+		this.reservations.remove(r);
 	}
 	
 	/**

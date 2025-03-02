@@ -11,6 +11,7 @@ import javax.xml.ws.Service;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Driver;
+import domain.Rider;
 import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
 
@@ -28,10 +29,10 @@ public class ApplicationLauncher {
 		
 		System.out.println("Locale: "+Locale.getDefault());
 		
-	    Driver driver=new Driver("driver3@gmail.com","Test Driver");
-
+	    //Driver driver=new Driver("driver3@gmail.com","password", "Name", "Surname", 0, "LICENSE", "Toyota Auris");
+		Rider rider = null;
 		
-		MainGUI a=new MainGUI(driver);
+		MainGUI a=new MainGUI(rider);
 		a.setVisible(true);
 
 

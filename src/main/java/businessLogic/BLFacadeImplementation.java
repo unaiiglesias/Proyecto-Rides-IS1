@@ -9,9 +9,13 @@ import javax.jws.WebService;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Ride;
+import domain.Rider;
 import domain.Driver;
 import exceptions.RideMustBeLaterThanTodayException;
+import exceptions.IncorrectCredentialsException;
 import exceptions.RideAlreadyExistException;
+import exceptions.UserAlreadyExistException;
+import exceptions.UserDoesNotExistException;
 
 /**
  * It implements the business logic as a web service.
@@ -39,7 +43,59 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager=da;		
 	}
     
+    /**
+     * {@inheritDoc}
+     */
+    public void addRider(String email, String password, String name, String surname, int age) throws UserAlreadyExistException {
+    	dbManager.open();
+    	try {
+    		Rider rider = new Rider(email, password, name, surname, age);
+    		dbManager.userRegistration(rider);
+    	} catch(Exception e) {
+    		throw e;
+    	} finally {
+    		dbManager.close();	
+    	}
+    }
     
+    /**
+     * {@inheritDoc}
+     */
+	public void addDriver(String email, String password, String name, String surname, int age, String licensePlate, String vehicleModel) throws UserAlreadyExistException {
+    	dbManager.open();
+    	try {
+    		Rider driver = new Driver(email, password, name, surname, age, licensePlate, vehicleModel);
+    		dbManager.userRegistration(driver);
+    	} catch(Exception e) {
+    		throw e;
+    	} finally {
+    		dbManager.close();	
+    	}
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public Rider login(String email, String password) throws IncorrectCredentialsException, UserDoesNotExistException {
+    	dbManager.open();
+    	
+    	Rider rider = dbManager.getRider(email);
+    	if(rider==null) throw new UserDoesNotExistException();
+    	if(!rider.getPassword().equals(password)) throw new IncorrectCredentialsException();
+ 
+    	dbManager.close();
+    	return rider;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public Rider getRider(String email) {
+		dbManager.open();
+		Rider rider = dbManager.getRider(email);
+		dbManager.close();
+		return rider;
+	}
     /**
      * {@inheritDoc}
      */
