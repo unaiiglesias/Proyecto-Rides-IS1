@@ -103,4 +103,9 @@ public interface BLFacade  {
 	 * This method finds a Rider in the database
 	 */
 	public Rider getRider(String email);
+	
+	/**
+	 * This method makes a reservation request of a Ride
+	 */
+	public void makeReservationRequest(Ride ride, Rider rider);
 }

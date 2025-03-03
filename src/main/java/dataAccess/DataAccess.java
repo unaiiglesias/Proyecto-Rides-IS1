@@ -19,6 +19,7 @@ import javax.persistence.TypedQuery;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Driver;
+import domain.ReservationRequest;
 import domain.Ride;
 import domain.Rider;
 import exceptions.RideAlreadyExistException;
@@ -134,6 +135,17 @@ public class DataAccess  {
 	
 	public Rider getRider(String email) {
 		return db.find(Rider.class, email);
+	}
+	
+	public void addReservationRequest(ReservationRequest rr) {
+		db.getTransaction().begin();
+		Ride ride = db.find(Ride.class, rr.getRide().getRideNumber());
+		Rider rider = db.find(Rider.class, rr.getRider().getEmail());
+		if(ride != null & rider != null) {
+			ride.addReservationRequest(rr);
+			rider.addReservationRequest(rr);
+		}
+		db.getTransaction().commit();
 	}
 
 	

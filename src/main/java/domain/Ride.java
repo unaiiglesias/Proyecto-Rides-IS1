@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class Ride implements Serializable {
 	
 	public Ride(){
 		super();
+		this.reservations = new ArrayList<ReservationRequest>();
 	}
 	
 	public Ride(Integer rideNumber, String from, String to, Date date, int nPlaces, float price, Driver driver) {
@@ -45,6 +47,7 @@ public class Ride implements Serializable {
 		this.date=date;
 		this.price=price;
 		this.driver = driver;
+		this.reservations = new ArrayList<ReservationRequest>();
 	}
 
 	
@@ -57,6 +60,7 @@ public class Ride implements Serializable {
 		this.date=date;
 		this.price=price;
 		this.driver = driver;
+		this.reservations = new ArrayList<ReservationRequest>();
 	}
 	
 	public void addReservationRequest(ReservationRequest r) {

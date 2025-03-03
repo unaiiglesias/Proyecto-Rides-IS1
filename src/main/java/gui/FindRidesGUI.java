@@ -5,7 +5,12 @@ import configuration.UtilDate;
 
 import com.toedter.calendar.JCalendar;
 import domain.Ride;
+import domain.Rider;
+
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
@@ -19,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class FindRidesGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-
+	public Rider rider;
 	private JComboBox<String> jComboBoxOrigin = new JComboBox<String>();
 	DefaultComboBoxModel<String> originLocations = new DefaultComboBoxModel<String>();
 
@@ -51,22 +56,23 @@ public class FindRidesGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.NPlaces"), 
 			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.Price")
 	};
+	private final JButton jButtonRequestRide = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.RequestRides")); //$NON-NLS-1$ //$NON-NLS-2$
 
 
-	public FindRidesGUI()
+	public FindRidesGUI(Rider rider)
 	{
-
+		this.rider = rider;
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(700, 500));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.FindRides"));
 
 		jLabelEventDate.setBounds(new Rectangle(457, 6, 140, 25));
-		jLabelEvents.setBounds(172, 229, 259, 16);
+		jLabelEvents.setBounds(166, 221, 259, 16);
 
 		this.getContentPane().add(jLabelEventDate, null);
 		this.getContentPane().add(jLabelEvents);
 
-		jButtonClose.setBounds(new Rectangle(274, 419, 130, 30));
+		jButtonClose.setBounds(new Rectangle(367, 420, 130, 30));
 
 		jButtonClose.addActionListener(new ActionListener()
 		{
@@ -207,7 +213,7 @@ public class FindRidesGUI extends JFrame {
 
 		this.getContentPane().add(jCalendar1, null);
 
-		scrollPaneEvents.setBounds(new Rectangle(172, 257, 346, 150));
+		scrollPaneEvents.setBounds(new Rectangle(166, 249, 346, 150));
 
 		scrollPaneEvents.setViewportView(tableRides);
 		tableModelRides = new DefaultTableModel(null, columnNamesRides);
@@ -226,6 +232,43 @@ public class FindRidesGUI extends JFrame {
 		this.getContentPane().add(scrollPaneEvents, null);
 		datesWithRidesCurrentMonth=facade.getThisMonthDatesWithRides((String)jComboBoxOrigin.getSelectedItem(),(String)jComboBoxDestination.getSelectedItem(),jCalendar1.getDate());
 		paintDaysWithEvents(jCalendar1,datesWithRidesCurrentMonth,Color.CYAN);
+		
+		/*
+		 In order to perform a ride request, we will need to enable the following JButton only if a ride is selected from (JTabel) tableRides
+		 */
+		tableRides.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent l) {
+				jButtonRequestRide.setEnabled(true);
+			}
+		});
+		/*
+		 In case the user wants to request a ride:
+		 	1. Get the Ride
+		 	2. Create a new ReservationRequest -> facade.reserve(...)
+		 	3. Let the user know the reservation has gone right (pending yet)
+		 */
+		jButtonRequestRide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = tableRides.getSelectedRow();
+				if(selectedRow != -1) {
+					Ride ride = (Ride) tableModelRides.getValueAt(selectedRow, 3);
+					facade.makeReservationRequest(ride, rider);			
+				} else {
+					// Tell the user something went wrong
+				}
+			}
+		});
+		
+		jButtonRequestRide.setBounds(new Rectangle(387, 420, 130, 30));
+		jButtonRequestRide.setBounds(176, 420, 130, 30);
+		jButtonRequestRide.setEnabled(false);
+		// If the user is not a Rider or Driver, won't be able to request a ride
+		if(rider == null) {
+			jButtonRequestRide.setVisible(false);
+			jButtonClose.setBounds(new Rectangle(278, 420, 130, 30));
+		}
+		
+		getContentPane().add(jButtonRequestRide);
 
 	}
 	public static void paintDaysWithEvents(JCalendar jCalendar,List<Date> datesWithEventsCurrentMonth, Color color) {

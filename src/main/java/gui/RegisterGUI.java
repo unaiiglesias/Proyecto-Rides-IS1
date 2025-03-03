@@ -119,18 +119,20 @@ public class RegisterGUI extends JFrame {
 					a.setVisible(true);
 				} catch(UserAlreadyExistException exception1) {
 					emailTextArea.setText("Email already in use. Please select another one");
+					emailTextArea.setForeground(Color.RED);
 				} catch(Exception exception2) {
 					resultTextArea.setText("Error: Please fill all the gaps correctly");
-					resultTextArea.setForeground(new Color(255,0,0));
+					resultTextArea.setForeground(Color.RED);
 				}
 
 			}
 		});
 		loginJButton.setBounds(176, 318, 130, 23);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane.add(loginJButton);
 		
 		emailTextArea = new JTextArea();
+		emailTextArea.setBackground(new Color(240, 240, 240));
 		emailTextArea.setEditable(false);
 		emailTextArea.setBounds(120, 55, 278, 14);
 		contentPane.add(emailTextArea);
@@ -164,7 +166,7 @@ public class RegisterGUI extends JFrame {
 		
 		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
-		spinner.setBounds(347, 140, 30, 20);
+		spinner.setBounds(335, 136, 30, 20);
 		contentPane.add(spinner);
 		
 		jLabelLicensePlate = new JLabel("License plate");
@@ -190,8 +192,9 @@ public class RegisterGUI extends JFrame {
 		jLabelVehicleModel.setVisible(false);
 		 
 		resultTextArea = new JTextArea();
+		resultTextArea.setBackground(new Color(240, 240, 240));
 		resultTextArea.setEditable(false);
-		resultTextArea.setBounds(176, 352, 130, 22);
+		resultTextArea.setBounds(123, 353, 254, 22);
 		contentPane.add(resultTextArea);
 		
 		driverCheckBox = new JCheckBox("Select if wanted to be also a driver");

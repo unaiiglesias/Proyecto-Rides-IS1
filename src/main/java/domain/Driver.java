@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -30,12 +31,14 @@ public class Driver extends Rider implements Serializable {
 
 	public Driver() {
 		super();
+		this.rides = new ArrayList<Ride>();
 	}
 
 	public Driver(String email, String password, String name, String surname, int age, String licensePlate, String vehicleModel) {
 		super(email, password, name, surname, age);
 		this.licensePlate = licensePlate;
 		this.vehicleModel = vehicleModel;
+		this.rides = new ArrayList<Ride>();
 	}
 	
 	

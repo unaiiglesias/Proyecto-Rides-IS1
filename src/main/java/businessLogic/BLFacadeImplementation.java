@@ -11,6 +11,7 @@ import dataAccess.DataAccess;
 import domain.Ride;
 import domain.Rider;
 import domain.Driver;
+import domain.ReservationRequest;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.IncorrectCredentialsException;
 import exceptions.RideAlreadyExistException;
@@ -96,6 +97,18 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return rider;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void makeReservationRequest(Ride ride, Rider rider) {
+		dbManager.open();
+		ReservationRequest rr = new ReservationRequest(rider, ride); 
+		dbManager.addReservationRequest(rr);
+		dbManager.close();
+	}
+	
+	
     /**
      * {@inheritDoc}
      */

@@ -50,6 +50,7 @@ public class MainGUI extends JFrame {
 	private JButton loginJButton;
 	private JButton signUpJButton;
 	private JLabel currentUserJLabel;
+	private JButton jButtonShowRequests;
 	
 	/**
 	 * This is the default constructor
@@ -59,10 +60,10 @@ public class MainGUI extends JFrame {
 
 		rider=d;
 		
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// this.setSize(271, 295);
-		this.setSize(660, 427);
+		this.setSize(656, 543);
 		jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jLabelSelectOption.setBounds(0, 0, 644, 97);
 		jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -98,13 +99,14 @@ public class MainGUI extends JFrame {
 		buttonGroup.add(rdbtnNewRadioButton_2);
 	
 		panel = new JPanel();
-		panel.setBounds(0, 291, 644, 97);
+		panel.setBounds(0, 410, 644, 97);
 		panel.add(rdbtnNewRadioButton_1);
 		panel.add(rdbtnNewRadioButton_2);
 		panel.add(rdbtnNewRadioButton);
 		
 		jButtonCreateQuery = new JButton();
-		jButtonCreateQuery.setBounds(0, 97, 644, 97);
+		jButtonCreateQuery.setVisible(false);
+		jButtonCreateQuery.setBounds(0, 205, 644, 97);
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -114,11 +116,11 @@ public class MainGUI extends JFrame {
 		});
 		
 		jButtonQueryQueries = new JButton();
-		jButtonQueryQueries.setBounds(0, 194, 644, 97);
+		jButtonQueryQueries.setBounds(0, 108, 644, 97);
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				JFrame a = new FindRidesGUI();
+				JFrame a = new FindRidesGUI(rider);
 
 				a.setVisible(true);
 			}
@@ -164,6 +166,12 @@ public class MainGUI extends JFrame {
 		else currentUserJLabel.setVisible(false);
 		jContentPane.add(currentUserJLabel);
 		
+		jButtonShowRequests = new JButton();
+		jButtonShowRequests.setVisible(false);
+		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests")); //$NON-NLS-1$ //$NON-NLS-2$
+		jButtonShowRequests.setBounds(0, 302, 644, 97);
+		jContentPane.add(jButtonShowRequests);
+		
 		if(rider!=null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :"+rider.getName());
 		else setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle"));
 		
@@ -173,14 +181,27 @@ public class MainGUI extends JFrame {
 				System.exit(1);
 			}
 		});
+		
+		/*
+		 Depending on the type of user: Rider or Driver, some use cases will be available, others won't.
+		 	Not logged: query rides
+		 	Rider: query rides, request ride
+		 	Driver: query rides, request ride, create ride, show requests
+		 */
+
+		if(rider instanceof Driver) {
+			jButtonCreateQuery.setVisible(true);
+			jButtonShowRequests.setVisible(true);
+		}
 	}
 	
 	private void paintAgain() {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle")+ " - driver :"+rider.getName());
+		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
+		if(rider!=null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :"+rider.getName());
+		else setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle"));
 	}
-	
 } // @jve:decl-index=0:visual-constraint="0,0"
 

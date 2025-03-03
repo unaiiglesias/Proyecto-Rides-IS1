@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -24,12 +25,17 @@ public class Rider {
 		
 	}
 	
+	public void addReservationRequest(ReservationRequest rr) {
+		this.reservations.add(rr);
+	}
+	
 	public Rider(String email, String password, String name, String surname, int age) {
 		this.email = email;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
 		this.age = age;
+		this.reservations = new ArrayList<ReservationRequest>();
 	}
 
 	public String getEmail() {
