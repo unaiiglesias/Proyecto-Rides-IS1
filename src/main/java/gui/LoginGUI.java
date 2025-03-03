@@ -20,6 +20,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 public class LoginGUI extends JFrame {
@@ -57,7 +59,15 @@ public class LoginGUI extends JFrame {
 		BLFacade facade = MainGUI.getBusinessLogic();
 		
 		setTitle("Login");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// If the window gets closed, don't just close the application. Go back to the MainGUI instead
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+				JFrame a = new MainGUI(null);
+				a.setVisible(true);
+				dispose();
+			}
+		});
 		setBounds(100, 100, 490, 276);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

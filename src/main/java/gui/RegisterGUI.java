@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -69,7 +71,15 @@ public class RegisterGUI extends JFrame {
 		BLFacade facade = MainGUI.getBusinessLogic();
 		
 		setTitle("Login");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// If the window gets closed, don't just close the application. Go back to the MainGUI instead
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+				JFrame a = new MainGUI(null);
+				a.setVisible(true);
+				dispose();
+			}
+		});
 		setBounds(100, 100, 490, 437);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -164,7 +174,6 @@ public class RegisterGUI extends JFrame {
 			}
 		});
 		loginJButton.setBounds(176, 318, 130, 23);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane.add(loginJButton);
 		
 		emailTextArea = new JTextArea();
