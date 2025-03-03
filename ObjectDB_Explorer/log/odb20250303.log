@@ -125,3 +125,20 @@ com.objectdb.o.UserException: Failed to create a new directory 'G:\EHU\Laborator
 [2025-03-03 18:31:21 #4 store] 
 Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is closed by 3992@UnaiPC
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-03 18:31:37 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 11620@UnaiPC
+
+[2025-03-03 18:31:37 #2 store] 
+Configuration path: ?
+
+[2025-03-03 18:32:31 #3 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is closed by 11620@UnaiPC
+
+[2025-03-03 18:56:56 #4 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 11620@UnaiPC
+
+[2025-03-03 18:56:56 #5 store] 
+Configuration path: ?
+

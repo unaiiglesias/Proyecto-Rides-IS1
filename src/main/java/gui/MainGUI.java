@@ -14,6 +14,7 @@ import businessLogic.BLFacade;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
@@ -202,6 +203,9 @@ public class MainGUI extends JFrame {
 			jButtonCreateQuery.setVisible(true);
 			jButtonShowRequests.setVisible(true);
 		}
+		
+		// Refresh some text
+		paintAgain();
 	}
 	
 	private void paintAgain() {
@@ -209,8 +213,11 @@ public class MainGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
-		if(currentSession != null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :" + currentSession.getName());
-		else setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle"));
+		
+		String windowText = ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle");
+		if (currentSession instanceof Driver) windowText += " - Driver : " + currentSession.getName();
+		else if (currentSession instanceof Rider) windowText += " - Rider : " + currentSession.getName();
+		setTitle(windowText);
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 
