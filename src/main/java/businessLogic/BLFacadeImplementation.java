@@ -81,7 +81,7 @@ public class BLFacadeImplementation  implements BLFacade {
     	dbManager.open();
     	
     	Rider rider = dbManager.getRider(email);
-    	if(rider==null) throw new UserDoesNotExistException();
+    	if(rider == null) throw new UserDoesNotExistException();
     	if(!rider.getPassword().equals(password)) throw new IncorrectCredentialsException();
  
     	dbManager.close();

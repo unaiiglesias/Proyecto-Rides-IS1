@@ -99,11 +99,11 @@ public class LoginGUI extends JFrame {
 				String password = new String(passwordField.getPassword());
 				try {
 					user = facade.login(email, password);
+					System.out.println("EXITO: Login realizado con satisfactoriamente como: " + email);
+					// if login successful, we'll close this window
 					dispose();
-					System.out.println("Login hehco");
 					JFrame a = new MainGUI(user);
 					a.setVisible(true);
-					// if login successful, we'll close this window
 					
 				} catch(IncorrectCredentialsException exception1) {
 					passwordTextArea.setText("Incorrect password");

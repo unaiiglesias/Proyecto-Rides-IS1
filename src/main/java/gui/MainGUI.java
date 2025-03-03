@@ -25,7 +25,8 @@ import java.awt.event.ActionEvent;
 
 public class MainGUI extends JFrame {
 	
-    private Rider rider;
+    private Rider currentSession; // Can be Driver, Rider or null (Refers to who the user is logged in as)
+    
 	private static final long serialVersionUID = 1L;
 
 	private JPanel jContentPane = null;
@@ -58,7 +59,7 @@ public class MainGUI extends JFrame {
 	public MainGUI(Rider d) {
 		super();
 
-		rider=d;
+		currentSession=d;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -110,7 +111,7 @@ public class MainGUI extends JFrame {
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				JFrame a = new CreateRideGUI((Driver) rider);
+				JFrame a = new CreateRideGUI((Driver) currentSession);
 				a.setVisible(true);
 			}
 		});
@@ -120,7 +121,7 @@ public class MainGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				JFrame a = new FindRidesGUI(rider);
+				JFrame a = new FindRidesGUI(currentSession);
 
 				a.setVisible(true);
 			}
@@ -137,7 +138,7 @@ public class MainGUI extends JFrame {
 		setContentPane(jContentPane);
 		
 		loginJButton = new JButton("Log in");
-		if(rider!=null) loginJButton.setVisible(false);
+		if(currentSession!=null) loginJButton.setVisible(false);
 		loginJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new LoginGUI();
@@ -149,7 +150,7 @@ public class MainGUI extends JFrame {
 		jContentPane.add(loginJButton);
 		
 		signUpJButton = new JButton("Sign up");
-		if(rider!=null) signUpJButton.setVisible(false);
+		if(currentSession!=null) signUpJButton.setVisible(false);
 		signUpJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new RegisterGUI();
@@ -161,15 +162,17 @@ public class MainGUI extends JFrame {
 		jContentPane.add(signUpJButton);
 		
 		currentUserJLabel = new JLabel("");
-		currentUserJLabel.setBounds(430, 4, 214, 19);
-		if(rider!=null) currentUserJLabel.setText("Account: "+rider.getEmail());
+		currentUserJLabel.setBounds(103, 4, 527, 19);
+		if(currentSession!=null) currentUserJLabel.setText("Account: " + currentSession.getEmail());
 		else currentUserJLabel.setVisible(false);
 		jContentPane.add(currentUserJLabel);
+		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		// The label is long, so that any email can fit, but alligns to the right
 		
 		jButtonShowRequests = new JButton();
 		jButtonShowRequests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame a = new ShowRequestsGUI((Driver) rider);
+				JFrame a = new ShowRequestsGUI((Driver) currentSession);
 				a.setVisible(true);
 			}
 		});
@@ -178,7 +181,7 @@ public class MainGUI extends JFrame {
 		jButtonShowRequests.setBounds(0, 302, 644, 97);
 		jContentPane.add(jButtonShowRequests);
 		
-		if(rider!=null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :"+rider.getName());
+		if(currentSession != null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :" + currentSession.getName());
 		else setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle"));
 		
 		addWindowListener(new WindowAdapter() {
@@ -195,7 +198,7 @@ public class MainGUI extends JFrame {
 		 	Driver: query rides, request ride, create ride, show requests
 		 */
 
-		if(rider instanceof Driver) {
+		if(currentSession instanceof Driver) {
 			jButtonCreateQuery.setVisible(true);
 			jButtonShowRequests.setVisible(true);
 		}
@@ -206,7 +209,7 @@ public class MainGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
-		if(rider!=null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :"+rider.getName());
+		if(currentSession != null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :" + currentSession.getName());
 		else setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle"));
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
