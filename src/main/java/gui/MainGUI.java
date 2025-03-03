@@ -60,6 +60,8 @@ public class MainGUI extends JFrame {
 	public MainGUI(Rider d) {
 		super();
 
+		// Current session is received as parameter, depending on what kind of session is received (rider, driver or 
+		// null) the GUI is adapted, showing only the allowed use cases
 		currentSession=d;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,7 +78,7 @@ public class MainGUI extends JFrame {
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Locale.setDefault(new Locale("en"));
-				System.out.println("Locale: "+Locale.getDefault());
+				System.out.println("Locale changed to: "+Locale.getDefault());
 				paintAgain();				}
 		});
 		buttonGroup.add(rdbtnNewRadioButton);
@@ -85,7 +87,7 @@ public class MainGUI extends JFrame {
 		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Locale.setDefault(new Locale("eus"));
-				System.out.println("Locale: "+Locale.getDefault());
+				System.out.println("Locale changed to: "+Locale.getDefault());
 				paintAgain();				}
 		});
 		buttonGroup.add(rdbtnNewRadioButton_1);
@@ -94,12 +96,12 @@ public class MainGUI extends JFrame {
 		rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Locale.setDefault(new Locale("es"));
-				System.out.println("Locale: "+Locale.getDefault());
+				System.out.println("Locale changed to: "+Locale.getDefault());
 				paintAgain();
 			}
 		});
 		buttonGroup.add(rdbtnNewRadioButton_2);
-	
+		
 		panel = new JPanel();
 		panel.setBounds(0, 410, 644, 97);
 		panel.add(rdbtnNewRadioButton_1);
@@ -123,7 +125,6 @@ public class MainGUI extends JFrame {
 		jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				JFrame a = new FindRidesGUI(currentSession);
-
 				a.setVisible(true);
 			}
 		});
@@ -168,7 +169,7 @@ public class MainGUI extends JFrame {
 		else currentUserJLabel.setVisible(false);
 		jContentPane.add(currentUserJLabel);
 		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		// The label is long, so that any email can fit, but alligns to the right
+		// The label is long, so that any email can fit, but aligns to the right
 		
 		jButtonShowRequests = new JButton();
 		jButtonShowRequests.addActionListener(new ActionListener() {
@@ -199,12 +200,12 @@ public class MainGUI extends JFrame {
 		 	Driver: query rides, request ride, create ride, show requests
 		 */
 
-		if(currentSession instanceof Driver) {
+		if (currentSession instanceof Driver) {
 			jButtonCreateQuery.setVisible(true);
 			jButtonShowRequests.setVisible(true);
 		}
 		
-		// Refresh some text
+		// Refresh some text, just in case
 		paintAgain();
 	}
 	
@@ -214,6 +215,13 @@ public class MainGUI extends JFrame {
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
 		
+		// Update the selected language in button group
+		String localeCode = Locale.getDefault().toString();
+		if (localeCode.equals("en")) rdbtnNewRadioButton.setSelected(true);
+		else if (localeCode.equals("eus")) rdbtnNewRadioButton_1.setSelected(true);
+		else if (localeCode.equals("es")) rdbtnNewRadioButton_2.setSelected(true);
+		
+		// Update the text that shows in the window's label
 		String windowText = ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle");
 		if (currentSession instanceof Driver) windowText += " - Driver : " + currentSession.getName();
 		else if (currentSession instanceof Rider) windowText += " - Rider : " + currentSession.getName();

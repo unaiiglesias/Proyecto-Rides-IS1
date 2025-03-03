@@ -142,3 +142,6 @@ Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.te
 [2025-03-03 18:56:56 #5 store] 
 Configuration path: ?
 
+[2025-03-03 19:02:44 #6 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is closed by 11620@UnaiPC
+
