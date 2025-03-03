@@ -216,7 +216,14 @@ public class FindRidesGUI extends JFrame {
 		scrollPaneEvents.setBounds(new Rectangle(166, 249, 346, 150));
 
 		scrollPaneEvents.setViewportView(tableRides);
-		tableModelRides = new DefaultTableModel(null, columnNamesRides);
+		/**
+		 * We create the model for the JTable, not allowing the user to modify the content
+		 */
+		tableModelRides = new DefaultTableModel(null, columnNamesRides) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 
 		tableRides.setModel(tableModelRides);
 

@@ -112,6 +112,27 @@ public class BLFacadeImplementation  implements BLFacade {
     /**
      * {@inheritDoc}
      */
+	public List<ReservationRequest> getReservationsOfRide(Ride ride) {
+		List<ReservationRequest> l = null;
+		dbManager.open();
+		l = dbManager.getReservationsOfRide(ride);
+		dbManager.close();
+		return l;
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public List<Ride> getRidesOfDriver(Driver driver) {
+		dbManager.open();
+		List<Ride> l = dbManager.getRidesOfDriver(driver);
+		dbManager.close();
+		return l;
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
     @WebMethod public List<String> getDepartCities(){
     	dbManager.open();	
 		

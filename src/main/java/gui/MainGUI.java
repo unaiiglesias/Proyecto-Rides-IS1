@@ -167,6 +167,12 @@ public class MainGUI extends JFrame {
 		jContentPane.add(currentUserJLabel);
 		
 		jButtonShowRequests = new JButton();
+		jButtonShowRequests.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new ShowRequestsGUI((Driver) rider);
+				a.setVisible(true);
+			}
+		});
 		jButtonShowRequests.setVisible(false);
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests")); //$NON-NLS-1$ //$NON-NLS-2$
 		jButtonShowRequests.setBounds(0, 302, 644, 97);

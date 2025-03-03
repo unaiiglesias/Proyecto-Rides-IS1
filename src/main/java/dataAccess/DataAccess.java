@@ -148,6 +148,25 @@ public class DataAccess  {
 		db.getTransaction().commit();
 	}
 
+	public List<ReservationRequest> getReservationsOfRide(Ride ride) {
+		db.getTransaction().begin();
+		Ride r = db.find(Ride.class, ride.getRideNumber());
+		TypedQuery<ReservationRequest> query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1", ReservationRequest.class);
+		query.setParameter(1, r.getRideNumber());
+		List<ReservationRequest> l = query.getResultList();
+		db.getTransaction().commit();
+		return l;
+	}
+	
+	public List<Ride> getRidesOfDriver(Driver driver){
+		db.getTransaction().begin();
+		Driver d = db.find(Driver.class, driver.getEmail());
+		TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1", Ride.class);
+		query.setParameter(1, d.getEmail());
+		List<Ride> l = query.getResultList();
+		db.getTransaction().commit();
+		return l;
+	}
 	
 	/**
 	 * This method returns all the cities where rides depart 

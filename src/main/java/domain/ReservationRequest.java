@@ -1,5 +1,6 @@
 package domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -7,19 +8,16 @@ import javax.persistence.*;
 @Entity
 public class ReservationRequest {
 	@Id
-	private int id;
+	@GeneratedValue // Automatically will assign a non-used ID
+	private Integer id;
 	private String reservationState = "pending"; // "pending", "accepted" or "denied"
 	private Date date;
 	@ManyToOne
 	private Rider rider;
 	@ManyToOne
 	private Ride ride;
-	
-	public static int numReservation = 0;
-	
+		
 	public ReservationRequest(Rider rider, Ride ride) {
-		this.id = numReservation;
-		numReservation++;
 		this.rider = rider;
 		this.ride = ride;
 		this.date = new Date();
@@ -43,6 +41,11 @@ public class ReservationRequest {
 
 	public Date getDate() {
 		return date;
+	}
+	
+	public String getStringDate() {
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return(formater.format(this.date));
 	}
 
 	public void setDate(Date date) {

@@ -21,7 +21,7 @@ public class Ride implements Serializable {
 	@XmlID
 	@Id 
 	@XmlJavaTypeAdapter(IntegerAdapter.class)
-	@GeneratedValue
+	@GeneratedValue // To ensure rideNumber is unique for each instance of DB
 	private Integer rideNumber;
 	private String from;
 	private String to;

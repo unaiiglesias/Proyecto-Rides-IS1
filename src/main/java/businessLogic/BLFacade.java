@@ -7,6 +7,7 @@ import java.util.List;
 import domain.Ride;
 import domain.Rider;
 import domain.Driver;
+import domain.ReservationRequest;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.RideAlreadyExistException;
 import exceptions.UserAlreadyExistException;
@@ -108,4 +109,17 @@ public interface BLFacade  {
 	 * This method makes a reservation request of a Ride
 	 */
 	public void makeReservationRequest(Ride ride, Rider rider);
+	
+	/**
+	 * This method finds all the ReservationRequests associated to a ride
+	 * @return a list of ReservationRequests
+	 */
+	public List<ReservationRequest> getReservationsOfRide(Ride ride);
+	
+	/**
+	 * This method finds all the Rides create by a given driver
+	 * @param driver The driver whose rides will be found
+	 * @return a list of Ride
+	 */
+	public List<Ride> getRidesOfDriver(Driver driver);
 }
