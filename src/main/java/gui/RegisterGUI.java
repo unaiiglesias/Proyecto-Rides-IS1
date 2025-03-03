@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
 import domain.Rider;
+import exceptions.IncorrectEmailException;
 import exceptions.UserAlreadyExistException;
 import javax.swing.JSpinner;
 import java.awt.Font;
@@ -99,29 +100,64 @@ public class RegisterGUI extends JFrame {
 				/*
 				 If the Sign up is successful, MainGUI will be launched with the new user
 				 */
+				
+				// Clear error messages
+				emailTextArea.setText("");
+				resultTextArea.setText("");
+				
 				Rider user = null; 
 				String email = null;
 				try {
 					email = emailField.getText();
-					String password = new String(passwordField.getPassword());	
+					// Chech for @
+					if (email.split("@").length != 2) throw new IncorrectEmailException("Missing @");
+					// Check for domain (.com, .net, .org, .eus...)
+					// The dot (".") needs to be escaped because split gets a regex
+					else if (email.split("@")[1].split("\\.").length != 2 ) throw new IncorrectEmailException("Missing domain");
+					
+					String password = new String(passwordField.getPassword());
+					if (password.equals("")) throw new Exception("Password can't be empty");
+					
+					String name = nameTextField.getText();
+					if (name.equals("")) throw new Exception("Name can't be empty");
+					
 					String surname = surnameTextField.getText();
+					if (surname.equals("")) throw new Exception("Surname can't be empty");
+					
 					Integer age = (Integer) spinner.getValue();
+					if (age <= 0) throw new Exception("Incorrect age");
+					else if (driverCheckBox.isSelected() && age < 18) throw new Exception("Minors can't be drivers");
+					
 					if(driverCheckBox.isSelected()) {
 						String licensePlate = licensePlateField.getText();
+						if (licensePlate.equals("")) throw new Exception("Drivers need to register their license plate");
+						
 						String vehicleModel = vehicleModelField.getText();
-						facade.addDriver(email, password, surname, surname, age, licensePlate, vehicleModel);
+						if (vehicleModel.equals("")) throw new Exception("Drivers need to register their vehicle model");
+						
+						facade.addDriver(email, password, name, surname, age, licensePlate, vehicleModel);
 					} else {
-						facade.addRider(email, password, surname, surname, age);
+						facade.addRider(email, password, name, surname, age);
 					}
+					
 					user = facade.getRider(email);
 					dispose();
 					JFrame a = new MainGUI(user); 
 					a.setVisible(true);
+					
+				// Specific exceptions
 				} catch(UserAlreadyExistException exception1) {
 					emailTextArea.setText("Email already in use. Please select another one");
 					emailTextArea.setForeground(Color.RED);
-				} catch(Exception exception2) {
-					resultTextArea.setText("Error: Please fill all the gaps correctly");
+				} catch(IncorrectEmailException exception2) {
+					emailTextArea.setText("Email format is not correct. " + exception2.getMessage());
+					emailTextArea.setForeground(Color.RED);
+					
+				// Generic exception, error message will be shown next to result
+				} catch(Exception exception3) {
+					String m = exception3.getMessage();
+					if (m.equals("")) resultTextArea.setText("Error: Please fill all the gaps correctly");
+					else resultTextArea.setText(m);
 					resultTextArea.setForeground(Color.RED);
 				}
 

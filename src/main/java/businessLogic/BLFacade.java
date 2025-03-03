@@ -102,6 +102,7 @@ public interface BLFacade  {
 	
 	/**
 	 * This method finds a Rider in the database
+	 * Even though the returned object is of class Rider, it might also be of class Driver
 	 */
 	public Rider getRider(String email);
 	
