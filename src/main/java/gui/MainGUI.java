@@ -45,14 +45,9 @@ public class MainGUI extends JFrame {
 		appFacadeInterface=afi;
 	}
 	protected JLabel jLabelSelectOption;
-	private JRadioButton rdbtnNewRadioButton;
-	private JRadioButton rdbtnNewRadioButton_1;
-	private JRadioButton rdbtnNewRadioButton_2;
-	private JPanel panel;
 	private JLabel languageSelectorLabel;
 	private DefaultComboBoxModel<String> languageSelectorModel;
 	private JComboBox<String> languageSelector;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton loginJButton;
 	private JButton signUpJButton;
 	private JLabel currentUserJLabel;
@@ -78,42 +73,6 @@ public class MainGUI extends JFrame {
 		jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
 		jLabelSelectOption.setForeground(Color.BLACK);
 		jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		// Language choice buttons
-		rdbtnNewRadioButton = new JRadioButton("English");
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Locale.setDefault(new Locale("en"));
-				System.out.println("Locale changed to: "+Locale.getDefault());
-				paintAgain();				}
-		});
-		buttonGroup.add(rdbtnNewRadioButton);
-		
-		rdbtnNewRadioButton_1 = new JRadioButton("Euskara");
-		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Locale.setDefault(new Locale("eus"));
-				System.out.println("Locale changed to: "+Locale.getDefault());
-				paintAgain();				}
-		});
-		buttonGroup.add(rdbtnNewRadioButton_1);
-		
-		rdbtnNewRadioButton_2 = new JRadioButton("Castellano");
-		rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Locale.setDefault(new Locale("es"));
-				System.out.println("Locale changed to: "+Locale.getDefault());
-				paintAgain();
-			}
-		});
-		buttonGroup.add(rdbtnNewRadioButton_2);
-		
-		// Group the buttons in a panel
-		panel = new JPanel();
-		panel.setBounds(0, 410, 644, 97);
-		panel.add(rdbtnNewRadioButton_1);
-		panel.add(rdbtnNewRadioButton_2);
-		panel.add(rdbtnNewRadioButton);
 		
 		// Crete Ride button
 		jButtonCreateQuery = new JButton();
@@ -142,9 +101,7 @@ public class MainGUI extends JFrame {
 		jContentPane.setLayout(null);
 		jContentPane.add(jLabelSelectOption);
 		jContentPane.add(jButtonCreateQuery);
-		jContentPane.add(jButtonQueryQueries);
-		jContentPane.add(panel);
-		
+		jContentPane.add(jButtonQueryQueries);		
 		
 		setContentPane(jContentPane);
 		
@@ -237,20 +194,18 @@ public class MainGUI extends JFrame {
 		paintAgain();
 	}
 	
+	
+	// Refresh translations text
 	private void paintAgain() {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
 		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
-		
-		// Update the selected language in button group
-		String localeCode = Locale.getDefault().toString();
-		if (localeCode.equals("en")) rdbtnNewRadioButton.setSelected(true);
-		else if (localeCode.equals("eus")) rdbtnNewRadioButton_1.setSelected(true);
-		else if (localeCode.equals("es")) rdbtnNewRadioButton_2.setSelected(true);
+
 		
 		// Update the selected language in the selector combo box
+		String localeCode = Locale.getDefault().toString();
 		languageSelector.setSelectedItem(localeCode);
 		
 		
