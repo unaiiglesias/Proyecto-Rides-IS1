@@ -13,10 +13,6 @@ import businessLogic.BLFacade;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Window;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -63,16 +59,24 @@ public class MainGUI extends JFrame {
 		// null) the GUI is adapted, showing only the allowed use cases
 		currentSession=d;
 		
+		// When the window gets closed, terminate the app
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		// HEADER label
+		// Panel that will contain everything, layout absolute
+		jContentPane = new JPanel();
+		jContentPane.setLayout(null);
+		setContentPane(jContentPane);
+		
 		// this.setSize(271, 295);
 		this.setSize(656, 543);
+		
+		// HEADER label
 		jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jLabelSelectOption.setBounds(0, 11, 644, 97);
 		jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
 		jLabelSelectOption.setForeground(Color.BLACK);
 		jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
+		jContentPane.add(jLabelSelectOption);
 		
 		// Crete Ride button
 		jButtonCreateQuery = new JButton();
@@ -85,6 +89,7 @@ public class MainGUI extends JFrame {
 				a.setVisible(true);
 			}
 		});
+		jContentPane.add(jButtonCreateQuery);
 		
 		// Query Rides button
 		jButtonQueryQueries = new JButton();
@@ -96,14 +101,7 @@ public class MainGUI extends JFrame {
 				a.setVisible(true);
 			}
 		});
-		
-		jContentPane = new JPanel();
-		jContentPane.setLayout(null);
-		jContentPane.add(jLabelSelectOption);
-		jContentPane.add(jButtonCreateQuery);
 		jContentPane.add(jButtonQueryQueries);		
-		
-		setContentPane(jContentPane);
 		
 		// Language selector combo box
 		languageSelectorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
@@ -147,6 +145,7 @@ public class MainGUI extends JFrame {
 		signUpJButton.setBounds(555, 24, 89, 23);
 		jContentPane.add(signUpJButton);
 		
+		// Current Session label
 		currentUserJLabel = new JLabel("");
 		currentUserJLabel.setBounds(103, 4, 527, 19);
 		if(currentSession!=null) currentUserJLabel.setText("Account: " + currentSession.getEmail());
@@ -155,6 +154,7 @@ public class MainGUI extends JFrame {
 		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		// The label is long, so that any email can fit, but aligns to the right
 		
+		// Show requests button
 		jButtonShowRequests = new JButton();
 		jButtonShowRequests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -166,17 +166,6 @@ public class MainGUI extends JFrame {
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests")); //$NON-NLS-1$ //$NON-NLS-2$
 		jButtonShowRequests.setBounds(0, 302, 644, 97);
 		jContentPane.add(jButtonShowRequests);
-		
-		
-		if(currentSession != null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :" + currentSession.getName());
-		else setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle"));
-		
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(1);
-			}
-		});
 		
 		/*
 		 Depending on the type of user: Rider or Driver, some use cases will be available, others won't.
