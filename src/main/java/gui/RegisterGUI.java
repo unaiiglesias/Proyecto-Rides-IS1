@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -48,21 +47,6 @@ public class RegisterGUI extends JFrame {
 	private JTextArea resultTextArea;
 	private JCheckBox driverCheckBox;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterGUI frame = new RegisterGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -242,7 +226,7 @@ public class RegisterGUI extends JFrame {
 		resultTextArea.setBounds(123, 353, 254, 22);
 		contentPane.add(resultTextArea);
 		
-		driverCheckBox = new JCheckBox("Select if wanted to be also a driver");
+		driverCheckBox = new JCheckBox("Register as a driver");
 		driverCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean selected = false;

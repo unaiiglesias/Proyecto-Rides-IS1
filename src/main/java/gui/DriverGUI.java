@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import domain.Driver;
 
 public class DriverGUI extends MainGUI {
@@ -23,7 +21,7 @@ public class DriverGUI extends MainGUI {
 		
 		super(d);
 
-		System.out.println("GUI loading: DriverGUI");
+		System.out.println("GUI overloading: DriverGUI");
 		
 		// The size is defined by MainGUI, only change if more space needed
 		//this.setSize(656, 543);
@@ -40,16 +38,11 @@ public class DriverGUI extends MainGUI {
 				a.setVisible(true);
 			}
 		});
-		System.out.println(jContentPane);
 		jContentPane.add(jButtonCreateQuery);
 		
 		// Current Session label
-		currentUserJLabel = new JLabel("");
-		currentUserJLabel.setBounds(103, 4, 527, 19);
 		currentUserJLabel.setText("Account: " + currentSession.getEmail());
-		jContentPane.add(currentUserJLabel);
-		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		// The label is long, so that any email can fit, but aligns to the right
+		currentUserJLabel.setVisible(true);
 		
 		// Show requests button
 		jButtonShowRequests = new JButton();
@@ -60,7 +53,7 @@ public class DriverGUI extends MainGUI {
 			}
 		});
 		jButtonShowRequests.setVisible(true);
-		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests")); //$NON-NLS-1$ //$NON-NLS-2$
+		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
 		jButtonShowRequests.setBounds(0, 302, 644, 97);
 		jContentPane.add(jButtonShowRequests);
 		

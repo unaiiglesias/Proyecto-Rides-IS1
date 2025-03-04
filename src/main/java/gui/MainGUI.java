@@ -142,8 +142,7 @@ public class MainGUI extends JFrame {
 		// Current Session label
 		currentUserJLabel = new JLabel("");
 		currentUserJLabel.setBounds(103, 4, 527, 19);
-		if(currentSession!=null) currentUserJLabel.setText("Account: " + currentSession.getEmail());
-		else currentUserJLabel.setVisible(false);
+		currentUserJLabel.setVisible(false);
 		jContentPane.add(currentUserJLabel);
 		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		// The label is long, so that any email can fit, but aligns to the right
