@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 public class MainGUI extends JFrame {
 	
     private Rider currentSession; // Can be Driver, Rider or null (Refers to who the user is logged in as)
+	private final String[] avaliableLanguages = new String[] {"en", "es", "eus"};
     
 	private static final long serialVersionUID = 1L;
 
@@ -48,6 +49,9 @@ public class MainGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
 	private JPanel panel;
+	private JLabel languageSelectorLabel;
+	private DefaultComboBoxModel<String> languageSelectorModel;
+	private JComboBox<String> languageSelector;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton loginJButton;
 	private JButton signUpJButton;
@@ -66,14 +70,16 @@ public class MainGUI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		// HEADER label
 		// this.setSize(271, 295);
 		this.setSize(656, 543);
 		jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
-		jLabelSelectOption.setBounds(0, 0, 644, 97);
+		jLabelSelectOption.setBounds(0, 11, 644, 97);
 		jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
 		jLabelSelectOption.setForeground(Color.BLACK);
 		jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
 		
+		// Language choice buttons
 		rdbtnNewRadioButton = new JRadioButton("English");
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,12 +108,14 @@ public class MainGUI extends JFrame {
 		});
 		buttonGroup.add(rdbtnNewRadioButton_2);
 		
+		// Group the buttons in a panel
 		panel = new JPanel();
 		panel.setBounds(0, 410, 644, 97);
 		panel.add(rdbtnNewRadioButton_1);
 		panel.add(rdbtnNewRadioButton_2);
 		panel.add(rdbtnNewRadioButton);
 		
+		// Crete Ride button
 		jButtonCreateQuery = new JButton();
 		jButtonCreateQuery.setVisible(false);
 		jButtonCreateQuery.setBounds(0, 205, 644, 97);
@@ -119,6 +127,7 @@ public class MainGUI extends JFrame {
 			}
 		});
 		
+		// Query Rides button
 		jButtonQueryQueries = new JButton();
 		jButtonQueryQueries.setBounds(0, 108, 644, 97);
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
@@ -139,6 +148,23 @@ public class MainGUI extends JFrame {
 		
 		setContentPane(jContentPane);
 		
+		// Language selector combo box
+		languageSelectorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
+		languageSelectorLabel.setBounds(4, 15, 89, 14);
+		jContentPane.add(languageSelectorLabel);
+		languageSelectorModel = new DefaultComboBoxModel<String>(avaliableLanguages);
+		languageSelector = new JComboBox<String>(languageSelectorModel);
+		languageSelector.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Locale.setDefault(new Locale((String) languageSelector.getSelectedItem() ));
+				System.out.println("Locale changed to: " + Locale.getDefault());
+				paintAgain();
+			}
+		});
+		languageSelector.setBounds(85, 11, 60, 22);
+		jContentPane.add(languageSelector);
+		
+		// Log in button
 		loginJButton = new JButton("Log in");
 		if(currentSession!=null) loginJButton.setVisible(false);
 		loginJButton.addActionListener(new ActionListener() {
@@ -151,6 +177,7 @@ public class MainGUI extends JFrame {
 		loginJButton.setBounds(555, 0, 89, 23);
 		jContentPane.add(loginJButton);
 		
+		// Sign up button
 		signUpJButton = new JButton("Sign up");
 		if(currentSession!=null) signUpJButton.setVisible(false);
 		signUpJButton.addActionListener(new ActionListener() {
@@ -183,6 +210,7 @@ public class MainGUI extends JFrame {
 		jButtonShowRequests.setBounds(0, 302, 644, 97);
 		jContentPane.add(jButtonShowRequests);
 		
+		
 		if(currentSession != null) setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle") + " - driver :" + currentSession.getName());
 		else setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle"));
 		
@@ -214,12 +242,17 @@ public class MainGUI extends JFrame {
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
+		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
 		
 		// Update the selected language in button group
 		String localeCode = Locale.getDefault().toString();
 		if (localeCode.equals("en")) rdbtnNewRadioButton.setSelected(true);
 		else if (localeCode.equals("eus")) rdbtnNewRadioButton_1.setSelected(true);
 		else if (localeCode.equals("es")) rdbtnNewRadioButton_2.setSelected(true);
+		
+		// Update the selected language in the selector combo box
+		languageSelector.setSelectedItem(localeCode);
+		
 		
 		// Update the text that shows in the window's label
 		String windowText = ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle");
