@@ -59,6 +59,7 @@ public class FindRidesGUI extends JFrame {
 	private final JButton jButtonRequestRide = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.RequestRides")); //$NON-NLS-1$ //$NON-NLS-2$
 
 
+	@SuppressWarnings("serial")
 	public FindRidesGUI(Rider rider)
 	{
 		this.rider = rider;

@@ -2,9 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -13,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import businessLogic.BLFacade;
-import configuration.UtilDate;
 import domain.Driver;
 import domain.ReservationRequest;
 import domain.Ride;
@@ -22,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -75,6 +71,7 @@ public class ShowRequestsGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("serial")
 	public ShowRequestsGUI(Driver d) {
 		
 		this.driver = d;

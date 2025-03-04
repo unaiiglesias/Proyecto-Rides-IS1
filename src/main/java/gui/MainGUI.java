@@ -22,14 +22,13 @@ import java.awt.event.ActionEvent;
 
 public class MainGUI extends JFrame {
 	
-    private Rider currentSession; // Can be Driver, Rider or null (Refers to who the user is logged in as)
-	private final String[] avaliableLanguages = new String[] {"en", "es", "eus"};
+    public Rider currentSession; // Can be Driver, Rider or null (Refers to who the user is logged in as)
+    public final String[] avaliableLanguages = new String[] {"en", "es", "eus"};
     
 	private static final long serialVersionUID = 1L;
 
-	private JPanel jContentPane = null;
-	private JButton jButtonCreateQuery = null;
-	private JButton jButtonQueryQueries = null;
+	public JPanel jContentPane = null;
+	public JButton jButtonQueryQueries = null;
 
     private static BLFacade appFacadeInterface;
 	
@@ -41,13 +40,12 @@ public class MainGUI extends JFrame {
 		appFacadeInterface=afi;
 	}
 	protected JLabel jLabelSelectOption;
-	private JLabel languageSelectorLabel;
-	private DefaultComboBoxModel<String> languageSelectorModel;
-	private JComboBox<String> languageSelector;
-	private JButton loginJButton;
-	private JButton signUpJButton;
-	private JLabel currentUserJLabel;
-	private JButton jButtonShowRequests;
+	public JLabel languageSelectorLabel;
+	public DefaultComboBoxModel<String> languageSelectorModel;
+	public JComboBox<String> languageSelector;
+	public JButton loginJButton;
+	public JButton signUpJButton;
+	public JLabel currentUserJLabel;
 	
 	/**
 	 * This is the default constructor
@@ -58,6 +56,12 @@ public class MainGUI extends JFrame {
 		// Current session is received as parameter, depending on what kind of session is received (rider, driver or 
 		// null) the GUI is adapted, showing only the allowed use cases
 		currentSession=d;
+		
+		// Update the text that shows in the window's label
+		String windowText = ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle");
+		if (currentSession instanceof Driver) windowText += " - Driver : " + currentSession.getName();
+		else if (currentSession instanceof Rider) windowText += " - Rider : " + currentSession.getName();
+		setTitle(windowText);
 		
 		// When the window gets closed, terminate the app
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,19 +82,6 @@ public class MainGUI extends JFrame {
 		jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
 		jContentPane.add(jLabelSelectOption);
 		
-		// Crete Ride button
-		jButtonCreateQuery = new JButton();
-		jButtonCreateQuery.setVisible(false);
-		jButtonCreateQuery.setBounds(0, 205, 644, 97);
-		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
-		jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent e) {
-				JFrame a = new CreateRideGUI((Driver) currentSession);
-				a.setVisible(true);
-			}
-		});
-		jContentPane.add(jButtonCreateQuery);
-		
 		// Query Rides button
 		jButtonQueryQueries = new JButton();
 		jButtonQueryQueries.setBounds(0, 108, 644, 97);
@@ -101,7 +92,7 @@ public class MainGUI extends JFrame {
 				a.setVisible(true);
 			}
 		});
-		jContentPane.add(jButtonQueryQueries);		
+		jContentPane.add(jButtonQueryQueries);
 		
 		// Language selector combo box
 		languageSelectorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
@@ -109,6 +100,9 @@ public class MainGUI extends JFrame {
 		jContentPane.add(languageSelectorLabel);
 		languageSelectorModel = new DefaultComboBoxModel<String>(avaliableLanguages);
 		languageSelector = new JComboBox<String>(languageSelectorModel);
+		// Correct the selected language in the selector combo box
+		String localeCode = Locale.getDefault().toString();
+		languageSelector.setSelectedItem(localeCode);
 		languageSelector.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Locale.setDefault(new Locale((String) languageSelector.getSelectedItem() ));
@@ -154,55 +148,22 @@ public class MainGUI extends JFrame {
 		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		// The label is long, so that any email can fit, but aligns to the right
 		
-		// Show requests button
-		jButtonShowRequests = new JButton();
-		jButtonShowRequests.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame a = new ShowRequestsGUI((Driver) currentSession);
-				a.setVisible(true);
-			}
-		});
-		jButtonShowRequests.setVisible(false);
-		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests")); //$NON-NLS-1$ //$NON-NLS-2$
-		jButtonShowRequests.setBounds(0, 302, 644, 97);
-		jContentPane.add(jButtonShowRequests);
-		
 		/*
 		 Depending on the type of user: Rider or Driver, some use cases will be available, others won't.
 		 	Not logged: query rides
 		 	Rider: query rides, request ride
 		 	Driver: query rides, request ride, create ride, show requests
 		 */
-
-		if (currentSession instanceof Driver) {
-			jButtonCreateQuery.setVisible(true);
-			jButtonShowRequests.setVisible(true);
-		}
 		
-		// Refresh some text, just in case
-		paintAgain();
 	}
 	
 	
 	// Refresh translations text
-	private void paintAgain() {
+	public void paintAgain() {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
-		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
-		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
 		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
-
 		
-		// Update the selected language in the selector combo box
-		String localeCode = Locale.getDefault().toString();
-		languageSelector.setSelectedItem(localeCode);
-		
-		
-		// Update the text that shows in the window's label
-		String windowText = ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle");
-		if (currentSession instanceof Driver) windowText += " - Driver : " + currentSession.getName();
-		else if (currentSession instanceof Rider) windowText += " - Rider : " + currentSession.getName();
-		setTitle(windowText);
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 

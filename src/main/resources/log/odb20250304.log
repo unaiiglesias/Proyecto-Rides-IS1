@@ -409,3 +409,261 @@ Type domain.ReservationRequest is not enhanced.
 [2025-03-04 16:20:51 #5 type] 
 Type domain.Ride is not enhanced.
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 16:42:43 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 12652@UnaiPC
+
+[2025-03-04 16:42:43 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 16:42:43 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 16:42:43 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 16:42:43 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 16:49:14 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 420@UnaiPC
+
+[2025-03-04 16:49:14 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 16:49:14 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 16:49:14 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 16:49:14 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 16:50:27 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' has been recovered (tr. 30-30)
+
+[2025-03-04 16:50:27 #2 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 17884@UnaiPC
+
+[2025-03-04 16:50:27 #3 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 16:50:27 #4 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 16:50:27 #5 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 16:50:27 #6 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 16:51:54 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 12728@UnaiPC
+
+[2025-03-04 16:51:54 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 16:51:54 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 16:51:54 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 16:51:54 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 16:55:11 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 17196@UnaiPC
+
+[2025-03-04 16:55:11 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 16:55:11 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 16:55:11 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 16:55:11 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 16:57:26 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 18140@UnaiPC
+
+[2025-03-04 16:57:26 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 16:57:26 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 16:57:26 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 16:57:26 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:01:34 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 10692@UnaiPC
+
+[2025-03-04 17:01:34 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:01:34 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:01:34 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:01:34 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:02:13 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 16200@UnaiPC
+
+[2025-03-04 17:02:13 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:02:13 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:02:13 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:02:13 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:05:07 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 5908@UnaiPC
+
+[2025-03-04 17:05:07 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:05:07 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:05:07 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:05:07 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:12:56 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 8468@UnaiPC
+
+[2025-03-04 17:12:57 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:12:57 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:12:57 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:12:57 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:15:37 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 18096@UnaiPC
+
+[2025-03-04 17:15:37 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:15:37 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:15:37 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:15:37 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:16:40 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 9368@UnaiPC
+
+[2025-03-04 17:16:40 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:16:40 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:16:40 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:16:40 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:19:26 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 17108@UnaiPC
+
+[2025-03-04 17:19:26 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:19:26 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:19:26 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:19:26 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:20:40 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 11512@UnaiPC
+
+[2025-03-04 17:20:40 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:20:40 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:20:40 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:20:40 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-04 17:21:17 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 1832@UnaiPC
+
+[2025-03-04 17:21:17 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-04 17:21:17 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-04 17:21:17 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-04 17:21:17 #5 type] 
+Type domain.Ride is not enhanced.
+

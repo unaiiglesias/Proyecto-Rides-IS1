@@ -112,7 +112,11 @@ public class LoginGUI extends JFrame {
 					System.out.println("EXITO: Login realizado con satisfactoriamente como: " + email);
 					// if login successful, we'll close this window
 					dispose();
-					JFrame a = new MainGUI(user);
+					JFrame a;
+					if (user instanceof Driver)
+						a = new DriverGUI((Driver) user);
+					else
+						a = new MainGUI(user);
 					a.setVisible(true);
 					
 				} catch(IncorrectCredentialsException exception1) {
