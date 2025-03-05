@@ -44,6 +44,7 @@ public class MainGUI extends JFrame {
 	public DefaultComboBoxModel<String> languageSelectorModel;
 	public JComboBox<String> languageSelector;
 	public JButton loginJButton;
+	public JButton logoutJButton;
 	public JButton signUpJButton;
 	public JLabel currentUserJLabel;
 	
@@ -126,6 +127,19 @@ public class MainGUI extends JFrame {
 		loginJButton.setBounds(555, 0, 89, 23);
 		jContentPane.add(loginJButton);
 		
+		// Log out button
+		logoutJButton = new JButton("Log out");
+		if(currentSession==null) logoutJButton.setVisible(false);
+		logoutJButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new MainGUI(null);
+				a.setVisible(true);
+				dispose();
+			}
+		});
+		logoutJButton.setBounds(555, 0, 89, 23);
+		jContentPane.add(logoutJButton);
+		
 		// Sign up button
 		signUpJButton = new JButton("Sign up");
 		if(currentSession!=null) signUpJButton.setVisible(false);
@@ -141,7 +155,7 @@ public class MainGUI extends JFrame {
 		
 		// Current Session label
 		currentUserJLabel = new JLabel("");
-		currentUserJLabel.setBounds(103, 4, 527, 19);
+		currentUserJLabel.setBounds(165, 4, 381, 19);
 		currentUserJLabel.setVisible(false);
 		jContentPane.add(currentUserJLabel);
 		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);

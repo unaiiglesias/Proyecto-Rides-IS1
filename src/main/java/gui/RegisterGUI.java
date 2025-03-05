@@ -17,6 +17,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
+import domain.Driver;
 import domain.Rider;
 import exceptions.IncorrectEmailException;
 import exceptions.UserAlreadyExistException;
@@ -136,7 +137,13 @@ public class RegisterGUI extends JFrame {
 					
 					user = facade.getRider(email);
 					dispose();
-					JFrame a = new MainGUI(user); 
+					JFrame a;
+					if (user instanceof Driver)
+						a = new DriverGUI((Driver) user);
+					else if (user instanceof Rider)
+						a = new RiderGUI(user);
+					else
+						a = new MainGUI(user);
 					a.setVisible(true);
 					
 				// Specific exceptions

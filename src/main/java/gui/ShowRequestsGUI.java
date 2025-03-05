@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -23,6 +24,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 public class ShowRequestsGUI extends JFrame {
 
@@ -84,8 +86,10 @@ public class ShowRequestsGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		jLabelSelectRide = new JLabel("Select the ride:");
-		jLabelSelectRide.setBounds(54, 51, 80, 14);
+		jLabelSelectRide = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Ride"));
+		jLabelSelectRide.setHorizontalAlignment(SwingConstants.LEFT);
+		jLabelSelectRide.setVerticalAlignment(SwingConstants.TOP);
+		jLabelSelectRide.setBounds(10, 51, 119, 34);
 		contentPane.add(jLabelSelectRide);
 		
 		ridesComboBox = new JComboBox<Ride>();
@@ -104,16 +108,16 @@ public class ShowRequestsGUI extends JFrame {
 		for (Ride r: facade.getRidesOfDriver(driver))
 			ridesModel.addElement(r);
 		ridesComboBox.setModel(ridesModel);
-		ridesComboBox.setBounds(144, 47, 317, 22);
+		ridesComboBox.setBounds(141, 52, 317, 22);
 		contentPane.add(ridesComboBox);
 		
 		jLabelRides = new JLabel("No rides associated to your account");
 		jLabelRides.setForeground(Color.red);
-		jLabelRides.setBounds(144, 28, 339, 14);
+		jLabelRides.setBounds(141, 33, 339, 14);
 		jLabelRides.setVisible(false);
 		contentPane.add(jLabelRides);
 		
-		showReservationsJButton = new JButton("Show reservation requests");
+		showReservationsJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.JButton"));
 		showReservationsJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -141,7 +145,7 @@ public class ShowRequestsGUI extends JFrame {
 				}
 			}
 		});
-		showReservationsJButton.setBounds(221, 80, 161, 34);
+		showReservationsJButton.setBounds(218, 85, 161, 34);
 		showReservationsJButton.setEnabled(false);
 		contentPane.add(showReservationsJButton);
 		

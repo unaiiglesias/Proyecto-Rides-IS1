@@ -1,0 +1,227 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 15:44:55 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 5676@CASA
+
+[2025-03-05 15:44:55 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 15:44:55 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 15:44:55 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 15:44:55 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 15:52:56 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 14680@CASA
+
+[2025-03-05 15:52:56 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 15:52:56 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 15:52:56 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 15:52:56 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 15:53:31 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 21984@CASA
+
+[2025-03-05 15:53:31 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 15:53:31 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 15:53:31 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 15:53:31 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 15:54:33 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 5876@CASA
+
+[2025-03-05 15:54:33 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 15:54:33 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 15:54:33 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 15:54:33 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:01:52 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' has been recovered (tr. 31-32)
+
+[2025-03-05 16:01:52 #2 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 24092@CASA
+
+[2025-03-05 16:01:52 #3 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:01:52 #4 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:01:52 #5 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:01:52 #6 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:02:55 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 17396@CASA
+
+[2025-03-05 16:02:55 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:02:55 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:02:55 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:02:55 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:05:54 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' has been recovered (tr. 33-34)
+
+[2025-03-05 16:05:54 #2 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 9736@CASA
+
+[2025-03-05 16:05:54 #3 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:05:54 #4 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:05:54 #5 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:05:54 #6 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:06:24 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 8152@CASA
+
+[2025-03-05 16:06:24 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:06:24 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:06:24 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:06:24 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:11:09 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 6676@CASA
+
+[2025-03-05 16:11:10 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:11:10 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:11:10 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:11:10 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:11:53 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 24396@CASA
+
+[2025-03-05 16:11:53 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:11:53 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:11:53 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:11:53 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:14:50 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 23660@CASA
+
+[2025-03-05 16:14:50 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:14:50 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:14:50 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:14:50 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:17:08 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 12264@CASA
+
+[2025-03-05 16:17:08 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:17:08 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:17:08 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:17:08 #5 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 16:17:33 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion01\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 7628@CASA
+
+[2025-03-05 16:17:33 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 16:17:33 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 16:17:33 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 16:17:33 #5 type] 
+Type domain.Ride is not enhanced.
+
