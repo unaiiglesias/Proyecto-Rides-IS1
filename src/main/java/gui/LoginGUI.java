@@ -11,6 +11,7 @@ import exceptions.*;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 import java.awt.Font;
 
 public class LoginGUI extends JFrame {
@@ -28,10 +30,12 @@ public class LoginGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField emailField;
 	private JPasswordField passwordField;
-	private JTextArea passwordTextArea;
-	private JTextArea emailTextArea;
+	private JLabel passwordTextArea;
+	private JLabel emailTextArea;
 	private JLabel jLabelPassword;
 	private JLabel jLabelEmail;
+	private JButton loginJButton;
+	private JLabel lblLogin;
 
 	/**
 	 * Create the frame.
@@ -40,7 +44,7 @@ public class LoginGUI extends JFrame {
 		
 		BLFacade facade = MainGUI.getBusinessLogic();
 		
-		setTitle("Login");
+		setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogIn"));
 		// If the window gets closed, don't just close the application. Go back to the MainGUI instead
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -57,12 +61,12 @@ public class LoginGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		jLabelEmail = new JLabel("Email:");
-		jLabelEmail.setBounds(45, 59, 65, 14);
+		jLabelEmail = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Email"));
+		jLabelEmail.setBounds(30, 60, 80, 14);
 		contentPane.add(jLabelEmail);
 		
-		jLabelPassword = new JLabel("Password:");
-		jLabelPassword.setBounds(45, 111, 65, 14);
+		jLabelPassword = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Password"));
+		jLabelPassword.setBounds(30, 111, 80, 14);
 		contentPane.add(jLabelPassword);
 		
 		emailField = new JTextField();
@@ -77,10 +81,17 @@ public class LoginGUI extends JFrame {
 		emailField.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		passwordField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				passwordTextArea.setText("");
+			}
+		});
+		
 		passwordField.setBounds(120, 107, 278, 22);
 		contentPane.add(passwordField);
 		
-		JButton loginJButton = new JButton("Login");
+		loginJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogIn"));
 		loginJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/*
@@ -115,27 +126,20 @@ public class LoginGUI extends JFrame {
 		loginJButton.setBounds(189, 140, 130, 23);
 		contentPane.add(loginJButton);
 		
-		emailTextArea = new JTextArea();
+		emailTextArea = new JLabel();
 		emailTextArea.setBackground(new Color(240, 240, 240));
-		emailTextArea.setEditable(false);
 		emailTextArea.setBounds(120, 37, 278, 14);
 		contentPane.add(emailTextArea);
 		
-		passwordTextArea = new JTextArea();
-		passwordTextArea.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				passwordTextArea.setText("");
-			}
-		});
+		passwordTextArea = new JLabel();
 		passwordTextArea.setBackground(new Color(240, 240, 240));
-		passwordTextArea.setEditable(false);
 		passwordTextArea.setBounds(120, 89, 278, 14);
 		contentPane.add(passwordTextArea);
 		
-		JLabel lblLogin = new JLabel("Login");
+		lblLogin = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogIn"));
+		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setFont(new Font("Consolas", Font.BOLD, 25));
-		lblLogin.setBounds(195, 11, 124, 33);
+		lblLogin.setBounds(100, 11, 287, 33);
 		contentPane.add(lblLogin);
 	}
 }

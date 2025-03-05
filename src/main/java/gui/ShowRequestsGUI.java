@@ -43,14 +43,10 @@ public class ShowRequestsGUI extends JFrame {
 	private DefaultTableModel reservationsTableModel;
 	private JScrollPane reservationsScrollPane;
 	private String[] columnNamesTable = new String[] {
-			/**
-			TODO:
-			ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Date"),
-			ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderName"), 
-			ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderEmail"), 
-			ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RequestState") 
-			 */
-			"Date", "Rider's name", "Rider's email", "Current state"
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Date"),
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderName"), 
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderEmail"), 
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RequestState") 
 	};
 	private JLabel reservationsJLabel;
 
@@ -95,10 +91,6 @@ public class ShowRequestsGUI extends JFrame {
 		ridesComboBox = new JComboBox<Ride>();
 		ridesComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(ridesModel.getSize() == 0) {
-					jLabelRides.setVisible(true);
-					return; // No rides select
-				}
 				selectedRide = (Ride) ridesComboBox.getSelectedItem();
 				reservationsJLabel.setVisible(false);
 				showReservationsJButton.setEnabled(true);
@@ -111,10 +103,11 @@ public class ShowRequestsGUI extends JFrame {
 		ridesComboBox.setBounds(141, 52, 317, 22);
 		contentPane.add(ridesComboBox);
 		
-		jLabelRides = new JLabel("No rides associated to your account");
+		jLabelRides = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.NoRides"));
 		jLabelRides.setForeground(Color.red);
 		jLabelRides.setBounds(141, 33, 339, 14);
-		jLabelRides.setVisible(false);
+		if(ridesModel.getSize()!=0) jLabelRides.setVisible(false);
+		System.out.println(ridesModel.getSize());
 		contentPane.add(jLabelRides);
 		
 		showReservationsJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.JButton"));
@@ -162,9 +155,9 @@ public class ShowRequestsGUI extends JFrame {
 		};
 		reservationsTable.setModel(reservationsTableModel);
 		
-		reservationsJLabel = new JLabel("The ride selected has no reservation requests yet");
+		reservationsJLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.NoReservations"));
 		reservationsJLabel.setForeground(new Color(255, 0, 0));
-		reservationsJLabel.setBounds(111, 130, 258, 14);
+		reservationsJLabel.setBounds(54, 130, 418, 14);
 		reservationsJLabel.setVisible(false);
 		contentPane.add(reservationsJLabel);
 		

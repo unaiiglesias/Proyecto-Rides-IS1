@@ -115,7 +115,7 @@ public class MainGUI extends JFrame {
 		jContentPane.add(languageSelector);
 		
 		// Log in button
-		loginJButton = new JButton("Log in");
+		loginJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogIn"));
 		if(currentSession!=null) loginJButton.setVisible(false);
 		loginJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,11 +124,11 @@ public class MainGUI extends JFrame {
 				dispose();
 			}
 		});
-		loginJButton.setBounds(555, 0, 89, 23);
+		loginJButton.setBounds(524, 0, 120, 36);
 		jContentPane.add(loginJButton);
 		
 		// Log out button
-		logoutJButton = new JButton("Log out");
+		logoutJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogOut"));
 		if(currentSession==null) logoutJButton.setVisible(false);
 		logoutJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -137,11 +137,11 @@ public class MainGUI extends JFrame {
 				dispose();
 			}
 		});
-		logoutJButton.setBounds(555, 0, 89, 23);
+		logoutJButton.setBounds(524, 0, 120, 36);
 		jContentPane.add(logoutJButton);
 		
 		// Sign up button
-		signUpJButton = new JButton("Sign up");
+		signUpJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
 		if(currentSession!=null) signUpJButton.setVisible(false);
 		signUpJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,12 +150,12 @@ public class MainGUI extends JFrame {
 				dispose();
 			}
 		});
-		signUpJButton.setBounds(555, 24, 89, 23);
+		signUpJButton.setBounds(524, 35, 120, 36);
 		jContentPane.add(signUpJButton);
 		
 		// Current Session label
 		currentUserJLabel = new JLabel("");
-		currentUserJLabel.setBounds(165, 4, 381, 19);
+		currentUserJLabel.setBounds(165, 4, 319, 19);
 		currentUserJLabel.setVisible(false);
 		jContentPane.add(currentUserJLabel);
 		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -176,7 +176,9 @@ public class MainGUI extends JFrame {
 		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
-		
+		signUpJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
+		loginJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogIn"));
+		logoutJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogOut"));
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 

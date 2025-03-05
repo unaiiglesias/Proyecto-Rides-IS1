@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import businessLogic.BLFacade;
@@ -31,7 +33,7 @@ public class RegisterGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField emailField;
 	private JPasswordField passwordField;
-	private JTextArea emailTextArea;
+	private JLabel emailTextArea;
 	private JLabel jLabelPassword;
 	private JLabel jLabelEmail;
 	private JLabel jLabelName;
@@ -39,13 +41,13 @@ public class RegisterGUI extends JFrame {
 	private JLabel jLabelSurname;
 	private JTextField surnameTextField;
 	private JLabel jLabelAge;
-	private JLabel lblSingUp;
+	private JLabel lblSignUp;
 	private JSpinner spinner;
 	private JLabel jLabelLicensePlate;
 	private JTextField vehicleModelField;
 	private JTextField licensePlateField;
 	private JLabel jLabelVehicleModel;
-	private JTextArea resultTextArea;
+	private JLabel resultTextArea;
 	private JCheckBox driverCheckBox;
 
 
@@ -72,12 +74,12 @@ public class RegisterGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		jLabelEmail = new JLabel("Email:");
-		jLabelEmail.setBounds(45, 77, 65, 14);
+		jLabelEmail = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Email"));
+		jLabelEmail.setBounds(26, 78, 84, 14);
 		contentPane.add(jLabelEmail);
 		
-		jLabelPassword = new JLabel("Password:");
-		jLabelPassword.setBounds(45, 111, 65, 14);
+		jLabelPassword = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Password"));
+		jLabelPassword.setBounds(26, 108, 84, 14);
 		contentPane.add(jLabelPassword);
 		
 		emailField = new JTextField();
@@ -89,7 +91,7 @@ public class RegisterGUI extends JFrame {
 		passwordField.setBounds(120, 107, 278, 22);
 		contentPane.add(passwordField);
 		
-		JButton loginJButton = new JButton("Sign Up");
+		JButton loginJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
 		loginJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/*
@@ -167,14 +169,13 @@ public class RegisterGUI extends JFrame {
 		loginJButton.setBounds(176, 318, 130, 23);
 		contentPane.add(loginJButton);
 		
-		emailTextArea = new JTextArea();
+		emailTextArea = new JLabel();
 		emailTextArea.setBackground(new Color(240, 240, 240));
-		emailTextArea.setEditable(false);
 		emailTextArea.setBounds(120, 55, 278, 14);
 		contentPane.add(emailTextArea);
 		
-		jLabelName = new JLabel("Name:");
-		jLabelName.setBounds(45, 139, 65, 14);
+		jLabelName = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Name"));
+		jLabelName.setBounds(26, 136, 84, 14);
 		contentPane.add(jLabelName);
 		
 		nameTextField = new JTextField();
@@ -182,8 +183,8 @@ public class RegisterGUI extends JFrame {
 		nameTextField.setBounds(120, 136, 172, 22);
 		contentPane.add(nameTextField);
 		
-		jLabelSurname = new JLabel("Surname:");
-		jLabelSurname.setBounds(45, 167, 65, 14);
+		jLabelSurname = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Surname"));
+		jLabelSurname.setBounds(26, 164, 84, 14);
 		contentPane.add(jLabelSurname);
 		
 		surnameTextField = new JTextField();
@@ -191,22 +192,23 @@ public class RegisterGUI extends JFrame {
 		surnameTextField.setBounds(120, 164, 278, 22);
 		contentPane.add(surnameTextField);
 		
-		jLabelAge = new JLabel("Age:");
-		jLabelAge.setBounds(302, 140, 35, 14);
+		jLabelAge = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Age"));
+		jLabelAge.setBounds(302, 140, 56, 14);
 		contentPane.add(jLabelAge);
 		
-		lblSingUp = new JLabel("Sing Up");
-		lblSingUp.setFont(new Font("Consolas", Font.BOLD, 25));
-		lblSingUp.setBounds(182, 11, 124, 33);
-		contentPane.add(lblSingUp);
+		lblSignUp = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
+		lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSignUp.setFont(new Font("Consolas", Font.BOLD, 25));
+		lblSignUp.setBounds(99, 21, 278, 33);
+		contentPane.add(lblSignUp);
 		
 		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
-		spinner.setBounds(335, 136, 30, 20);
+		spinner.setBounds(356, 136, 42, 20);
 		contentPane.add(spinner);
 		
-		jLabelLicensePlate = new JLabel("License plate");
-		jLabelLicensePlate.setBounds(45, 240, 65, 14);
+		jLabelLicensePlate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.LP"));
+		jLabelLicensePlate.setBounds(26, 240, 84, 14);
 		contentPane.add(jLabelLicensePlate);
 		jLabelLicensePlate.setVisible(false);
 		
@@ -222,18 +224,17 @@ public class RegisterGUI extends JFrame {
 		contentPane.add(licensePlateField);
 		licensePlateField.setVisible(false);
 		
-		jLabelVehicleModel = new JLabel("Vehicle Model");
-		jLabelVehicleModel.setBounds(45, 268, 65, 14);
+		jLabelVehicleModel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.VM"));
+		jLabelVehicleModel.setBounds(26, 268, 84, 14);
 		contentPane.add(jLabelVehicleModel);
 		jLabelVehicleModel.setVisible(false);
 		 
-		resultTextArea = new JTextArea();
+		resultTextArea = new JLabel();
 		resultTextArea.setBackground(new Color(240, 240, 240));
-		resultTextArea.setEditable(false);
 		resultTextArea.setBounds(123, 353, 254, 22);
 		contentPane.add(resultTextArea);
 		
-		driverCheckBox = new JCheckBox("Register as a driver");
+		driverCheckBox = new JCheckBox(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Driver"));
 		driverCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean selected = false;
