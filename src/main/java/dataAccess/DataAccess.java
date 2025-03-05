@@ -37,6 +37,8 @@ public class DataAccess  {
 	ConfigXML c=ConfigXML.getInstance();
 
      public DataAccess()  {
+    	 
+    	// Initialize DB
 		if (c.isDatabaseInitialized()) {
 			String fileName=c.getDbFilename();
 
@@ -50,7 +52,10 @@ public class DataAccess  {
 				  System.out.println("Operation failed");
 				}
 		}
+		
 		open();
+		
+		// Fill the initialized DB with default data
 		if  (c.isDatabaseInitialized())initializeDB();
 		
 		System.out.println("DataAccess created => isDatabaseLocal: "+c.isDatabaseLocal()+" isDatabaseInitialized: "+c.isDatabaseInitialized());
@@ -67,10 +72,13 @@ public class DataAccess  {
 	
 	/**
 	 * This is the data access method that initializes the database with some events and questions.
+	 * AKA: Fills the DB with some example data
+	 * If the data already exists (some error ocurred) prints exception on console
 	 * This method is invoked by the business logic (constructor of BLFacadeImplementation) when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */	
 	public void initializeDB(){
-		
+
+		System.out.println("Initializing DB...");
 		db.getTransaction().begin();
 
 		try {
@@ -81,36 +89,52 @@ public class DataAccess  {
 		   int year=today.get(Calendar.YEAR);
 		   if (month==12) { month=1; year+=1;}  
 	    
+		   // Create some Riders
+		   Rider rider1 = new Rider("example1@rider.com", "rider", "Jon", "Pelaio", 15);
+		   Rider rider2 = new Rider("example2@rider.com", "rider", "Matias", "Gutierrez", 30);
+		   Rider rider3 = new Rider("example3@rider.com", "rider", "Javier", "Jimenez", 45);
 		   
-		    //Create drivers 
-			Driver driver1=new Driver("driver1@gmail.com", "password","Aitor", "Fernandez", 34, "00000X", "Peugeot 360");
-			Driver driver2=new Driver("driver2@gmail.com","password", "Ane","Gaztañaga", 27,  "00001X", "Alfa Romeo");
-			Driver driver3=new Driver("driver3@gmail.com","password", "Test driver", " ",0, "00002X", "Tesla Model S");
+		   // Create some Drivers
+			Driver driver1=new Driver("example1@driver.com", "driver", "Aitor", "Fernandez", 34, "00000X", "Peugeot 360");
+			Driver driver2=new Driver("example2@driver.com", "driver", "Ane","Gaztañaga", 27,  "00001X", "Alfa Romeo");
+			Driver driver3=new Driver("example3@driver.com", "driver", "Testillo", "Satisfactorio", 18, "00002X", "Tesla Model S");
 			
-			//Create rides
-			driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 4, 7);
-			driver1.addRide("Donostia", "Gazteiz", UtilDate.newDate(year,month,6), 4, 8);
-			driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 4, 4);
-
-			driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year,month,7), 4, 8);
+			//Create some example rides
+			// From To Date nPlaces Price
 			
-			driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 3, 3);
-			driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 2, 5);
-			driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year,month,6), 2, 5);
+			Ride ride1 = driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 4, 73);
+			Ride ride2 = driver1.addRide("Donostia", "Gazteiz", UtilDate.newDate(year,month,6), 4, 82);
+			Ride ride3 = driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 4, 24);
+			Ride ride4 = driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year,month,7), 4, 33);
+			Ride ride5 = driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 3, 31);
+			Ride ride6 = driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 2, 75);
+			Ride ride7 = driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year,month,6), 2, 57);
+			Ride ride8 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,14), 1, 30);
 
-			driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,14), 1, 3);
-
-			
-						
 			db.persist(driver1);
 			db.persist(driver2);
 			db.persist(driver3);
+			db.persist(rider1);
+			db.persist(rider2);
+			db.persist(rider3);
 
-	
 			db.getTransaction().commit();
-			System.out.println("Db initialized");
+			
+			// Create some example Requests
+			ReservationRequest reservation1 = new ReservationRequest(rider1, ride1);
+			addReservationRequest(reservation1);
+			ReservationRequest reservation2 = new ReservationRequest(rider2, ride1);
+			addReservationRequest(reservation2);
+			ReservationRequest reservation3 = new ReservationRequest(rider1, ride8);
+			addReservationRequest(reservation3);
+			// This needs to be done out of the transaction because each of the method calls creates its own transaction
+			
+			System.out.println("SUCCESS: Db initialized with example data");
 		}
 		catch (Exception e){
+			// If an error occurred, make sure changes are undone
+			db.getTransaction().rollback();
+			System.out.println("ERROR: Initializing the DB with example data failed");
 			e.printStackTrace();
 		}
 	}

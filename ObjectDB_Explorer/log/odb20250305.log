@@ -12,3 +12,26 @@ Configuration path: ?
 [2025-03-05 19:17:31 #4 store] 
 Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is closed by 3548@UnaiPC
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 20:53:53 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 12208@UnaiPC
+
+[2025-03-05 20:53:53 #2 store] 
+Configuration path: ?
+
+[2025-03-05 21:10:21 #3 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is closed by 12208@UnaiPC
+
+[2025-03-05 21:11:33 #4 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' has been recovered (tr. 1-10)
+
+[2025-03-05 21:11:33 #5 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 12208@UnaiPC
+
+[2025-03-05 21:11:33 #6 store] 
+Configuration path: ?
+
+[2025-03-05 21:12:06 #7 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is closed by 12208@UnaiPC
+

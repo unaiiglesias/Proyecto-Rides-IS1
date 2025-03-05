@@ -41,7 +41,7 @@ public class DriverGUI extends MainGUI {
 		jContentPane.add(jButtonCreateQuery);
 		
 		// Current Session label
-		currentUserJLabel.setText("Account: " + currentSession.getEmail());
+		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
 		currentUserJLabel.setVisible(true);
 		
 		// Show requests button
@@ -66,6 +66,8 @@ public class DriverGUI extends MainGUI {
 	// Updated with all added in this GUI
 	public void paintAgain() {
 		super.paintAgain();
+		
+		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
 		
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));

@@ -93,7 +93,6 @@ public class ShowRequestsGUI extends JFrame {
 		jLabelRides.setForeground(Color.red);
 		jLabelRides.setBounds(141, 33, 339, 14);
 		if(ridesModel.getSize()!=0) jLabelRides.setVisible(false);
-		System.out.println(ridesModel.getSize());
 		contentPane.add(jLabelRides);
 		
 		showReservationsJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.JButton"));

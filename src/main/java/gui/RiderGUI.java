@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ResourceBundle;
+
 import domain.Rider;
 
 public class RiderGUI extends MainGUI {
@@ -16,7 +18,7 @@ public class RiderGUI extends MainGUI {
 		System.out.println("GUI overloading: RiderGUI");
 		
 		// Current Session label
-		currentUserJLabel.setText("Account: " + currentSession.getEmail());
+		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
 		currentUserJLabel.setVisible(true);
 		
 		// Disable login stuff
@@ -31,4 +33,10 @@ public class RiderGUI extends MainGUI {
 		
 	}
 
+	// Updated with all added in this GUI
+		public void paintAgain() {
+		super.paintAgain();
+		
+		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
+	}
 }
