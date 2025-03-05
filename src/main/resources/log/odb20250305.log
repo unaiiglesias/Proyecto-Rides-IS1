@@ -798,3 +798,20 @@ Type domain.ReservationRequest is not enhanced.
 [2025-03-05 19:20:49 #5 type] 
 Type domain.Ride is not enhanced.
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-05 20:49:19 #1 store] 
+Database 'G:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\src\main\resources\rides.temp' is opened by 12528@UnaiPC
+
+[2025-03-05 20:49:19 #2 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-05 20:49:19 #3 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-05 20:49:19 #4 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-05 20:49:19 #5 type] 
+Type domain.Ride is not enhanced.
+

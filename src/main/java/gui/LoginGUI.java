@@ -8,7 +8,6 @@ import businessLogic.*;
 import domain.*;
 import exceptions.*;
 
-import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
