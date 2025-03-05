@@ -50,22 +50,7 @@ public class ShowRequestsGUI extends JFrame {
 	};
 	private JLabel reservationsJLabel;
 
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ShowRequestsGUI frame = new ShowRequestsGUI(driver);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	 */
+
 	/**
 	 * Create the frame.
 	 */
@@ -96,6 +81,7 @@ public class ShowRequestsGUI extends JFrame {
 				showReservationsJButton.setEnabled(true);
 			}
 		});
+		
 		// Set the model for the ComboBox
 		for (Ride r: facade.getRidesOfDriver(driver))
 			ridesModel.addElement(r);
@@ -160,6 +146,10 @@ public class ShowRequestsGUI extends JFrame {
 		reservationsJLabel.setBounds(54, 130, 418, 14);
 		reservationsJLabel.setVisible(false);
 		contentPane.add(reservationsJLabel);
+		
+		// Make default selection (if possible)
+		if (ridesModel.getSize() > 0) 
+			ridesComboBox.setSelectedIndex(0);
 		
 	}
 }
