@@ -25,6 +25,9 @@ public class RiderGUI extends MainGUI {
 		signUpJButton.setVisible(false);
 		loginJButton.setVisible(false);
 		
+		// Update Query rides button text
+		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.QueryRides"));
+		
 		/*
 		 * As of Iteration 1, RiderGUI is almost the same as MainGUI because the functionality of both
 		 * unregistered users and registered riders is almost the same. The aim of this class is to provide
