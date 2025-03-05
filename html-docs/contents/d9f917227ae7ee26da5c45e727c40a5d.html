@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Rider</title>
+    <title></title>
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../assets/css/bootstrap.css">
 <link rel="stylesheet" href="../assets/css/jquery.bonsai.css">
@@ -19,15 +19,17 @@
 
       <!-- Name Title -->
 
-      <h1>Rider</h1>
+      <h1>(unnamed)</h1>
 
       <!-- Type and Stereotype -->
 
       <section style="margin-top: .5em;">
         <span class="alert alert-info">
-          <span class="node-icon staruml-icon icon-UMLActor"></span>
-          UMLActor
+          <span class="node-icon staruml-icon icon-UMLAssociationEnd"></span>
+          UMLAssociationEnd
         </span>
+        
+          <span style="margin-left: 10px" class="alert alert-info">«»</span>
         
       </section>
 
@@ -45,6 +47,12 @@
         
           <span>::</span>
           <span class="label label-info"><a href='dcde89fba9cce653f88edad933aa3a00.html'><span class='node-icon staruml-icon icon-UMLActor'></span>Rider</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='0d2e945ed20dbd9652d7ba2a77788b25.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Rider—Log out)</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='d9f917227ae7ee26da5c45e727c40a5d.html'><span class='node-icon staruml-icon icon-UMLAssociationEnd'></span>(AssociationEnd)</a></span>
         
       </section>
 
@@ -80,44 +88,6 @@
       <!-- Classifier -->
 
       
-        
-        
-<section class="element-list">
-    <h3>Generalized Elements</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='c223c10913fa97ffdcde4dde596517af.html'><span class='node-icon staruml-icon icon-UMLActor'></span>User</a></li>
-        
-    </ul>
-</section>
-
-
-
-        
-        
-<section class="element-list">
-    <h3>Specialized Elements</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='8655f45090fd86e8d6f767e54a6be5ec.html'><span class='node-icon staruml-icon icon-UMLActor'></span>Driver</a></li>
-        
-    </ul>
-</section>
-
-
-
-        
-        
-
-
-        
-        
-
-
-        
-        
-
-      
 
       <!-- Interface -->
 
@@ -132,21 +102,6 @@
       
 
       <!-- Actor -->
-
-      
-        
-        
-<section class="element-list">
-    <h3>Use Cases</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='71726aae6303d606e39bf31ba33114f1.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Request Ride</a></li>
-        
-        <li><a href='f4c6ed6048be20295f4dcb2fd58a855b.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Log out</a></li>
-        
-    </ul>
-</section>
-
 
       
 
@@ -266,7 +221,7 @@
     
     <tr>
         <td>name</td>
-        <td>Rider</td>
+        <td></td>
     </tr>
     
     
@@ -280,8 +235,17 @@
     
     
     <tr>
+        <td>reference</td>
+        <td><a href='dcde89fba9cce653f88edad933aa3a00.html'><span class='node-icon staruml-icon icon-UMLActor'></span>Rider</a></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
         <td>stereotype</td>
-        <td><span class='label label-info'>null</span></td>
+        <td></td>
     </tr>
     
     
@@ -297,18 +261,44 @@
     
     
     
-    
-    
-    
-    
-    
+    <tr>
+        <td>navigable</td>
+        <td>unspecified</td>
+    </tr>
     
     
     
     
     
     <tr>
-        <td>isAbstract</td>
+        <td>aggregation</td>
+        <td>none</td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>multiplicity</td>
+        <td></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>defaultValue</td>
+        <td></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isReadOnly</td>
         <td><span class='label label-info'>false</span></td>
     </tr>
     
@@ -317,7 +307,7 @@
     
     
     <tr>
-        <td>isFinalSpecialization</td>
+        <td>isOrdered</td>
         <td><span class='label label-info'>false</span></td>
     </tr>
     
@@ -326,8 +316,46 @@
     
     
     <tr>
-        <td>isLeaf</td>
+        <td>isUnique</td>
         <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isDerived</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isID</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>qualifiers</td>
+        <td>
+            
+        </td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>ownerAttribute</td>
+        <td><span class='label label-info'>null</span></td>
     </tr>
     
     
@@ -343,57 +371,17 @@
       <!-- Constraints, Dependencies, Dependants -->
 
       
-        
-        
-
-
-        
-        
-
-
-        
-        
-
-      
 
       <!-- Relationships -->
 
       
       
-<section class="element-list">
-    <h3>Relationships</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='d3561e8c6b79d9673dfb66585f0f541f.html'><span class='node-icon staruml-icon icon-UMLGeneralization'></span>(Driver→Rider)</a></li>
-        
-        <li><a href='53cd25a6639df5607f6470ff1345c85b.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Rider—Request Ride)</a></li>
-        
-        <li><a href='fba4d6c1961a8b411923e0d0d7b008be.html'><span class='node-icon staruml-icon icon-UMLGeneralization'></span>(Rider→User)</a></li>
-        
-        <li><a href='0d2e945ed20dbd9652d7ba2a77788b25.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Rider—Log out)</a></li>
-        
-    </ul>
-</section>
-
 
 
       <!-- Owned Elements -->
 
       
       
-<section class="element-list">
-    <h3>Owned Elements</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='53cd25a6639df5607f6470ff1345c85b.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Rider—Request Ride)</a></li>
-        
-        <li><a href='fba4d6c1961a8b411923e0d0d7b008be.html'><span class='node-icon staruml-icon icon-UMLGeneralization'></span>(Rider→User)</a></li>
-        
-        <li><a href='0d2e945ed20dbd9652d7ba2a77788b25.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Rider—Log out)</a></li>
-        
-    </ul>
-</section>
-
 
 
       <!-- Diagrams -->
