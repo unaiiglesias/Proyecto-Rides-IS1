@@ -1,0 +1,8 @@
+Driver: Aceptar petición de reserva
+Driver: Eliminar viaje
+Rider: Eliminar solicitud de viaje
+Rider: Realizar *Pago*
+Rider: Poner una *Reseña*
+Rider: Valorar una *Reseña*
+
+Nuevas clases en el modelo de dominio: Pago, Reseña.
