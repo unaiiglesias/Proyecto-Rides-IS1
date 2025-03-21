@@ -307,8 +307,25 @@ public class DataAccess  {
 	 	return res;
 	}
 	
-
-public void open(){
+	/**
+	 * This method removes a Ride if there're no reservation requests associated to it
+	 * @param ride The Ride to be removed
+	 * @return true if the ride has been successfully deleted else false
+	 */
+	public boolean removeRide(Ride ride) {
+		Ride r = db.find(Ride.class, ride.getRideNumber());
+		if(r.numReservationRequest() != 0) return false;
+		db.getTransaction().begin();
+		// First we'll remove the ride from Driver
+		Driver driver = db.find(Driver.class, r.getDriver().getEmail());
+		driver.removeRide(r.getFrom(), r.getTo(), r.getDate());
+		// Now we delete the ride from DB
+		db.remove(r);
+		db.getTransaction().commit();
+		return true;
+	}
+	
+	public void open(){
 		
 		String fileName=c.getDbFilename();
 		if (c.isDatabaseLocal()) {

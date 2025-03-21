@@ -13,6 +13,7 @@ public class DriverGUI extends MainGUI {
 
 	public JButton jButtonCreateQuery;
 	public JButton jButtonShowRequests;
+	public JButton jButtonRemoveRide;
 
 	/**
 	 * Extend MainGUI to include Driver only options
@@ -44,6 +45,19 @@ public class DriverGUI extends MainGUI {
 		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
 		currentUserJLabel.setVisible(true);
 		
+		//Remove query button
+		jButtonRemoveRide = new JButton();
+		jButtonRemoveRide.setVisible(true);
+		jButtonRemoveRide.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.RemoveRides"));
+		jButtonRemoveRide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new RemoveRidesGUI((Driver) currentSession);
+				a.setVisible(true);
+			}
+		});
+		jButtonRemoveRide.setBounds(0, 302, 644, 97);
+		jContentPane.add(jButtonRemoveRide);
+		
 		// Show requests button
 		jButtonShowRequests = new JButton();
 		jButtonShowRequests.addActionListener(new ActionListener() {
@@ -54,7 +68,7 @@ public class DriverGUI extends MainGUI {
 		});
 		jButtonShowRequests.setVisible(true);
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
-		jButtonShowRequests.setBounds(0, 302, 644, 97);
+		jButtonShowRequests.setBounds(0, 398, 644, 97);
 		jContentPane.add(jButtonShowRequests);
 		
 		// Disable login stuff

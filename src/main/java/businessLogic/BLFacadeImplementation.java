@@ -191,6 +191,17 @@ public class BLFacadeImplementation  implements BLFacade {
 		return dates;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	@WebMethod 
+	public boolean removeRide(Ride ride){
+		dbManager.open();
+		Boolean deleted = dbManager.removeRide(ride);
+		dbManager.close();
+		return deleted;
+	}
+	
 	
 	public void close() {
 		DataAccess dB4oManager=new DataAccess();

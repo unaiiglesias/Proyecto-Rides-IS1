@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +70,10 @@ public class Ride implements Serializable {
 	
 	public void removeReservationRequest(ReservationRequest r) {
 		this.reservations.remove(r);
+	}
+	
+	public int numReservationRequest() {
+		return this.reservations.size();
 	}
 	
 	/**
@@ -196,7 +201,10 @@ public class Ride implements Serializable {
 		this.price = price;
 	}
 
-
+	public String getStringDate() {
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return(formater.format(this.date));
+	}
 
 	public String toString(){
 		return rideNumber+";"+";"+from+";"+to+";"+date;  

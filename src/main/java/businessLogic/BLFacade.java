@@ -123,4 +123,11 @@ public interface BLFacade  {
 	 * @return a list of Ride
 	 */
 	public List<Ride> getRidesOfDriver(Driver driver);
+	
+	/**
+	 * This method removes a Ride from DB if it has no reservation requests associated
+	 * @param ride Ride to be removed
+	 * @return true if Ride successfully deleted else false
+	 */
+	public boolean removeRide(Ride ride);
 }
