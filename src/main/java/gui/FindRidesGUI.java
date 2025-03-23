@@ -57,15 +57,16 @@ public class FindRidesGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.Price")
 	};
 	private final JButton jButtonRequestRide = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.RequestRides")); //$NON-NLS-1$ //$NON-NLS-2$
-
+	private final JLabel jLabelAlreadyReserved;
 
 	@SuppressWarnings("serial")
 	public FindRidesGUI(Rider rider)
 	{
 		this.rider = rider;
 		this.getContentPane().setLayout(null);
-		this.setSize(new Dimension(700, 500));
+		this.setSize(new Dimension(700, 529));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.FindRides"));
+		
 
 		jLabelEventDate.setBounds(new Rectangle(457, 6, 140, 25));
 		jLabelEvents.setBounds(166, 221, 259, 16);
@@ -247,6 +248,7 @@ public class FindRidesGUI extends JFrame {
 		tableRides.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent l) {
 				jButtonRequestRide.setEnabled(true);
+				jLabelAlreadyReserved.setVisible(false);
 			}
 		});
 		/*
@@ -260,7 +262,8 @@ public class FindRidesGUI extends JFrame {
 				int selectedRow = tableRides.getSelectedRow();
 				if(selectedRow != -1) {
 					Ride ride = (Ride) tableModelRides.getValueAt(selectedRow, 3);
-					facade.makeReservationRequest(ride, rider);			
+					Boolean done = facade.makeReservationRequest(ride, rider);
+					if(!done) jLabelAlreadyReserved.setVisible(true);
 				} else {
 					// Tell the user something went wrong
 				}
@@ -277,6 +280,14 @@ public class FindRidesGUI extends JFrame {
 		}
 		
 		getContentPane().add(jButtonRequestRide);
+		
+		
+		jLabelAlreadyReserved = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.AlreadyReserved"));
+		jLabelAlreadyReserved.setBounds(166, 461, 346, 14);
+		jLabelAlreadyReserved.setForeground(new Color(255,0,0));
+		jLabelAlreadyReserved.setHorizontalAlignment(SwingConstants.CENTER);
+		jLabelAlreadyReserved.setVisible(false);
+		getContentPane().add(jLabelAlreadyReserved);
 
 	}
 	public static void paintDaysWithEvents(JCalendar jCalendar,List<Date> datesWithEventsCurrentMonth, Color color) {

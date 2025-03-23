@@ -163,15 +163,20 @@ public class DataAccess  {
 		return db.find(Rider.class, email);
 	}
 	
-	public void addReservationRequest(ReservationRequest rr) {
-		db.getTransaction().begin();
+	public boolean addReservationRequest(ReservationRequest rr) {
 		Ride ride = db.find(Ride.class, rr.getRide().getRideNumber());
 		Rider rider = db.find(Rider.class, rr.getRider().getEmail());
+		// Check if there is already a reservation request made by the rider
+		List<ReservationRequest> l = getReservationsOfRide(ride);
+		for(ReservationRequest reservation : l)
+			if(reservation.getRider().equals(rider)) return false;
+		db.getTransaction().begin();
 		if(ride != null & rider != null) {
 			ride.addReservationRequest(rr);
 			rider.addReservationRequest(rr);
 		}
 		db.getTransaction().commit();
+		return true;
 	}
 
 	public List<ReservationRequest> getReservationsOfRide(Ride ride) {

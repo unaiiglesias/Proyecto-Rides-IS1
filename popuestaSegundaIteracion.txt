@@ -1,5 +1,5 @@
-Driver: Aceptar petición de reserva
-Driver: Eliminar viaje
+Driver: Aceptar petición de reserva ---DONE
+Driver: Eliminar viaje				---DONE
 Rider: Eliminar solicitud de viaje
 Rider: Realizar *Pago*
 Rider: Poner una *Reseña*

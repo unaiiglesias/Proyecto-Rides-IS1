@@ -108,8 +108,9 @@ public interface BLFacade  {
 	
 	/**
 	 * This method makes a reservation request of a Ride
+	 * @return false if the rider had already done a reservation request to that ride else true
 	 */
-	public void makeReservationRequest(Ride ride, Rider rider);
+	public boolean makeReservationRequest(Ride ride, Rider rider);
 	
 	/**
 	 * This method finds all the ReservationRequests associated to a ride
