@@ -127,8 +127,11 @@ public class RemoveRidesGUI extends JFrame {
 		contentPane.add(removeRideJButton);
 	}
 	
+	/**
+	 * This method updates the RidesTableModel with the Rides associated to the Driver that are posterior to the current date
+	 */
 	public void updateRides() {
-		List<Ride> rideList=facade.getRidesOfDriver(driver);
+		List<Ride> rideList=facade.getPosteriorRidesOfDriver(driver);
 		ridesTableModel.setRowCount(0);
 		
 		if (rideList.isEmpty()) ridesJLabel.setVisible(true);

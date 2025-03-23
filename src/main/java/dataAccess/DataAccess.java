@@ -73,7 +73,7 @@ public class DataAccess  {
 	/**
 	 * This is the data access method that initializes the database with some events and questions.
 	 * AKA: Fills the DB with some example data
-	 * If the data already exists (some error ocurred) prints exception on console
+	 * If the data already exists (some error occurred) prints exception on console
 	 * This method is invoked by the business logic (constructor of BLFacadeImplementation) when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */	
 	public void initializeDB(){
@@ -105,7 +105,7 @@ public class DataAccess  {
 			Ride ride1 = driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 4, 73);
 			Ride ride2 = driver1.addRide("Donostia", "Gazteiz", UtilDate.newDate(year,month,6), 4, 82);
 			Ride ride3 = driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 4, 24);
-			Ride ride4 = driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year,month,7), 4, 33);
+			Ride ride4 = driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year,month,24), 4, 33);
 			Ride ride5 = driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 3, 31);
 			Ride ride6 = driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 2, 75);
 			Ride ride7 = driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year,month,6), 2, 57);
@@ -187,6 +187,17 @@ public class DataAccess  {
 		Driver d = db.find(Driver.class, driver.getEmail());
 		TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1", Ride.class);
 		query.setParameter(1, d.getEmail());
+		List<Ride> l = query.getResultList();
+		db.getTransaction().commit();
+		return l;
+	}
+	
+	public List<Ride> getRidesOfDriver(Driver driver, Date date) {
+		db.getTransaction().begin();
+		Driver d = db.find(Driver.class, driver.getEmail());
+		TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1 AND r.date > ?2", Ride.class);
+		query.setParameter(1, d.getEmail());
+		query.setParameter(2, date);
 		List<Ride> l = query.getResultList();
 		db.getTransaction().commit();
 		return l;

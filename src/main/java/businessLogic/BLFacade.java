@@ -120,7 +120,7 @@ public interface BLFacade  {
 	/**
 	 * This method finds all the Rides create by a given driver
 	 * @param driver The driver whose rides will be found
-	 * @return a list of Ride
+	 * @return a sorted by date list of Rides
 	 */
 	public List<Ride> getRidesOfDriver(Driver driver);
 	
@@ -130,4 +130,11 @@ public interface BLFacade  {
 	 * @return true if Ride successfully deleted else false
 	 */
 	public boolean removeRide(Ride ride);
+	
+	/**
+	 * This method finds all the Rides created by a given driver that are posterior to the current date
+	 * @param driver The driver whose rides will be found
+	 * @return a sorted by date list of Rides
+	 */
+	public List<Ride> getPosteriorRidesOfDriver(Driver driver);
 }

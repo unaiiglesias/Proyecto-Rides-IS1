@@ -1,4 +1,7 @@
 package businessLogic;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -7,6 +10,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import configuration.ConfigXML;
+import configuration.UtilDate;
 import dataAccess.DataAccess;
 import domain.Ride;
 import domain.Rider;
@@ -126,6 +130,32 @@ public class BLFacadeImplementation  implements BLFacade {
 	public List<Ride> getRidesOfDriver(Driver driver) {
 		dbManager.open();
 		List<Ride> l = dbManager.getRidesOfDriver(driver);
+		Collections.sort(l, new Comparator<Ride>() {
+			public int compare(Ride r1, Ride r2) {
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
+		dbManager.close();
+		return l;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@WebMethod
+	public List<Ride> getPosteriorRidesOfDriver(Driver driver) {
+		dbManager.open();
+		Calendar today = Calendar.getInstance();
+	   	int month=today.get(Calendar.MONTH);
+	   	int year=today.get(Calendar.YEAR);
+	   	if (month==12) { month=1; year+=1;}  
+		Date date = UtilDate.newDate(year, month, today.get(Calendar.DAY_OF_MONTH));
+		List<Ride> l = dbManager.getRidesOfDriver(driver, date);
+		Collections.sort(l, new Comparator<Ride>() {
+			public int compare(Ride r1, Ride r2) {
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
 		dbManager.close();
 		return l;
 	}

@@ -83,7 +83,7 @@ public class ShowRequestsGUI extends JFrame {
 		});
 		
 		// Set the model for the ComboBox
-		for (Ride r: facade.getRidesOfDriver(driver))
+		for (Ride r: facade.getPosteriorRidesOfDriver(driver))
 			ridesModel.addElement(r);
 		ridesComboBox.setModel(ridesModel);
 		ridesComboBox.setBounds(141, 52, 317, 22);
