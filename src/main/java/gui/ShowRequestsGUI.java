@@ -46,6 +46,7 @@ public class ShowRequestsGUI extends JFrame {
 	private JScrollPane reservationsScrollPane;
 	private String[] columnNamesTable = new String[] {
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Date"),
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.NumSeats"),
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderName"), 
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderEmail"), 
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RequestState") 
@@ -113,14 +114,15 @@ public class ShowRequestsGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					reservationsTableModel.setDataVector(null, columnNamesTable);
-					reservationsTableModel.setColumnCount(5);
+					reservationsTableModel.setColumnCount(6);
 
 					reservationsTable.getColumnModel().getColumn(0).setPreferredWidth(70);
-					reservationsTable.getColumnModel().getColumn(1).setPreferredWidth(30);
-					reservationsTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-					reservationsTable.getColumnModel().getColumn(3).setPreferredWidth(30);
+					reservationsTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+					reservationsTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+					reservationsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+					reservationsTable.getColumnModel().getColumn(4).setPreferredWidth(30);
 					
-					reservationsTable.getColumnModel().removeColumn(reservationsTable.getColumnModel().getColumn(4)); // not shown in JTable
+					reservationsTable.getColumnModel().removeColumn(reservationsTable.getColumnModel().getColumn(5)); // not shown in JTable
 					
 					updateReservations();
 					
@@ -145,7 +147,7 @@ public class ShowRequestsGUI extends JFrame {
 			public void valueChanged(ListSelectionEvent l) {
 				int selectedRow = reservationsTable.getSelectedRow();
 				if(selectedRow != -1) {
-					ReservationRequest rr = (ReservationRequest) reservationsTableModel.getValueAt(selectedRow, 4);
+					ReservationRequest rr = (ReservationRequest) reservationsTableModel.getValueAt(selectedRow, 5);
 					if(!rr.getReservationState().equalsIgnoreCase("accepted")) acceptReservationJButton.setEnabled(true);
 					else acceptReservationJButton.setEnabled(false);
 				}
@@ -175,9 +177,10 @@ public class ShowRequestsGUI extends JFrame {
 				// Remove the ride and update the Ride's table
 				int selectedRow = reservationsTable.getSelectedRow();
 				if(selectedRow != -1) {					
-					ReservationRequest rr = (ReservationRequest) reservationsTableModel.getValueAt(selectedRow, 4);
+					ReservationRequest rr = (ReservationRequest) reservationsTableModel.getValueAt(selectedRow, 5);
 					Boolean accepted = facade.acceptReservationRequest(rr);
 					if(!accepted) jLabelError.setVisible(true);
+					else jLabelError.setVisible(false);
 					updateReservations();
 					acceptReservationJButton.setEnabled(false);
 				} else {
@@ -199,6 +202,7 @@ public class ShowRequestsGUI extends JFrame {
 		for (ReservationRequest rr : rrList){
 			Vector<Object> row = new Vector<Object>();
 			row.add(rr.getStringDate());
+			row.add(rr.getNumSeats());
 			row.add(rr.getRider().getName());
 			row.add(rr.getRider().getEmail());
 			row.add(rr.getReservationState());

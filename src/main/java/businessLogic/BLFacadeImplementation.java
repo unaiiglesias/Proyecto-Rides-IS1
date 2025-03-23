@@ -105,9 +105,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	/**
 	 * {@inheritDoc}
 	 */
-	public boolean makeReservationRequest(Ride ride, Rider rider) {
+	public boolean makeReservationRequest(Ride ride, Rider rider, Integer numSeats) {
 		dbManager.open();
-		ReservationRequest rr = new ReservationRequest(rider, ride); 
+		ReservationRequest rr = new ReservationRequest(rider, ride, numSeats); 
 		Boolean done = dbManager.addReservationRequest(rr);
 		dbManager.close();
 		return done;

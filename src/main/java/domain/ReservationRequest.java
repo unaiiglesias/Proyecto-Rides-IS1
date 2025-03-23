@@ -10,6 +10,7 @@ public class ReservationRequest {
 	@Id
 	@GeneratedValue // Automatically will assign a non-used ID
 	private Integer id;
+	private Integer numSeats;
 	private String reservationState = "pending"; // "pending", "accepted" or "denied"
 	private Date date;
 	@ManyToOne
@@ -17,8 +18,9 @@ public class ReservationRequest {
 	@ManyToOne
 	private Ride ride;
 		
-	public ReservationRequest(Rider rider, Ride ride) {
+	public ReservationRequest(Rider rider, Ride ride, Integer numSeats) {
 		this.rider = rider;
+		this.numSeats = numSeats;
 		this.ride = ride;
 		this.date = new Date();
 	}
@@ -68,6 +70,12 @@ public class ReservationRequest {
 		this.ride = ride;
 	}
 	
+	public Integer getNumSeats() {
+		return this.numSeats;
+	}
 	
+	public void setNumSeats(Integer numSeats) {
+		this.numSeats = numSeats;
+	}
 	
 }

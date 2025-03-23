@@ -102,7 +102,7 @@ public class DataAccess  {
 			//Create some example rides
 			// From To Date nPlaces Price
 			
-			Ride ride1 = driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,30), 1, 73);
+			Ride ride1 = driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,30), 3, 73);
 			Ride ride2 = driver1.addRide("Donostia", "Gazteiz", UtilDate.newDate(year,month,6), 4, 82);
 			Ride ride3 = driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 4, 24);
 			Ride ride4 = driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year,month,24), 4, 33);
@@ -121,13 +121,13 @@ public class DataAccess  {
 			db.getTransaction().commit();
 			
 			// Create some example Requests
-			ReservationRequest reservation1 = new ReservationRequest(rider1, ride1);
+			ReservationRequest reservation1 = new ReservationRequest(rider1, ride1, 3);
 			addReservationRequest(reservation1);
-			ReservationRequest reservation2 = new ReservationRequest(rider2, ride1);
+			ReservationRequest reservation2 = new ReservationRequest(rider2, ride1, 1);
 			addReservationRequest(reservation2);
-			ReservationRequest reservation3 = new ReservationRequest(rider1, ride8);
+			ReservationRequest reservation3 = new ReservationRequest(rider1, ride8, 1);
 			addReservationRequest(reservation3);
-			ReservationRequest reservation4 = new ReservationRequest(rider3, ride1);
+			ReservationRequest reservation4 = new ReservationRequest(rider3, ride1, 1);
 			addReservationRequest(reservation4);
 			// This needs to be done out of the transaction because each of the method calls creates its own transaction
 			
@@ -351,7 +351,7 @@ public class DataAccess  {
 	public boolean acceptReservationRequest(ReservationRequest rr) {;
 		Ride ride = db.find(Ride.class, rr.getRide().getRideNumber());
 		// if no places available return false
-		if(ride.getRemainingPlaces() == 0) return false;
+		if((ride.getRemainingPlaces() - rr.getNumSeats()) < 0) return false;
 		db.getTransaction().begin();
 		ReservationRequest reservation = db.find(ReservationRequest.class, rr.getId());
 		reservation.setReservationState("accepted");
