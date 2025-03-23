@@ -102,7 +102,7 @@ public class DataAccess  {
 			//Create some example rides
 			// From To Date nPlaces Price
 			
-			Ride ride1 = driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 4, 73);
+			Ride ride1 = driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,30), 4, 73);
 			Ride ride2 = driver1.addRide("Donostia", "Gazteiz", UtilDate.newDate(year,month,6), 4, 82);
 			Ride ride3 = driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 4, 24);
 			Ride ride4 = driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year,month,24), 4, 33);

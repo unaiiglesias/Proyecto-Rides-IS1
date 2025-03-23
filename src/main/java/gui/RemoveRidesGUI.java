@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -25,6 +26,8 @@ import domain.Driver;
 import domain.ReservationRequest;
 import domain.Ride;
 import domain.Rider;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class RemoveRidesGUI extends JFrame {
 
@@ -43,6 +46,7 @@ public class RemoveRidesGUI extends JFrame {
 	};
 	private JLabel ridesJLabel;
 	private JButton removeRideJButton;
+	private JLabel notRemovedJLabel;
 
 	/**
 	 * Create the frame.
@@ -53,13 +57,26 @@ public class RemoveRidesGUI extends JFrame {
 		facade = MainGUI.getBusinessLogic();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setSize(new Dimension(604, 370));
+		this.setSize(new Dimension(604, 396));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		
 		contentPane.setLayout(null);
+		
+		ridesJLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RemoveRidesGUI.NoRides"));
+		ridesJLabel.setForeground(new Color(255, 0, 0));
+		ridesJLabel.setBounds(55, 11, 453, 14);
+		ridesJLabel.setVisible(false);
+		contentPane.add(ridesJLabel);
+		
+		notRemovedJLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RemoveRidesGUI.NotRemoved"));
+		notRemovedJLabel.setVisible(false);
+		notRemovedJLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		notRemovedJLabel.setForeground(new Color(255, 0, 0));
+		notRemovedJLabel.setBounds(55, 318, 453, 28);
+		contentPane.add(notRemovedJLabel);
 		
 		ridesScrollPane = new JScrollPane();
 		ridesScrollPane.setBounds(56, 27, 452, 236);
@@ -94,28 +111,21 @@ public class RemoveRidesGUI extends JFrame {
 		
 		ridesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent l) {
-				removeRideJButton.setEnabled(true);
+				removeRideJButton.setEnabled(true);;
 			}
 		});
-		
-		ridesJLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RemoveRidesGUI.NoRides"));
-		ridesJLabel.setForeground(new Color(255, 0, 0));
-		ridesJLabel.setBounds(55, 11, 55, 14);
-		ridesJLabel.setVisible(false);
-		contentPane.add(ridesJLabel);
-		
+	
 		removeRideJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RemoveRidesGUI.RemoveRide"));
 		removeRideJButton.setEnabled(false);
 		removeRideJButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Show a new window informing the user about this action's consequences
-				//TODO
-				
+			public void actionPerformed(ActionEvent e) {				
 				// Remove the ride and update the Ride's table
 				int selectedRow = ridesTable.getSelectedRow();
 				if(selectedRow != -1) {					
 					Ride r = (Ride) ridesTableModel.getValueAt(selectedRow, 3);
-					facade.removeRide(r);
+					Boolean removed = facade.removeRide(r);
+					notRemovedJLabel.setVisible(false);
+					if(!removed) notRemovedJLabel.setVisible(true);
 					updateRides();
 					removeRideJButton.setEnabled(false);
 				} else {
@@ -125,6 +135,7 @@ public class RemoveRidesGUI extends JFrame {
 		});
 		removeRideJButton.setBounds(226, 274, 134, 37);
 		contentPane.add(removeRideJButton);
+
 	}
 	
 	/**
@@ -145,5 +156,4 @@ public class RemoveRidesGUI extends JFrame {
 		}
 
 	}
-
 }
