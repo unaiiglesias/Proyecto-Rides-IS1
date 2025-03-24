@@ -359,6 +359,27 @@ public class DataAccess  {
 		return true;
 	}
 	
+	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider){
+		Rider r = db.find(Rider.class, rider.getEmail());
+		TypedQuery<ReservationRequest> query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1", ReservationRequest.class);
+		query.setParameter(1, r.getEmail());
+		List<ReservationRequest> l = query.getResultList();
+		return l;
+		
+	}
+	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider, Date date, int previousReservationRequests){
+		Rider r = db.find(Rider.class, rider.getEmail());
+		TypedQuery<ReservationRequest> query;
+		if(previousReservationRequests==1)
+			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.date <= ?2 AND rr.reservationState = 'accepted'", ReservationRequest.class);
+		else
+			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.date > ?2", ReservationRequest.class);
+		query.setParameter(1, r.getEmail());
+		query.setParameter(2, date);
+		List<ReservationRequest> l = query.getResultList();
+		return l;
+	}
+	
 	public void open(){
 		
 		String fileName=c.getDbFilename();

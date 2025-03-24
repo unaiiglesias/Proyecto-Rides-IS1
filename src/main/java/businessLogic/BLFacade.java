@@ -145,4 +145,18 @@ public interface BLFacade  {
 	 * @param rr The reservation request to accept
 	 */
 	public boolean acceptReservationRequest(ReservationRequest rr);
+	
+	/**
+	 * This method finds all the Rides done by a Rider
+	 * @param rider The Rider whose already done Rides (accepted Reservation Requests) will find
+	 * @return a sorted by data list of ReservationRequest
+	 */
+	public List<ReservationRequest> getRidesDoneByRider(Rider rider);
+	
+	/**
+	 * This method finds all the future Rides that might be done by a Rider
+	 * @param rider The Rider whose already done Rides (accepted Reservation Requests) will find
+	 * @return a sorted by data list of ReservationRequest
+	 */
+	public List<ReservationRequest> getFutureRidesOfRider(Rider rider);
 }

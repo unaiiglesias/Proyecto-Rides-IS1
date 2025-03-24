@@ -151,11 +151,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	@WebMethod
 	public List<Ride> getPosteriorRidesOfDriver(Driver driver) {
 		dbManager.open();
-		Calendar today = Calendar.getInstance();
-	   	int month=today.get(Calendar.MONTH);
-	   	int year=today.get(Calendar.YEAR);
-	   	if (month==12) { month=1; year+=1;}  
-		Date date = UtilDate.newDate(year, month, today.get(Calendar.DAY_OF_MONTH));
+		Date date = getCurrentDate();
 		List<Ride> l = dbManager.getRidesOfDriver(driver, date);
 		Collections.sort(l, new Comparator<Ride>() {
 			public int compare(Ride r1, Ride r2) {
@@ -246,6 +242,34 @@ public class BLFacadeImplementation  implements BLFacade {
 		Boolean accepted = dbManager.acceptReservationRequest(rr);
 		dbManager.close();
 		return accepted;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<ReservationRequest> getRidesDoneByRider(Rider rider) {
+		dbManager.open();
+		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), 1);
+		dbManager.close();
+		return l;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<ReservationRequest> getFutureRidesOfRider(Rider rider) {
+		dbManager.open();
+		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), 0);
+		dbManager.close();
+		return l;
+	}
+	
+	private Date getCurrentDate() {
+		Calendar today = Calendar.getInstance();
+	   	int month=today.get(Calendar.MONTH);
+	   	int year=today.get(Calendar.YEAR);
+	   	if (month==12) { month=1; year+=1;}  
+		return UtilDate.newDate(year, month, today.get(Calendar.DAY_OF_MONTH));
 	}
 	
 	
