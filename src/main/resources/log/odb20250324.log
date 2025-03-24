@@ -753,3 +753,193 @@ New type java.util.ArrayList<domain.ReservationRequest>
 [2025-03-24 20:22:07 #12 type.registry] 
 New type java.util.ArrayList<domain.Ride>
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-24 20:51:56 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 4688@CASA
+
+[2025-03-24 20:51:56 #2 type.registry] 
+New type domain.Rider
+
+[2025-03-24 20:51:56 #3 type.registry] 
+New type domain.Driver
+
+[2025-03-24 20:51:56 #4 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-24 20:51:56 #5 type.registry] 
+New type domain.ReservationRequest
+
+[2025-03-24 20:51:56 #6 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-24 20:51:56 #7 type.registry] 
+New type domain.Ride
+
+[2025-03-24 20:51:56 #8 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-24 20:51:56 #9 type] 
+Type domain.Ride is not enhanced.
+
+[2025-03-24 20:51:56 #10 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2025-03-24 20:51:56 #11 type.registry] 
+New type java.util.ArrayList<domain.ReservationRequest>
+
+[2025-03-24 20:51:56 #12 type.registry] 
+New type java.util.ArrayList<domain.Ride>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-24 20:53:14 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 6684@CASA
+
+[2025-03-24 20:53:14 #2 type.registry] 
+New type domain.Rider
+
+[2025-03-24 20:53:14 #3 type.registry] 
+New type domain.Driver
+
+[2025-03-24 20:53:14 #4 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-24 20:53:14 #5 type.registry] 
+New type domain.ReservationRequest
+
+[2025-03-24 20:53:14 #6 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-24 20:53:14 #7 type.registry] 
+New type domain.Ride
+
+[2025-03-24 20:53:14 #8 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-24 20:53:14 #9 type] 
+Type domain.Ride is not enhanced.
+
+[2025-03-24 20:53:14 #10 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2025-03-24 20:53:14 #11 type.registry] 
+New type java.util.ArrayList<domain.ReservationRequest>
+
+[2025-03-24 20:53:14 #12 type.registry] 
+New type java.util.ArrayList<domain.Ride>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-24 20:53:18 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 14104@CASA
+
+[2025-03-24 20:53:18 #2 type.registry] 
+New type domain.Rider
+
+[2025-03-24 20:53:18 #3 type.registry] 
+New type domain.Driver
+
+[2025-03-24 20:53:18 #4 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-24 20:53:18 #5 type.registry] 
+New type domain.ReservationRequest
+
+[2025-03-24 20:53:18 #6 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-24 20:53:18 #7 type.registry] 
+New type domain.Ride
+
+[2025-03-24 20:53:18 #8 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-24 20:53:18 #9 type] 
+Type domain.Ride is not enhanced.
+
+[2025-03-24 20:53:18 #10 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2025-03-24 20:53:18 #11 type.registry] 
+New type java.util.ArrayList<domain.ReservationRequest>
+
+[2025-03-24 20:53:18 #12 type.registry] 
+New type java.util.ArrayList<domain.Ride>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-24 20:55:19 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 13444@CASA
+
+[2025-03-24 20:55:19 #2 type.registry] 
+New type domain.Rider
+
+[2025-03-24 20:55:19 #3 type.registry] 
+New type domain.Driver
+
+[2025-03-24 20:55:19 #4 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-24 20:55:19 #5 type.registry] 
+New type domain.ReservationRequest
+
+[2025-03-24 20:55:19 #6 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-24 20:55:19 #7 type.registry] 
+New type domain.Ride
+
+[2025-03-24 20:55:19 #8 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-24 20:55:19 #9 type] 
+Type domain.Ride is not enhanced.
+
+[2025-03-24 20:55:19 #10 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2025-03-24 20:55:19 #11 type.registry] 
+New type java.util.ArrayList<domain.ReservationRequest>
+
+[2025-03-24 20:55:19 #12 type.registry] 
+New type java.util.ArrayList<domain.Ride>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-03-24 20:56:25 #1 store] 
+Database 'Z:\02_Universidad\2º Curso\2º Cuatrimestre\Ingeniería del Software\Iteracion-1-IS1\src\main\resources\rides.temp' is opened by 8424@CASA
+
+[2025-03-24 20:56:25 #2 type.registry] 
+New type domain.Rider
+
+[2025-03-24 20:56:25 #3 type.registry] 
+New type domain.Driver
+
+[2025-03-24 20:56:25 #4 type] 
+Type domain.Rider is not enhanced.
+
+[2025-03-24 20:56:25 #5 type.registry] 
+New type domain.ReservationRequest
+
+[2025-03-24 20:56:25 #6 type] 
+Type domain.Driver is not enhanced.
+
+[2025-03-24 20:56:25 #7 type.registry] 
+New type domain.Ride
+
+[2025-03-24 20:56:25 #8 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-03-24 20:56:25 #9 type] 
+Type domain.Ride is not enhanced.
+
+[2025-03-24 20:56:25 #10 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2025-03-24 20:56:25 #11 type.registry] 
+New type java.util.ArrayList<domain.ReservationRequest>
+
+[2025-03-24 20:56:25 #12 type.registry] 
+New type java.util.ArrayList<domain.Ride>
+

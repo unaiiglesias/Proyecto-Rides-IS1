@@ -130,6 +130,16 @@ public class BLFacadeImplementation  implements BLFacade {
 		return l;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean removeReservation(ReservationRequest reservation) {
+		dbManager.open();
+		Boolean rm = dbManager.removeReservation(reservation);
+		dbManager.close();
+		return rm;
+	}
+	
     /**
      * {@inheritDoc}
      */

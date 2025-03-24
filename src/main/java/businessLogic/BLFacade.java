@@ -119,6 +119,12 @@ public interface BLFacade  {
 	public List<ReservationRequest> getReservationsOfRide(Ride ride);
 	
 	/**
+	 * This method removes a reservation request
+	 * @param reservation The ReservationRequest to be removed
+	 * @return true if removed successfully, else false
+	 */
+	public boolean removeReservation(ReservationRequest reservation);
+	/**
 	 * This method finds all the Rides create by a given driver
 	 * @param driver The driver whose rides will be found
 	 * @return a sorted by date list of Rides

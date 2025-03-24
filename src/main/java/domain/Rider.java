@@ -29,6 +29,10 @@ public class Rider {
 		this.reservations.add(rr);
 	}
 	
+	public void removeReservationRequest(ReservationRequest rr) {
+		this.reservations.remove(rr);
+	}
+	
 	public Rider(String email, String password, String name, String surname, int age) {
 		this.email = email;
 		this.password = password;

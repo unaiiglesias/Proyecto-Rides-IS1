@@ -202,6 +202,17 @@ public class DataAccess  {
 		return l;
 	}
 	
+	public boolean removeReservation(ReservationRequest reservation) {
+		ReservationRequest rr = db.find(ReservationRequest.class, reservation.getId());
+		if(rr == null) return false;
+		db.getTransaction().begin();
+		rr.getRide().removeReservationRequest(rr);
+		rr.getRider().removeReservationRequest(rr);
+		db.remove(rr);
+		db.getTransaction().commit();
+		return true;
+	}
+	
 	public List<Ride> getRidesOfDriver(Driver driver){
 		db.getTransaction().begin();
 		Driver d = db.find(Driver.class, driver.getEmail());

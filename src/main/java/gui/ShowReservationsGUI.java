@@ -44,6 +44,7 @@ public class ShowReservationsGUI extends JFrame {
 			"Date", "Ride's Date", "From", "To", "Seats", "Driver's Name", "State"
 	};
 	private DefaultTableCellRenderer render;
+	private JButton removeReservationJButton;
 	
 
 	
@@ -57,7 +58,7 @@ public class ShowReservationsGUI extends JFrame {
 		facade = MainGUI.getBusinessLogic();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 869, 665);
+		setBounds(100, 100, 869, 705);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -112,6 +113,14 @@ public class ShowReservationsGUI extends JFrame {
 		contentPane.add(scrollPaneReservationRequests);
 		
 		reservationRequestsTable = new JTable();
+		reservationRequestsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent l) {
+				int selectedRow = reservationRequestsTable.getSelectedRow();
+				if(selectedRow != -1) {
+					removeReservationJButton.setEnabled(true);
+				}
+			}
+		});
 		scrollPaneReservationRequests.setViewportView(reservationRequestsTable);
 		reservationRequestsTableModel = new DefaultTableModel(null, columnNamesTable2) {
 			public boolean isCellEditable(int row, int column) {
@@ -140,6 +149,26 @@ public class ShowReservationsGUI extends JFrame {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		
+		removeReservationJButton = new JButton("Remove Reservation Request");
+		removeReservationJButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Remove the ride and update the Ride's table
+				int selectedRow = reservationRequestsTable.getSelectedRow();
+				if(selectedRow != -1) {					
+					ReservationRequest rr = (ReservationRequest) reservationRequestsTableModel.getValueAt(selectedRow, 7);
+					facade.removeReservation(rr);
+					updateReservationRequests();
+					removeReservationJButton.setEnabled(false);
+				} else {
+					// Tell the user something went wrong
+				}
+			}
+		});
+		removeReservationJButton.setBounds(309, 608, 223, 32);
+		removeReservationJButton.setEnabled(false);
+		contentPane.add(removeReservationJButton);
+		
 	}
 	
 	public void updateRidesDone() {
@@ -173,7 +202,7 @@ public class ShowReservationsGUI extends JFrame {
 			row.add(rr.getNumSeats());
 			row.add(ride.getDriver().getName());
 			row.add(rr.getReservationState());
-			row.add(ride);
+			row.add(rr);
 			reservationRequestsTableModel.addRow(row);
 		}
 		
