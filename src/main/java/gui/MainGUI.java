@@ -47,6 +47,7 @@ public class MainGUI extends JFrame {
 	public JButton logoutJButton;
 	public JButton signUpJButton;
 	public JLabel currentUserJLabel;
+	private JButton jButtonShowReservations;
 	
 	/**
 	 * This is the default constructor
@@ -147,7 +148,6 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new RegisterGUI();
 				a.setVisible(true);
-				dispose();
 			}
 		});
 		signUpJButton.setBounds(524, 35, 120, 36);
@@ -159,6 +159,23 @@ public class MainGUI extends JFrame {
 		currentUserJLabel.setVisible(false);
 		jContentPane.add(currentUserJLabel);
 		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		// Show Reservations Button
+		jButtonShowReservations = new JButton();
+		jButtonShowReservations.setText("Show Rides and Reservation Requests");
+		jButtonShowReservations.setBounds(0, 204, 644, 97);
+		jContentPane.add(jButtonShowReservations);
+		
+		if(currentSession==null) jButtonShowReservations.setVisible(false);
+		jButtonShowReservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new ShowReservationsGUI(currentSession);
+				a.setVisible(true);
+			}
+		});
+		
+		
+		
 		// The label is long, so that any email can fit, but aligns to the right
 		
 		/*

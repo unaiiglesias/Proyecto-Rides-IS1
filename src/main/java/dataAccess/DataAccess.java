@@ -109,7 +109,10 @@ public class DataAccess  {
 			Ride ride5 = driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 3, 31);
 			Ride ride6 = driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 2, 75);
 			Ride ride7 = driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year,month,6), 2, 57);
-			Ride ride8 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,14), 1, 30);
+			Ride ride8 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2019,01,14), 3, 30);
+			Ride ride9 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2020,10,14), 4, 30);
+			Ride ride10 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2010,4,14), 3, 30);
+			Ride ride11 = driver3.addRide("Donostia", "Santander", UtilDate.newDate(2023,9,14), 4, 30);
 
 			db.persist(driver1);
 			db.persist(driver2);
@@ -121,14 +124,24 @@ public class DataAccess  {
 			db.getTransaction().commit();
 			
 			// Create some example Requests
-			ReservationRequest reservation1 = new ReservationRequest(rider1, ride1, 3);
+			ReservationRequest reservation1 = new ReservationRequest(rider1, ride1, 2);
 			addReservationRequest(reservation1);
 			ReservationRequest reservation2 = new ReservationRequest(rider2, ride1, 1);
 			addReservationRequest(reservation2);
 			ReservationRequest reservation3 = new ReservationRequest(rider1, ride8, 1);
+			reservation3.setReservationState("accepted");
 			addReservationRequest(reservation3);
 			ReservationRequest reservation4 = new ReservationRequest(rider3, ride1, 1);
 			addReservationRequest(reservation4);
+			ReservationRequest reservation5 = new ReservationRequest(rider1, ride9, 1);
+			reservation5.setReservationState("accepted");
+			addReservationRequest(reservation5);
+			ReservationRequest reservation6 = new ReservationRequest(rider1, ride10, 1);
+			reservation6.setReservationState("accepted");
+			addReservationRequest(reservation6);
+			ReservationRequest reservation7 = new ReservationRequest(rider1, ride11, 1);
+			reservation7.setReservationState("accepted");
+			addReservationRequest(reservation7);
 			// This needs to be done out of the transaction because each of the method calls creates its own transaction
 			
 			System.out.println("SUCCESS: Db initialized with example data");
@@ -371,9 +384,9 @@ public class DataAccess  {
 		Rider r = db.find(Rider.class, rider.getEmail());
 		TypedQuery<ReservationRequest> query;
 		if(previousReservationRequests==1)
-			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.date <= ?2 AND rr.reservationState = 'accepted'", ReservationRequest.class);
+			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.ride.date <= ?2 AND rr.reservationState = 'accepted'", ReservationRequest.class);
 		else
-			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.date > ?2", ReservationRequest.class);
+			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.ride.date > ?2", ReservationRequest.class);
 		query.setParameter(1, r.getEmail());
 		query.setParameter(2, date);
 		List<ReservationRequest> l = query.getResultList();

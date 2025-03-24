@@ -251,6 +251,11 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.open();
 		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), 1);
 		dbManager.close();
+		Collections.sort(l, new Comparator<ReservationRequest>() {
+			public int compare(ReservationRequest r1, ReservationRequest r2) {
+				return r1.getRide().getDate().compareTo(r2.getRide().getDate());
+			}
+		});
 		return l;
 	}
 	
@@ -261,6 +266,11 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.open();
 		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), 0);
 		dbManager.close();
+		Collections.sort(l, new Comparator<ReservationRequest>() {
+			public int compare(ReservationRequest r1, ReservationRequest r2) {
+				return r1.getRide().getDate().compareTo(r2.getRide().getDate());
+			}
+		});
 		return l;
 	}
 	
