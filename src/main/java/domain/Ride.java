@@ -205,6 +205,13 @@ public class Ride implements Serializable {
 		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return(formater.format(this.date));
 	}
+	
+	public int getRemainingPlaces() {
+		int accepted = 0;
+		for(ReservationRequest rr:reservations)
+			if(rr.getReservationState().equalsIgnoreCase("accepted")) accepted++;
+		return this.nPlaces - accepted;
+	}
 
 	public String toString(){
 		return rideNumber+";"+";"+from+";"+to+";"+date;  

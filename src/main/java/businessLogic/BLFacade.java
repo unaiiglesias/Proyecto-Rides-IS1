@@ -108,12 +108,13 @@ public interface BLFacade  {
 	
 	/**
 	 * This method makes a reservation request of a Ride
+	 * @return false if the rider had already done a reservation request to that ride else true
 	 */
-	public void makeReservationRequest(Ride ride, Rider rider);
+	public boolean makeReservationRequest(Ride ride, Rider rider, Integer numSeats);
 	
 	/**
 	 * This method finds all the ReservationRequests associated to a ride
-	 * @return a list of ReservationRequests
+	 * @return a sorted by date list ReservationRequests
 	 */
 	public List<ReservationRequest> getReservationsOfRide(Ride ride);
 	
@@ -137,4 +138,11 @@ public interface BLFacade  {
 	 * @return a sorted by date list of Rides
 	 */
 	public List<Ride> getPosteriorRidesOfDriver(Driver driver);
+	
+	
+	/**
+	 * This method accepts a given ReservationRequest.
+	 * @param rr The reservation request to accept
+	 */
+	public boolean acceptReservationRequest(ReservationRequest rr);
 }

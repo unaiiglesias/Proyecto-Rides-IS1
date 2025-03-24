@@ -9,6 +9,8 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import businessLogic.BLFacade;
@@ -44,11 +46,15 @@ public class ShowRequestsGUI extends JFrame {
 	private JScrollPane reservationsScrollPane;
 	private String[] columnNamesTable = new String[] {
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Date"),
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.NumSeats"),
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderName"), 
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderEmail"), 
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RequestState") 
 	};
 	private JLabel reservationsJLabel;
+	private BLFacade facade;
+	private JButton acceptReservationJButton;
+	private JLabel jLabelError;
 
 
 	/**
@@ -58,10 +64,10 @@ public class ShowRequestsGUI extends JFrame {
 	public ShowRequestsGUI(Driver d) {
 		
 		this.driver = d;
-		BLFacade facade = MainGUI.getBusinessLogic();
+		facade = MainGUI.getBusinessLogic();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setSize(new Dimension(604, 370));
+		this.setSize(new Dimension(604, 459));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,6 +78,14 @@ public class ShowRequestsGUI extends JFrame {
 		jLabelSelectRide.setVerticalAlignment(SwingConstants.TOP);
 		jLabelSelectRide.setBounds(10, 51, 119, 34);
 		contentPane.add(jLabelSelectRide);
+		
+		jLabelError = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Error"));
+		jLabelError.setHorizontalAlignment(SwingConstants.CENTER);
+		jLabelError.setVerticalAlignment(SwingConstants.TOP);
+		jLabelError.setBounds(54, 387, 500, 22);
+		jLabelError.setForeground(new Color(255,0,0));
+		jLabelError.setVisible(false);
+		contentPane.add(jLabelError);
 		
 		ridesComboBox = new JComboBox<Ride>();
 		ridesComboBox.addActionListener(new ActionListener() {
@@ -100,24 +114,21 @@ public class ShowRequestsGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					reservationsTableModel.setDataVector(null, columnNamesTable);
-					reservationsTableModel.setColumnCount(4);
+					reservationsTableModel.setColumnCount(6);
 
 					reservationsTable.getColumnModel().getColumn(0).setPreferredWidth(70);
-					reservationsTable.getColumnModel().getColumn(1).setPreferredWidth(30);
-					reservationsTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-					reservationsTable.getColumnModel().getColumn(3).setPreferredWidth(30);
-
-					List<ReservationRequest> rrList=facade.getReservationsOfRide(selectedRide);
-
-					if (rrList.isEmpty()) reservationsJLabel.setVisible(true);
-					for (ReservationRequest rr : rrList){
-						Vector<Object> row = new Vector<Object>();
-						row.add(rr.getStringDate());
-						row.add(rr.getRider().getName());
-						row.add(rr.getRider().getEmail());
-						row.add(rr.getReservationState());
-						reservationsTableModel.addRow(row);		
-					}
+					reservationsTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+					reservationsTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+					reservationsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+					reservationsTable.getColumnModel().getColumn(4).setPreferredWidth(30);
+					
+					reservationsTable.getColumnModel().removeColumn(reservationsTable.getColumnModel().getColumn(5)); // not shown in JTable
+					
+					updateReservations();
+					
+					acceptReservationJButton.setEnabled(false);
+					jLabelError.setVisible(false);
+					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -132,6 +143,16 @@ public class ShowRequestsGUI extends JFrame {
 		contentPane.add(reservationsScrollPane);
 		
 		reservationsTable = new JTable();
+		reservationsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent l) {
+				int selectedRow = reservationsTable.getSelectedRow();
+				if(selectedRow != -1) {
+					ReservationRequest rr = (ReservationRequest) reservationsTableModel.getValueAt(selectedRow, 5);
+					if(!rr.getReservationState().equalsIgnoreCase("accepted")) acceptReservationJButton.setEnabled(true);
+					else acceptReservationJButton.setEnabled(false);
+				}
+			}
+		});
 		reservationsScrollPane.setViewportView(reservationsTable);
 		reservationsTableModel = new DefaultTableModel(null, columnNamesTable) {
 			public boolean isCellEditable(int row, int column) {
@@ -146,9 +167,47 @@ public class ShowRequestsGUI extends JFrame {
 		reservationsJLabel.setVisible(false);
 		contentPane.add(reservationsJLabel);
 		
+		acceptReservationJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Accept"));
+		acceptReservationJButton.setEnabled(false);
+		acceptReservationJButton.setBounds(218, 342, 161, 34);
+		contentPane.add(acceptReservationJButton);
+		
+		acceptReservationJButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				// Remove the ride and update the Ride's table
+				int selectedRow = reservationsTable.getSelectedRow();
+				if(selectedRow != -1) {					
+					ReservationRequest rr = (ReservationRequest) reservationsTableModel.getValueAt(selectedRow, 5);
+					Boolean accepted = facade.acceptReservationRequest(rr);
+					if(!accepted) jLabelError.setVisible(true);
+					else jLabelError.setVisible(false);
+					updateReservations();
+					acceptReservationJButton.setEnabled(false);
+				} else {
+					// Tell the user something went wrong
+				}
+			}
+		});
+		
 		// Make default selection (if possible)
 		if (ridesModel.getSize() > 0) 
 			ridesComboBox.setSelectedIndex(0);
 		
+	}
+	
+	public void updateReservations() {
+		List<ReservationRequest> rrList=facade.getReservationsOfRide(selectedRide);
+		reservationsTableModel.setRowCount(0);
+		if (rrList.isEmpty()) reservationsJLabel.setVisible(true);
+		for (ReservationRequest rr : rrList){
+			Vector<Object> row = new Vector<Object>();
+			row.add(rr.getStringDate());
+			row.add(rr.getNumSeats());
+			row.add(rr.getRider().getName());
+			row.add(rr.getRider().getEmail());
+			row.add(rr.getReservationState());
+			row.add(rr);
+			reservationsTableModel.addRow(row);
+		}
 	}
 }

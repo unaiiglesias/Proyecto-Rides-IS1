@@ -105,11 +105,12 @@ public class BLFacadeImplementation  implements BLFacade {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void makeReservationRequest(Ride ride, Rider rider) {
+	public boolean makeReservationRequest(Ride ride, Rider rider, Integer numSeats) {
 		dbManager.open();
-		ReservationRequest rr = new ReservationRequest(rider, ride); 
-		dbManager.addReservationRequest(rr);
+		ReservationRequest rr = new ReservationRequest(rider, ride, numSeats); 
+		Boolean done = dbManager.addReservationRequest(rr);
 		dbManager.close();
+		return done;
 	}
 	
 	
@@ -120,6 +121,11 @@ public class BLFacadeImplementation  implements BLFacade {
 		List<ReservationRequest> l = null;
 		dbManager.open();
 		l = dbManager.getReservationsOfRide(ride);
+		Collections.sort(l, new Comparator<ReservationRequest>() {
+			public int compare(ReservationRequest r1, ReservationRequest r2) {
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
 		dbManager.close();
 		return l;
 	}
@@ -230,6 +236,16 @@ public class BLFacadeImplementation  implements BLFacade {
 		Boolean deleted = dbManager.removeRide(ride);
 		dbManager.close();
 		return deleted;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean acceptReservationRequest(ReservationRequest rr) {
+		dbManager.open();
+		Boolean accepted = dbManager.acceptReservationRequest(rr);
+		dbManager.close();
+		return accepted;
 	}
 	
 	

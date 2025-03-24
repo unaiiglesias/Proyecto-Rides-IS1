@@ -56,24 +56,46 @@ public class FindRidesGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.NPlaces"), 
 			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.Price")
 	};
-	private final JButton jButtonRequestRide = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.RequestRides")); //$NON-NLS-1$ //$NON-NLS-2$
+	private final JButton jButtonRequestRide = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.RequestRides"));
+	private final JLabel jLabelAlreadyReserved;
 
+	private JSpinner spinner;
+	private final JLabel jLabelNumSeats = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.NumSeats")); 
 
 	@SuppressWarnings("serial")
 	public FindRidesGUI(Rider rider)
 	{
 		this.rider = rider;
 		this.getContentPane().setLayout(null);
-		this.setSize(new Dimension(700, 500));
+		this.setSize(new Dimension(700, 546));
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.FindRides"));
+	
 
+		jLabelAlreadyReserved = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.AlreadyReserved"));
+		jLabelAlreadyReserved.setBounds(166, 480, 346, 14);
+		jLabelAlreadyReserved.setForeground(new Color(255,0,0));
+		jLabelAlreadyReserved.setHorizontalAlignment(SwingConstants.CENTER);
+		jLabelAlreadyReserved.setVisible(false);
+		getContentPane().add(jLabelAlreadyReserved);
+		
+		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(1, 1, 100, 1));
+		spinner.setEnabled(false);
+		spinner.setBounds(300, 410, 42, 20);
+		getContentPane().add(spinner);
+		
+		jLabelNumSeats.setBounds(166, 410, 124, 20);
+		jLabelNumSeats.setHorizontalAlignment(SwingConstants.RIGHT);
+		getContentPane().add(jLabelNumSeats);
+
+		
 		jLabelEventDate.setBounds(new Rectangle(457, 6, 140, 25));
 		jLabelEvents.setBounds(166, 221, 259, 16);
 
 		this.getContentPane().add(jLabelEventDate, null);
 		this.getContentPane().add(jLabelEvents);
 
-		jButtonClose.setBounds(new Rectangle(367, 420, 130, 30));
+		jButtonClose.setBounds(new Rectangle(366, 441, 130, 30));
 
 		jButtonClose.addActionListener(new ActionListener()
 		{
@@ -247,6 +269,16 @@ public class FindRidesGUI extends JFrame {
 		tableRides.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent l) {
 				jButtonRequestRide.setEnabled(true);
+				jLabelAlreadyReserved.setVisible(false);
+				int selectedRow = tableRides.getSelectedRow();
+				if(selectedRow != -1) {
+					Ride ride = (Ride) tableModelRides.getValueAt(selectedRow, 3);
+					spinner.setModel(new SpinnerNumberModel(1, 1, ride.getnPlaces(), 1));
+					spinner.setEnabled(true);
+				} else {
+					// Tell the user something went wrong
+				}
+
 			}
 		});
 		/*
@@ -260,7 +292,8 @@ public class FindRidesGUI extends JFrame {
 				int selectedRow = tableRides.getSelectedRow();
 				if(selectedRow != -1) {
 					Ride ride = (Ride) tableModelRides.getValueAt(selectedRow, 3);
-					facade.makeReservationRequest(ride, rider);			
+					Boolean done = facade.makeReservationRequest(ride, rider, ((Double) spinner.getValue()).intValue());
+					if(!done) jLabelAlreadyReserved.setVisible(true);
 				} else {
 					// Tell the user something went wrong
 				}
@@ -268,16 +301,18 @@ public class FindRidesGUI extends JFrame {
 		});
 		
 		jButtonRequestRide.setBounds(new Rectangle(387, 420, 130, 30));
-		jButtonRequestRide.setBounds(176, 420, 130, 30);
+		jButtonRequestRide.setBounds(175, 441, 130, 30);
 		jButtonRequestRide.setEnabled(false);
 		// If the user is not a Rider or Driver, won't be able to request a ride
 		if(rider == null) {
 			jButtonRequestRide.setVisible(false);
+			spinner.setVisible(false);
+			jLabelNumSeats.setVisible(false);
 			jButtonClose.setBounds(new Rectangle(278, 420, 130, 30));
 		}
 		
 		getContentPane().add(jButtonRequestRide);
-
+		
 	}
 	public static void paintDaysWithEvents(JCalendar jCalendar,List<Date> datesWithEventsCurrentMonth, Color color) {
 		//		// For each day with events in current month, the background color for that day is changed to cyan.
