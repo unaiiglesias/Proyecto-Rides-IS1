@@ -193,12 +193,18 @@ public class DataAccess  {
 	}
 
 	public List<ReservationRequest> getReservationsOfRide(Ride ride) {
-		db.getTransaction().begin();
 		Ride r = db.find(Ride.class, ride.getRideNumber());
 		TypedQuery<ReservationRequest> query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1", ReservationRequest.class);
 		query.setParameter(1, r.getRideNumber());
 		List<ReservationRequest> l = query.getResultList();
-		db.getTransaction().commit();
+		return l;
+	}
+	
+	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride){
+		Ride r = db.find(Ride.class, ride.getRideNumber());
+		TypedQuery<ReservationRequest> query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1 AND r.reservationState = 'accepted'", ReservationRequest.class);
+		query.setParameter(1, r.getRideNumber());
+		List<ReservationRequest> l = query.getResultList();
 		return l;
 	}
 	
@@ -223,10 +229,14 @@ public class DataAccess  {
 		return l;
 	}
 	
-	public List<Ride> getRidesOfDriver(Driver driver, Date date) {
+	public List<Ride> getRidesOfDriver(Driver driver, Date date, int previousRides) {
 		db.getTransaction().begin();
 		Driver d = db.find(Driver.class, driver.getEmail());
-		TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1 AND r.date > ?2", Ride.class);
+		TypedQuery<Ride> query;
+		if(previousRides == 1)
+			query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1 AND r.date <= ?2", Ride.class);
+		else
+			query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1 AND r.date > ?2", Ride.class);
 		query.setParameter(1, d.getEmail());
 		query.setParameter(2, date);
 		List<Ride> l = query.getResultList();

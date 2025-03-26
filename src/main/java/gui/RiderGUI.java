@@ -13,8 +13,6 @@ public class RiderGUI extends MainGUI {
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton jButtonShowReservations;
-
 
 	/**
 	 * Create the frame.
@@ -41,19 +39,7 @@ public class RiderGUI extends MainGUI {
 		 * solid foundation to expand the uses cases of the Rider role in the future.
 		 * */
 		
-		// Show Reservations Button
-		jButtonShowReservations = new JButton();
-		jButtonShowReservations.setText("Show Rides and Reservation Requests"); // TODO: Improve naming and add translations
-		jButtonShowReservations.setBounds(0, 204, 644, 97);
-		jContentPane.add(jButtonShowReservations);
-		
-		if(currentSession==null) jButtonShowReservations.setVisible(false);
-		jButtonShowReservations.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame a = new ShowReservationsHistoryGUI(currentSession);
-				a.setVisible(true);
-			}
-		});
+
 		
 	}
 

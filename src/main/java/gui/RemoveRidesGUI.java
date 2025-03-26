@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +30,7 @@ import domain.Ride;
 import domain.Rider;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.Font;
 
 public class RemoveRidesGUI extends JFrame {
 
@@ -47,6 +50,26 @@ public class RemoveRidesGUI extends JFrame {
 	private JLabel ridesJLabel;
 	private JButton removeRideJButton;
 	private JLabel notRemovedJLabel;
+	
+	// ShowRequest GUI
+	private Ride selectedRide;
+	private JTable reservationsTable;
+	private DefaultTableModel reservationsTableModel;
+	private JScrollPane reservationsScrollPane;
+	private String[] columnNamesReservationsTable = new String[] {
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Date"),
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.NumSeats"),
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderName"), 
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RiderEmail"), 
+		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RequestState") 
+	};
+	private JLabel jLabelFutureRides;
+	private JLabel jLabelPastRides;
+	
+	private JScrollPane endedRidesScrollPane;
+	private JTable endedRidesTable;
+	private DefaultTableModel endedRidesTableModel;
+	private JLabel jLabelReservations;
 
 	/**
 	 * Create the frame.
@@ -57,7 +80,7 @@ public class RemoveRidesGUI extends JFrame {
 		facade = MainGUI.getBusinessLogic();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setSize(new Dimension(604, 396));
+		this.setSize(new Dimension(1012, 711));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -67,7 +90,7 @@ public class RemoveRidesGUI extends JFrame {
 		
 		ridesJLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RemoveRidesGUI.NoRides"));
 		ridesJLabel.setForeground(new Color(255, 0, 0));
-		ridesJLabel.setBounds(55, 11, 453, 14);
+		ridesJLabel.setBounds(473, 287, 453, 14);
 		ridesJLabel.setVisible(false);
 		contentPane.add(ridesJLabel);
 		
@@ -75,11 +98,11 @@ public class RemoveRidesGUI extends JFrame {
 		notRemovedJLabel.setVisible(false);
 		notRemovedJLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		notRemovedJLabel.setForeground(new Color(255, 0, 0));
-		notRemovedJLabel.setBounds(55, 318, 453, 28);
+		notRemovedJLabel.setBounds(473, 332, 453, 28);
 		contentPane.add(notRemovedJLabel);
 		
 		ridesScrollPane = new JScrollPane();
-		ridesScrollPane.setBounds(56, 27, 452, 236);
+		ridesScrollPane.setBounds(474, 47, 452, 236);
 		contentPane.add(ridesScrollPane);
 		
 		ridesTable = new JTable();
@@ -108,10 +131,18 @@ public class RemoveRidesGUI extends JFrame {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
+
+		// When selected a Ride, we'll display the accepted reservation requests associated to it
 		ridesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent l) {
-				removeRideJButton.setEnabled(true);;
+				endedRidesTable.clearSelection();
+				removeRideJButton.setEnabled(true);
+				int selectedRow = ridesTable.getSelectedRow();
+				if(selectedRow != -1) {
+					Ride r = (Ride) ridesTableModel.getValueAt(selectedRow, 3);
+					selectedRide = r;
+					updateReservations();
+				}
 			}
 		});
 	
@@ -133,10 +164,122 @@ public class RemoveRidesGUI extends JFrame {
 				}
 			}
 		});
-		removeRideJButton.setBounds(226, 274, 134, 37);
+		removeRideJButton.setBounds(631, 296, 134, 37);
 		contentPane.add(removeRideJButton);
+		
+		
+		/*
+		 * 
+		 * Code from ShowRequestsGUI
+		 * 
+		 */
+		
+		reservationsScrollPane = new JScrollPane();
+		reservationsScrollPane.setBounds(197, 409, 580, 183);
+		contentPane.add(reservationsScrollPane);
+		
+		reservationsTable = new JTable();
 
+		reservationsScrollPane.setViewportView(reservationsTable);
+		reservationsTableModel = new DefaultTableModel(null, columnNamesReservationsTable) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		reservationsTable.setModel(reservationsTableModel);
+		
+		jLabelFutureRides = new JLabel("Active Rides");
+		jLabelFutureRides.setForeground(Color.BLACK);
+		jLabelFutureRides.setFont(new Font("Tahoma", Font.BOLD, 16));
+		jLabelFutureRides.setBounds(473, 11, 453, 32);
+		contentPane.add(jLabelFutureRides);
+		
+		jLabelPastRides = new JLabel("Ended Rides");
+		jLabelPastRides.setForeground(Color.BLACK);
+		jLabelPastRides.setFont(new Font("Tahoma", Font.BOLD, 16));
+		jLabelPastRides.setBounds(10, 11, 453, 32);
+		contentPane.add(jLabelPastRides);
+		
+		reservationsTableModel.setDataVector(null, columnNamesReservationsTable);
+		reservationsTableModel.setColumnCount(6);
+
+		reservationsTable.getColumnModel().getColumn(0).setPreferredWidth(70);
+		reservationsTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+		reservationsTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+		reservationsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+		reservationsTable.getColumnModel().getColumn(4).setPreferredWidth(30);
+		
+		reservationsTable.getColumnModel().removeColumn(reservationsTable.getColumnModel().getColumn(5)); // not shown in JTable
+
+		
+		endedRidesScrollPane = new JScrollPane();
+		endedRidesScrollPane.setBounds(10, 47, 452, 236);
+		contentPane.add(endedRidesScrollPane);
+		
+		endedRidesTable = new JTable();
+		endedRidesScrollPane.setViewportView(endedRidesTable);
+		endedRidesTableModel = new DefaultTableModel(null, columnNamesTable) {
+
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		endedRidesTable.setModel(endedRidesTableModel);
+		
+		jLabelReservations = new JLabel("Reservations of Selected Ride"); //$NON-NLS-1$ //$NON-NLS-2$
+		jLabelReservations.setForeground(Color.BLACK);
+		jLabelReservations.setFont(new Font("Tahoma", Font.BOLD, 16));
+		jLabelReservations.setBounds(197, 371, 453, 32);
+		contentPane.add(jLabelReservations);
+		
+		try {
+			endedRidesTableModel.setDataVector(null, columnNamesTable);
+			endedRidesTableModel.setColumnCount(4);
+	
+			endedRidesTable.getColumnModel().getColumn(0).setPreferredWidth(70);
+			endedRidesTable.getColumnModel().getColumn(1).setPreferredWidth(30);
+			endedRidesTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+
+			endedRidesTable.getColumnModel().removeColumn(endedRidesTable.getColumnModel().getColumn(3)); // not shown in JTable
+			updateEndedRides();
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+		// When selected a Ride, we'll display the accepted reservation requests associated to it
+		endedRidesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent l) {
+				ridesTable.clearSelection();
+				notRemovedJLabel.setVisible(false);
+				int selectedRow = endedRidesTable.getSelectedRow();
+				if(selectedRow != -1) {
+					Ride r = (Ride) endedRidesTableModel.getValueAt(selectedRow, 3);
+					selectedRide = r;
+					updateReservations();
+				}
+			}
+		});
 	}
+	
+	
+	public void updateReservations() {
+		List<ReservationRequest> rrList=facade.getAcceptedReservationsOfRide(selectedRide);
+		reservationsTableModel.setRowCount(0);
+		for (ReservationRequest rr : rrList){
+			Vector<Object> row = new Vector<Object>();
+			row.add(rr.getStringDate());
+			row.add(rr.getNumSeats());
+			row.add(rr.getRider().getName());
+			row.add(rr.getRider().getEmail());
+			row.add(rr.getReservationState());
+			row.add(rr);
+			reservationsTableModel.addRow(row);
+		}
+	}
+	
 	
 	/**
 	 * This method updates the RidesTableModel with the Rides associated to the Driver that are posterior to the current date
@@ -154,6 +297,20 @@ public class RemoveRidesGUI extends JFrame {
 			row.add(r);
 			ridesTableModel.addRow(row);		
 		}
-
+	}
+		
+	public void updateEndedRides() {
+		List<Ride> rideList=facade.getEndedRidesOfDriver(driver);
+		endedRidesTableModel.setRowCount(0);
+		
+		if (rideList.isEmpty()) ridesJLabel.setVisible(true);
+		for (Ride r : rideList){
+			Vector<Object> row = new Vector<Object>();
+			row.add(r.getStringDate());
+			row.add(r.getFrom());
+			row.add(r.getTo());
+			row.add(r);
+			endedRidesTableModel.addRow(row);		
+		}
 	}
 }

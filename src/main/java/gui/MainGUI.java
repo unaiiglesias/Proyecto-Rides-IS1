@@ -47,6 +47,7 @@ public class MainGUI extends JFrame {
 	public JButton logoutJButton;
 	public JButton signUpJButton;
 	public JLabel currentUserJLabel;
+	private JButton jButtonShowReservations;
 	
 	/**
 	 * This is the default constructor
@@ -167,6 +168,20 @@ public class MainGUI extends JFrame {
 		 	Rider: query rides, request ride
 		 	Driver: query rides, request ride, create ride, show requests
 		 */
+		
+		// Show Reservations Button
+		jButtonShowReservations = new JButton();
+		jButtonShowReservations.setText("Show Rides and Reservation Requests"); // TODO: Improve naming and add translations
+		jButtonShowReservations.setBounds(0, 204, 644, 97);
+		jContentPane.add(jButtonShowReservations);
+		
+		if(currentSession==null) jButtonShowReservations.setVisible(false);
+		jButtonShowReservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new ShowReservationsHistoryGUI(currentSession);
+				a.setVisible(true);
+			}
+		});
 		
 	}
 	

@@ -130,6 +130,19 @@ public class BLFacadeImplementation  implements BLFacade {
 		return l;
 	}
 	
+	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride){
+		List<ReservationRequest> l = null;
+		dbManager.open();
+		l = dbManager.getAcceptedReservationsOfRide(ride);
+		Collections.sort(l, new Comparator<ReservationRequest>() {
+			public int compare(ReservationRequest r1, ReservationRequest r2) {
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
+		dbManager.close();
+		return l;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -162,7 +175,20 @@ public class BLFacadeImplementation  implements BLFacade {
 	public List<Ride> getPosteriorRidesOfDriver(Driver driver) {
 		dbManager.open();
 		Date date = getCurrentDate();
-		List<Ride> l = dbManager.getRidesOfDriver(driver, date);
+		List<Ride> l = dbManager.getRidesOfDriver(driver, date, 0);
+		Collections.sort(l, new Comparator<Ride>() {
+			public int compare(Ride r1, Ride r2) {
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
+		dbManager.close();
+		return l;
+	}
+	
+	public List<Ride> getEndedRidesOfDriver(Driver driver){
+		dbManager.open();
+		Date date = getCurrentDate();
+		List<Ride> l = dbManager.getRidesOfDriver(driver, date, 1);
 		Collections.sort(l, new Comparator<Ride>() {
 			public int compare(Ride r1, Ride r2) {
 				return r1.getDate().compareTo(r2.getDate());

@@ -21,6 +21,9 @@ public class DriverGUI extends MainGUI {
 	public DriverGUI (Driver d) {
 		
 		super(d);
+		
+		// We need to modify the size, else MainGUI's will be chosen
+		this.setSize(656, 700);
 
 		System.out.println("GUI overloading: DriverGUI");
 		System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
@@ -35,7 +38,7 @@ public class DriverGUI extends MainGUI {
 		
 		// Crete Ride button
 		jButtonCreateQuery = new JButton();
-		jButtonCreateQuery.setBounds(0, 201, 644, 97);
+		jButtonCreateQuery.setBounds(0, 298, 644, 97);
 		getContentPane().add(jButtonCreateQuery);
 		jButtonCreateQuery.setVisible(true);
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
@@ -48,7 +51,7 @@ public class DriverGUI extends MainGUI {
 		
 		//Remove query button
 		jButtonRemoveRide = new JButton();
-		jButtonRemoveRide.setBounds(0, 297, 644, 97);
+		jButtonRemoveRide.setBounds(0, 394, 644, 97);
 		getContentPane().add(jButtonRemoveRide);
 		jButtonRemoveRide.setVisible(true);
 		jButtonRemoveRide.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.RemoveRides"));
@@ -61,7 +64,7 @@ public class DriverGUI extends MainGUI {
 		
 		// Show requests button
 		jButtonShowRequests = new JButton();
-		jButtonShowRequests.setBounds(0, 393, 644, 97);
+		jButtonShowRequests.setBounds(0, 490, 644, 97);
 		getContentPane().add(jButtonShowRequests);
 		jButtonShowRequests.setVisible(true);
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));

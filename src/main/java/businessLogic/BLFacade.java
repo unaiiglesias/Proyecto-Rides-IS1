@@ -118,6 +118,8 @@ public interface BLFacade  {
 	 */
 	public List<ReservationRequest> getReservationsOfRide(Ride ride);
 	
+	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride);
+	
 	/**
 	 * This method removes a reservation request
 	 * @param reservation The ReservationRequest to be removed
@@ -145,6 +147,7 @@ public interface BLFacade  {
 	 */
 	public List<Ride> getPosteriorRidesOfDriver(Driver driver);
 	
+	public List<Ride> getEndedRidesOfDriver(Driver driver);
 	
 	/**
 	 * This method accepts a given ReservationRequest.
