@@ -13,17 +13,20 @@ public class RiderGUI extends MainGUI {
 
 	private static final long serialVersionUID = 1L;
 
-
+	private JButton jButtonShowReservations;
+	
 	/**
 	 * Create the frame.
 	 */
 	public RiderGUI (Rider d) {
 		super(d);
 
+		this.currentSession = d;
 		System.out.println("GUI overloading: RiderGUI");
 		
 		// Current Session label
-		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
+		if (d != null) // WindowBuilder design view fix
+			currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
 		currentUserJLabel.setVisible(true);
 		
 		// Disable login stuff
@@ -39,7 +42,18 @@ public class RiderGUI extends MainGUI {
 		 * solid foundation to expand the uses cases of the Rider role in the future.
 		 * */
 		
-
+		// Show Reservations Button
+		jButtonShowReservations = new JButton();
+		jButtonShowReservations.setText("Show Rides and Reservation Requests"); // TODO: Improve naming and add translations
+		jButtonShowReservations.setBounds(0, 204, 644, 97);
+		jContentPane.add(jButtonShowReservations);
+		
+		jButtonShowReservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new ShowReservationsHistoryGUI(currentSession);
+				a.setVisible(true);
+			}
+		});
 		
 	}
 

@@ -7,26 +7,26 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import domain.Driver;
 
-public class DriverGUI extends MainGUI {
+public class DriverGUI extends RiderGUI {
 
 	private static final long serialVersionUID = 1L;
 
 	public JButton jButtonCreateQuery;
 	public JButton jButtonShowRequests;
 	public JButton jButtonRemoveRide;
-
+	
 	/**
 	 * Extend MainGUI to include Driver only options
 	 */
 	public DriverGUI (Driver d) {
 		
 		super(d);
+		this.currentSession = d;
 		
-		// We need to modify the size, else MainGUI's will be chosen
-		this.setSize(656, 700);
+		// DriverGUI has plenty of functionality, so we need to extend the window for all the buttons to fit
+		this.setSize(656, 628);
 
 		System.out.println("GUI overloading: DriverGUI");
-		System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 		
 		// Current Session label
 		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
@@ -51,7 +51,7 @@ public class DriverGUI extends MainGUI {
 		
 		//Remove query button
 		jButtonRemoveRide = new JButton();
-		jButtonRemoveRide.setBounds(0, 394, 644, 97);
+		jButtonRemoveRide.setBounds(0, 393, 644, 97);
 		getContentPane().add(jButtonRemoveRide);
 		jButtonRemoveRide.setVisible(true);
 		jButtonRemoveRide.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.RemoveRides"));
@@ -64,7 +64,7 @@ public class DriverGUI extends MainGUI {
 		
 		// Show requests button
 		jButtonShowRequests = new JButton();
-		jButtonShowRequests.setBounds(0, 490, 644, 97);
+		jButtonShowRequests.setBounds(0, 487, 644, 97);
 		getContentPane().add(jButtonShowRequests);
 		jButtonShowRequests.setVisible(true);
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
