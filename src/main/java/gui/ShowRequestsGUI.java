@@ -34,7 +34,7 @@ public class ShowRequestsGUI extends JFrame {
 	private JPanel contentPane;
 	private Driver driver;
 	
-	private JLabel jLabelSelectRide;
+	private JLabel rideSelectionLabel;
 	private JComboBox<Ride> ridesComboBox;
 	private DefaultComboBoxModel<Ride> ridesModel = new DefaultComboBoxModel<Ride>();
 	private JLabel jLabelRides;
@@ -63,9 +63,11 @@ public class ShowRequestsGUI extends JFrame {
 	@SuppressWarnings("serial")
 	public ShowRequestsGUI(Driver d) {
 		
+		// Utility variables
 		this.driver = d;
 		facade = MainGUI.getBusinessLogic();
 		
+		// JFrame config
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(new Dimension(604, 459));
 		contentPane = new JPanel();
@@ -73,13 +75,15 @@ public class ShowRequestsGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		jLabelSelectRide = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Ride"));
-		jLabelSelectRide.setHorizontalAlignment(SwingConstants.LEFT);
-		jLabelSelectRide.setVerticalAlignment(SwingConstants.TOP);
-		jLabelSelectRide.setBounds(10, 51, 119, 34);
-		contentPane.add(jLabelSelectRide);
+		// Ride selection label
+		rideSelectionLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RideSelectionLabel"));
+		rideSelectionLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		rideSelectionLabel.setVerticalAlignment(SwingConstants.TOP);
+		rideSelectionLabel.setBounds(10, 51, 119, 34);
+		contentPane.add(rideSelectionLabel);
 		
-		jLabelError = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.Error"));
+		// No seats avaliable error label (triggered when trying to accept a requests that asks for too many seats
+		jLabelError = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.NoSeatsAvaliableError"));
 		jLabelError.setHorizontalAlignment(SwingConstants.CENTER);
 		jLabelError.setVerticalAlignment(SwingConstants.TOP);
 		jLabelError.setBounds(54, 387, 500, 22);
@@ -87,6 +91,7 @@ public class ShowRequestsGUI extends JFrame {
 		jLabelError.setVisible(false);
 		contentPane.add(jLabelError);
 		
+		// Ride selection comboBox (Choose ride for which to show 
 		ridesComboBox = new JComboBox<Ride>();
 		ridesComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -95,7 +100,6 @@ public class ShowRequestsGUI extends JFrame {
 				showReservationsJButton.setEnabled(true);
 			}
 		});
-		
 		// Set the model for the ComboBox
 		for (Ride r: facade.getPosteriorRidesOfDriver(driver))
 			ridesModel.addElement(r);

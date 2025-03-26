@@ -23,6 +23,7 @@ public class DriverGUI extends MainGUI {
 		super(d);
 
 		System.out.println("GUI overloading: DriverGUI");
+		System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 		
 		// Current Session label
 		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
@@ -34,42 +35,43 @@ public class DriverGUI extends MainGUI {
 		
 		// Crete Ride button
 		jButtonCreateQuery = new JButton();
-		jButtonCreateQuery.setBounds(0, 301, 644, 97);
+		jButtonCreateQuery.setBounds(0, 201, 644, 97);
 		getContentPane().add(jButtonCreateQuery);
 		jButtonCreateQuery.setVisible(true);
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
-		
-		//Remove query button
-		jButtonRemoveRide = new JButton();
-		jButtonRemoveRide.setBounds(0, 398, 644, 97);
-		getContentPane().add(jButtonRemoveRide);
-		jButtonRemoveRide.setVisible(true);
-		jButtonRemoveRide.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.RemoveRides"));
-		
-		// Show requests button
-		jButtonShowRequests = new JButton();
-		jButtonShowRequests.setBounds(0, 494, 644, 97);
-		getContentPane().add(jButtonShowRequests);
-		jButtonShowRequests.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame a = new ShowRequestsGUI((Driver) currentSession);
-				a.setVisible(true);
-			}
-		});
-		jButtonShowRequests.setVisible(true);
-		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
-		jButtonRemoveRide.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame a = new RemoveRidesGUI((Driver) currentSession);
-				a.setVisible(true);
-			}
-		});
 		jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				JFrame a = new CreateRideGUI((Driver) currentSession);
 				a.setVisible(true);
 			}
 		});
+		
+		//Remove query button
+		jButtonRemoveRide = new JButton();
+		jButtonRemoveRide.setBounds(0, 297, 644, 97);
+		getContentPane().add(jButtonRemoveRide);
+		jButtonRemoveRide.setVisible(true);
+		jButtonRemoveRide.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.RemoveRides"));
+		jButtonRemoveRide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new RemoveRidesGUI((Driver) currentSession);
+				a.setVisible(true);
+			}
+		});
+		
+		// Show requests button
+		jButtonShowRequests = new JButton();
+		jButtonShowRequests.setBounds(0, 393, 644, 97);
+		getContentPane().add(jButtonShowRequests);
+		jButtonShowRequests.setVisible(true);
+		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
+		jButtonShowRequests.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new ShowRequestsGUI((Driver) currentSession);
+				a.setVisible(true);
+			}
+		});
+
 		
 		// Disable login stuff
 		signUpJButton.setVisible(false);
