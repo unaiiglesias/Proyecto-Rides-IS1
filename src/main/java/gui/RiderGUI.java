@@ -44,7 +44,7 @@ public class RiderGUI extends MainGUI {
 		
 		// Show Reservations Button
 		showReservationsButton = new JButton();
-		showReservationsButton.setText("Show Rides and Reservation Requests");
+		showReservationsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.ShowReservationsButton"));
 		showReservationsButton.setBounds(0, 204, 644, 97);
 		jContentPane.add(showReservationsButton);
 		

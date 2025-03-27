@@ -175,7 +175,7 @@ public class MainGUI extends JFrame {
 	
 	// Refresh translations text
 	public void paintAgain() {
-		headerLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
+		headerLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.HeaderLabel"));
 		queryRidesButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
 		signUpJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
