@@ -311,6 +311,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 	
 	private Date getCurrentDate() {
+		// TODO: Is this correct?
 		Calendar today = Calendar.getInstance();
 	   	int month=today.get(Calendar.MONTH);
 	   	int year=today.get(Calendar.YEAR);

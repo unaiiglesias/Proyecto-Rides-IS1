@@ -13,7 +13,7 @@ public class RiderGUI extends MainGUI {
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton jButtonShowReservations;
+	private JButton showReservationsButton;
 	
 	/**
 	 * Create the frame.
@@ -26,15 +26,15 @@ public class RiderGUI extends MainGUI {
 		
 		// Current Session label
 		if (d != null) // WindowBuilder design view fix
-			currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
-		currentUserJLabel.setVisible(true);
+			currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
+		currentUserLabel.setVisible(true);
 		
 		// Disable login stuff
 		signUpJButton.setVisible(false);
 		loginJButton.setVisible(false);
 		
 		// Update Query rides button text
-		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.QueryRides"));
+		queryRidesButton.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.QueryRides"));
 		
 		/*
 		 * As of Iteration 1, RiderGUI is almost the same as MainGUI because the functionality of both
@@ -43,12 +43,12 @@ public class RiderGUI extends MainGUI {
 		 * */
 		
 		// Show Reservations Button
-		jButtonShowReservations = new JButton();
-		jButtonShowReservations.setText("Show Rides and Reservation Requests"); // TODO: Improve naming and add translations
-		jButtonShowReservations.setBounds(0, 204, 644, 97);
-		jContentPane.add(jButtonShowReservations);
+		showReservationsButton = new JButton();
+		showReservationsButton.setText("Show Rides and Reservation Requests");
+		showReservationsButton.setBounds(0, 204, 644, 97);
+		jContentPane.add(showReservationsButton);
 		
-		jButtonShowReservations.addActionListener(new ActionListener() {
+		showReservationsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new ShowReservationsHistoryGUI(currentSession);
 				a.setVisible(true);
@@ -61,6 +61,6 @@ public class RiderGUI extends MainGUI {
 		public void paintAgain() {
 		super.paintAgain();
 		
-		currentUserJLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
+		currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
 	}
 }

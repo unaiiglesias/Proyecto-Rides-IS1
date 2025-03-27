@@ -216,9 +216,5 @@ public class Ride implements Serializable {
 	public String toString(){
 		return rideNumber+";"+";"+from+";"+to+";"+date;  
 	}
-
-
-
-
 	
 }
