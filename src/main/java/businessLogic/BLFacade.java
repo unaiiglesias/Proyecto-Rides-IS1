@@ -92,6 +92,8 @@ public interface BLFacade  {
 	 */
 	public void addDriver(String email, String password, String name, String surname, int age, String licensePlate, String vehicleModel) throws UserAlreadyExistException;
 	
+	public void addReview(Integer points, String message, Ride ride, Rider rider, Driver driver);
+	
 	/**
 	 * This method does the login of a Rider or Driver
 	 * @return instance of Rider (or Driver) 

@@ -28,6 +28,8 @@ public class Driver extends Rider implements Serializable {
 	@XmlIDREF
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Ride> rides=new Vector<Ride>();
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<Review> reviews;
 
 	public Driver() {
 		super();
@@ -39,6 +41,7 @@ public class Driver extends Rider implements Serializable {
 		this.licensePlate = licensePlate;
 		this.vehicleModel = vehicleModel;
 		this.rides = new ArrayList<Ride>();
+		this.reviews = new ArrayList<Review>();
 	}
 	
 	
@@ -57,6 +60,10 @@ public class Driver extends Rider implements Serializable {
         Ride ride=new Ride(from,to,date,nPlaces,price, this);
         rides.add(ride);
         return ride;
+	}
+	
+	public void addReview(Review review) {
+		this.reviews.add(review);
 	}
 
 	/**

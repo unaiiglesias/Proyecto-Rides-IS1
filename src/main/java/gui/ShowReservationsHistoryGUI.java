@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -45,6 +46,7 @@ public class ShowReservationsHistoryGUI extends JFrame {
 	private DefaultTableCellRenderer render;
 	private JButton cancelReservationJButton;
 	private JButton showReviewsButton;
+	private JButton addReviewButton;
 	
 
 	
@@ -88,6 +90,22 @@ public class ShowReservationsHistoryGUI extends JFrame {
 		
 		// Completed rides table
 		ridesDoneTable = new JTable();
+		ridesDoneTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent l) {
+				addReviewButton.setEnabled(true);
+				int selectedRow = ridesDoneTable.getSelectedRow();
+				if(selectedRow != -1) {
+					Ride ride = (Ride) ridesDoneTableModel.getValueAt(selectedRow, 5);
+					List<Review> reviews = ride.getReviews();
+					for(Review rw : reviews) {
+						if(rw.getRider().getEmail().equals(currentUser.getEmail())) {
+							addReviewButton.setEnabled(false);
+							break;
+						}
+					}
+				} 
+			}
+		});
 		scrollPaneRidesDone.setViewportView(ridesDoneTable);
 		// its model
 		ridesDoneTableModel = new DefaultTableModel(null, columnNamesTable1) {
@@ -192,11 +210,22 @@ public class ShowReservationsHistoryGUI extends JFrame {
 		cancelReservationJButton.setEnabled(false);
 		contentPane.add(cancelReservationJButton);
 		
-		// Add review button
-		JButton addReviewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHisttoryGUI.addReviewButton"));
+		addReviewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHisttoryGUI.addReviewButton"));
 		addReviewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO: Add functionality
+				// Get the selected Ride
+				int selectedRow = ridesDoneTable.getSelectedRow();
+				if(selectedRow != -1) {
+					Ride ride = (Ride) ridesDoneTableModel.getValueAt(selectedRow, 5);				
+					// Display user data input
+					CreateReviewGUI a = new CreateReviewGUI();
+					a.setVisible(true);
+					// Check if review was done
+					if(a.reviewDone) {
+						facade.addReview(a.starsGiven, a.message, ride, currentUser, ride.getDriver());
+						updateRidesDone();
+						addReviewButton.setEnabled(false);					}
+				}
 			}
 		});
 		addReviewButton.setBounds(159, 309, 223, 32);

@@ -12,9 +12,7 @@ import javax.jws.WebService;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import dataAccess.DataAccess;
-import domain.Ride;
-import domain.Rider;
-import domain.Driver;
+import domain.*;
 import domain.ReservationRequest;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.IncorrectCredentialsException;
@@ -76,6 +74,13 @@ public class BLFacadeImplementation  implements BLFacade {
     	} finally {
     		dbManager.close();	
     	}
+	}
+	
+	public void addReview(Integer points, String message, Ride ride, Rider rider, Driver driver) {
+		dbManager.open();
+		Review review = new Review(points, message, ride, rider, driver);
+		dbManager.addReview(review);
+		dbManager.close();
 	}
 	
     /**

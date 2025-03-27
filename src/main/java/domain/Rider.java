@@ -20,6 +20,8 @@ public class Rider {
 	private int age;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<ReservationRequest> reservations;
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<Review> reviewsMade;
 	
 	public Rider() {
 		
@@ -33,6 +35,10 @@ public class Rider {
 		this.reservations.remove(rr);
 	}
 	
+	public void addMadeReview(Review review) {
+		this.reviewsMade.add(review);
+	}
+	
 	public Rider(String email, String password, String name, String surname, int age) {
 		this.email = email;
 		this.password = password;
@@ -40,6 +46,7 @@ public class Rider {
 		this.surname = surname;
 		this.age = age;
 		this.reservations = new ArrayList<ReservationRequest>();
+		this.reviewsMade = new ArrayList<Review>();
 	}
 
 	public String getEmail() {

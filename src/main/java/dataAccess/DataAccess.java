@@ -20,6 +20,7 @@ import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Driver;
 import domain.ReservationRequest;
+import domain.Review;
 import domain.Ride;
 import domain.Rider;
 import exceptions.RideAlreadyExistException;
@@ -190,6 +191,17 @@ public class DataAccess  {
 		}
 		db.getTransaction().commit();
 		return true;
+	}
+	
+	public void addReview(Review review) {
+		Ride ride = db.find(Ride.class, review.getRide());
+		Rider rider = db.find(Rider.class, review.getRider());
+		Driver driver = db.find(Driver.class, review.getDriver());
+		db.getTransaction().begin();
+		ride.addReview(review);
+		rider.addMadeReview(review);
+		driver.addReview(review);
+		db.getTransaction().commit();
 	}
 
 	public List<ReservationRequest> getReservationsOfRide(Ride ride) {
