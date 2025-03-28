@@ -8,6 +8,7 @@ import domain.Ride;
 import domain.Rider;
 import domain.Driver;
 import domain.ReservationRequest;
+import domain.Review;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.RideAlreadyExistException;
 import exceptions.UserAlreadyExistException;
@@ -93,6 +94,8 @@ public interface BLFacade  {
 	public void addDriver(String email, String password, String name, String surname, int age, String licensePlate, String vehicleModel) throws UserAlreadyExistException;
 	
 	public void addReview(Integer points, String message, Ride ride, Rider rider, Driver driver);
+	
+	public List<Review> getReviewsOfDriver(Driver driver);
 	
 	public String getDriverStars(Driver driver);
 	

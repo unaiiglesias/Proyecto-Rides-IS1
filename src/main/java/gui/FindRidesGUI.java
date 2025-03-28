@@ -4,6 +4,8 @@ import businessLogic.BLFacade;
 import configuration.UtilDate;
 
 import com.toedter.calendar.JCalendar;
+
+import domain.Review;
 import domain.Ride;
 import domain.Rider;
 
@@ -19,6 +21,7 @@ import java.util.*;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 
 public class FindRidesGUI extends JFrame {
@@ -66,6 +69,52 @@ public class FindRidesGUI extends JFrame {
 	@SuppressWarnings("serial")
 	public FindRidesGUI(Rider rider)
 	{
+		/*
+		 * Auxiliar clases
+		 */
+		BLFacade facade = MainGUI.getBusinessLogic();
+	    class ButtonRenderer extends JButton implements TableCellRenderer {
+	        public ButtonRenderer() {
+	            setOpaque(true);  // Hacer opaco el botón
+	        }
+
+	        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	            // El texto del botón será el valor de la celda de la tabla
+	            setText(value.toString());
+	            return this;
+	        }
+	    }
+
+	    class ButtonEditor extends DefaultCellEditor {
+	        private JButton button;
+
+	        public ButtonEditor(JCheckBox checkBox) {
+	            super(checkBox);
+	            button = new JButton();
+	            button.addActionListener(new ActionListener() {
+	                @Override
+	                public void actionPerformed(ActionEvent e) {
+	                    // Mostrar mensaje con el texto del botón
+	    				int selectedRow = tableRides.getSelectedRow();
+	                    ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver()));
+	                    a.setVisible(true);
+	                    fireEditingStopped(); 
+	                }
+	            });
+	        }
+
+	        @Override
+	        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+	            button.setText(value.toString());
+	            return button;
+	        }
+
+	        @Override
+	        public Object getCellEditorValue() {
+	            return button.getText();
+	        }
+	    }
+	    
 		this.rider = rider;
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(700, 546));
@@ -105,7 +154,7 @@ public class FindRidesGUI extends JFrame {
 				jButton2_actionPerformed(e);
 			}
 		});
-		BLFacade facade = MainGUI.getBusinessLogic();
+
 		List<String> origins=facade.getDepartCities();
 		
 		for(String location:origins) originLocations.addElement(location);
@@ -140,7 +189,6 @@ public class FindRidesGUI extends JFrame {
 				
 			}
 		});
-
 
 		jComboBoxDestination.setModel(destinationCities);
 		jComboBoxDestination.setBounds(new Rectangle(103, 80, 172, 20));
@@ -226,11 +274,14 @@ public class FindRidesGUI extends JFrame {
 
 						e1.printStackTrace();
 					}
-					tableRides.getColumnModel().getColumn(0).setPreferredWidth(100);
-					tableRides.getColumnModel().getColumn(1).setPreferredWidth(30);
+					tableRides.getColumnModel().getColumn(0).setPreferredWidth(70);
+					tableRides.getColumnModel().getColumn(1).setPreferredWidth(50);
 					tableRides.getColumnModel().getColumn(2).setPreferredWidth(30);
 					tableRides.getColumnModel().getColumn(3).setPreferredWidth(30);
 					tableRides.getColumnModel().removeColumn(tableRides.getColumnModel().getColumn(4)); // not shown in JTable
+				    
+					tableRides.getColumnModel().getColumn(1).setCellRenderer(new ButtonRenderer());
+					tableRides.getColumnModel().getColumn(1).setCellEditor(new ButtonEditor(new JCheckBox()));
 
 				}
 			} 
@@ -247,6 +298,7 @@ public class FindRidesGUI extends JFrame {
 		 */
 		tableModelRides = new DefaultTableModel(null, columnNamesRides) {
 			public boolean isCellEditable(int row, int column) {
+				if(column == 1) return true;
 				return false;
 			}
 		};
@@ -256,8 +308,8 @@ public class FindRidesGUI extends JFrame {
 		tableModelRides.setDataVector(null, columnNamesRides);
 		tableModelRides.setColumnCount(5); // another column added to allocate ride objects
 
-		tableRides.getColumnModel().getColumn(0).setPreferredWidth(100);
-		tableRides.getColumnModel().getColumn(1).setPreferredWidth(30);
+		tableRides.getColumnModel().getColumn(0).setPreferredWidth(70);
+		tableRides.getColumnModel().getColumn(1).setPreferredWidth(50);
 		tableRides.getColumnModel().getColumn(2).setPreferredWidth(30);
 		tableRides.getColumnModel().getColumn(3).setPreferredWidth(30);
 		tableRides.getColumnModel().removeColumn(tableRides.getColumnModel().getColumn(4)); // not shown in JTable
@@ -265,6 +317,9 @@ public class FindRidesGUI extends JFrame {
 		this.getContentPane().add(scrollPaneEvents, null);
 		datesWithRidesCurrentMonth=facade.getThisMonthDatesWithRides((String)jComboBoxOrigin.getSelectedItem(),(String)jComboBoxDestination.getSelectedItem(),jCalendar1.getDate());
 		paintDaysWithEvents(jCalendar1,datesWithRidesCurrentMonth,Color.CYAN);
+		
+		// Add a JButton to the driver's reviews column so that by clicking the user will see all the reviews of that driver
+
 		
 		/*
 		 In order to perform a ride request, we will need to enable the following JButton only if a ride is selected from (JTabel) tableRides
@@ -315,6 +370,7 @@ public class FindRidesGUI extends JFrame {
 		}
 		
 		getContentPane().add(jButtonRequestRide);
+
 		
 	}
 	public static void paintDaysWithEvents(JCalendar jCalendar,List<Date> datesWithEventsCurrentMonth, Color color) {
@@ -363,5 +419,7 @@ public class FindRidesGUI extends JFrame {
 	private void jButton2_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}
+	
+
 
 }

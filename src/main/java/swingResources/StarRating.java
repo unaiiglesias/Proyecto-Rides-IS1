@@ -25,6 +25,10 @@ public class StarRating extends javax.swing.JPanel {
             star5ActionPerformed(null);
         }
     }
+    
+    public void setDisabled() {
+    	for(Component c : getComponents()) c.setEnabled(false);
+    }
 
     private List<EventStarRating> events = new ArrayList<>();
     private int star;

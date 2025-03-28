@@ -1,5 +1,8 @@
 package domain;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,6 +10,7 @@ public class Review {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	private Date date;
 	private Integer points;
 	private String message;
 	@ManyToOne
@@ -20,6 +24,7 @@ public class Review {
 		this.points = points;
 		this.message = message;
 		this.ride = ride;
+		this.date = new Date();
 		this.rider = rider;
 		this.driver = driver;
 	}
@@ -70,6 +75,10 @@ public class Review {
 
 	public void setDriver(Driver driver) {
 		this.driver = driver;
+	}
+	public String getStringDate() {
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return(formater.format(this.date));
 	}
 	
 }

@@ -114,6 +114,9 @@ public class DataAccess  {
 			Ride ride9 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2020,10,14), 4, 30);
 			Ride ride10 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2010,4,14), 3, 30);
 			Ride ride11 = driver3.addRide("Donostia", "Santander", UtilDate.newDate(year,month,30), 4, 30);
+			Ride ride12 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2012,4,14), 3, 30);
+			Ride ride13 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2013,4,14), 3, 30);
+			Ride ride14 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2014,4,14), 3, 30);
 
 			db.persist(driver1);
 			db.persist(driver2);
@@ -143,6 +146,12 @@ public class DataAccess  {
 			ReservationRequest reservation7 = new ReservationRequest(rider1, ride11, 1);
 			reservation7.setReservationState("accepted");
 			addReservationRequest(reservation7);
+			ReservationRequest reservation8 = new ReservationRequest(rider1, ride12, 1);
+			reservation8.setReservationState("accepted");
+			addReservationRequest(reservation8);
+			ReservationRequest reservation9 = new ReservationRequest(rider1, ride13, 1);
+			reservation9.setReservationState("accepted");
+			addReservationRequest(reservation9);
 			// This needs to be done out of the transaction because each of the method calls creates its own transaction
 			
 			System.out.println("SUCCESS: Db initialized with example data");
@@ -205,6 +214,14 @@ public class DataAccess  {
 	}
 	
 	public List<Review> getDriverReviews(Driver driver){
+		Driver dr = db.find(Driver.class, driver.getEmail());
+		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1", Review.class);
+		query.setParameter(1, dr.getEmail());
+		List<Review> l = query.getResultList();
+		return l;
+	}
+	
+	public List<Review> getReviewsOfDriver(Driver driver){
 		Driver dr = db.find(Driver.class, driver.getEmail());
 		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1", Review.class);
 		query.setParameter(1, dr.getEmail());

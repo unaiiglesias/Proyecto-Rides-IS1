@@ -96,6 +96,13 @@ public class BLFacadeImplementation  implements BLFacade {
 		return stars;
 	}
 	
+	public List<Review> getReviewsOfDriver(Driver driver){
+		dbManager.open();
+		List<Review> l = dbManager.getReviewsOfDriver(driver);
+		dbManager.close();
+		return l;
+	}
+	
     /**
      * {@inheritDoc}
      */

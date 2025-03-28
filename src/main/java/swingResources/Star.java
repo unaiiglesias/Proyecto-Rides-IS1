@@ -14,6 +14,7 @@ public class Star extends JButton {
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setBackground(new Color(200, 200, 200));
         setForeground(Color.yellow);
+        setBorder(null);
     }
 
     @Override
