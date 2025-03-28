@@ -52,7 +52,8 @@ public class FindRidesGUI extends JFrame {
 
 
 	private String[] columnNamesRides = new String[] {
-			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.Driver"), 
+			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.Driver"),
+			"Reviews",
 			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.NPlaces"), 
 			ResourceBundle.getBundle("Etiquetas").getString("FindRidesGUI.Price")
 	};
@@ -201,7 +202,7 @@ public class FindRidesGUI extends JFrame {
 					
 					try {
 						tableModelRides.setDataVector(null, columnNamesRides);
-						tableModelRides.setColumnCount(4); // another column added to allocate ride objects
+						tableModelRides.setColumnCount(5); // another column added to allocate ride objects
 
 						BLFacade facade = MainGUI.getBusinessLogic();
 						List<domain.Ride> rides=facade.getRides((String)jComboBoxOrigin.getSelectedItem(),(String)jComboBoxDestination.getSelectedItem(),UtilDate.trim(jCalendar1.getDate()));
@@ -211,6 +212,7 @@ public class FindRidesGUI extends JFrame {
 						for (domain.Ride ride:rides){
 							Vector<Object> row = new Vector<Object>();
 							row.add(ride.getDriver().getName());
+							row.add(facade.getDriverStars(ride.getDriver()));
 							row.add(ride.getnPlaces());
 							row.add(ride.getPrice());
 							row.add(ride); // ev object added in order to obtain it with tableModelEvents.getValueAt(i,3)
@@ -224,10 +226,11 @@ public class FindRidesGUI extends JFrame {
 
 						e1.printStackTrace();
 					}
-					tableRides.getColumnModel().getColumn(0).setPreferredWidth(170);
+					tableRides.getColumnModel().getColumn(0).setPreferredWidth(100);
 					tableRides.getColumnModel().getColumn(1).setPreferredWidth(30);
-					tableRides.getColumnModel().getColumn(1).setPreferredWidth(30);
-					tableRides.getColumnModel().removeColumn(tableRides.getColumnModel().getColumn(3)); // not shown in JTable
+					tableRides.getColumnModel().getColumn(2).setPreferredWidth(30);
+					tableRides.getColumnModel().getColumn(3).setPreferredWidth(30);
+					tableRides.getColumnModel().removeColumn(tableRides.getColumnModel().getColumn(4)); // not shown in JTable
 
 				}
 			} 
@@ -251,13 +254,13 @@ public class FindRidesGUI extends JFrame {
 		tableRides.setModel(tableModelRides);
 
 		tableModelRides.setDataVector(null, columnNamesRides);
-		tableModelRides.setColumnCount(4); // another column added to allocate ride objects
+		tableModelRides.setColumnCount(5); // another column added to allocate ride objects
 
-		tableRides.getColumnModel().getColumn(0).setPreferredWidth(170);
+		tableRides.getColumnModel().getColumn(0).setPreferredWidth(100);
 		tableRides.getColumnModel().getColumn(1).setPreferredWidth(30);
-		tableRides.getColumnModel().getColumn(1).setPreferredWidth(30);
-
-		tableRides.getColumnModel().removeColumn(tableRides.getColumnModel().getColumn(3)); // not shown in JTable
+		tableRides.getColumnModel().getColumn(2).setPreferredWidth(30);
+		tableRides.getColumnModel().getColumn(3).setPreferredWidth(30);
+		tableRides.getColumnModel().removeColumn(tableRides.getColumnModel().getColumn(4)); // not shown in JTable
 
 		this.getContentPane().add(scrollPaneEvents, null);
 		datesWithRidesCurrentMonth=facade.getThisMonthDatesWithRides((String)jComboBoxOrigin.getSelectedItem(),(String)jComboBoxDestination.getSelectedItem(),jCalendar1.getDate());
@@ -272,7 +275,7 @@ public class FindRidesGUI extends JFrame {
 				jLabelAlreadyReserved.setVisible(false);
 				int selectedRow = tableRides.getSelectedRow();
 				if(selectedRow != -1) {
-					Ride ride = (Ride) tableModelRides.getValueAt(selectedRow, 3);
+					Ride ride = (Ride) tableModelRides.getValueAt(selectedRow, 4);
 					spinner.setModel(new SpinnerNumberModel(1, 1, ride.getnPlaces(), 1));
 					spinner.setEnabled(true);
 				} else {
@@ -291,7 +294,7 @@ public class FindRidesGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = tableRides.getSelectedRow();
 				if(selectedRow != -1) {
-					Ride ride = (Ride) tableModelRides.getValueAt(selectedRow, 3);
+					Ride ride = (Ride) tableModelRides.getValueAt(selectedRow, 4);
 					Boolean done = facade.makeReservationRequest(ride, rider, ((Double) spinner.getValue()).intValue());
 					if(!done) jLabelAlreadyReserved.setVisible(true);
 				} else {

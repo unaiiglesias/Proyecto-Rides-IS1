@@ -113,7 +113,7 @@ public class DataAccess  {
 			Ride ride8 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2019,01,14), 3, 30);
 			Ride ride9 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2020,10,14), 4, 30);
 			Ride ride10 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2010,4,14), 3, 30);
-			Ride ride11 = driver3.addRide("Donostia", "Santander", UtilDate.newDate(2023,9,14), 4, 30);
+			Ride ride11 = driver3.addRide("Donostia", "Santander", UtilDate.newDate(year,month,30), 4, 30);
 
 			db.persist(driver1);
 			db.persist(driver2);
@@ -202,6 +202,14 @@ public class DataAccess  {
 		rider.addMadeReview(review);
 		driver.addReview(review);
 		db.getTransaction().commit();
+	}
+	
+	public List<Review> getDriverReviews(Driver driver){
+		Driver dr = db.find(Driver.class, driver.getEmail());
+		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1", Review.class);
+		query.setParameter(1, dr.getEmail());
+		List<Review> l = query.getResultList();
+		return l;
 	}
 
 	public List<ReservationRequest> getReservationsOfRide(Ride ride) {

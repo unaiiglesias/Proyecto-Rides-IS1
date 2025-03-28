@@ -83,6 +83,19 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 	
+	public String getDriverStars(Driver driver) {
+		String stars = "";
+		dbManager.open();
+		List<Review> l = dbManager.getDriverReviews(driver);
+		dbManager.close();
+		Integer sumPoints = 0;
+		for(Review rev : l) sumPoints += rev.getPoints();
+		int meanPoints = (int) Math.round((double) sumPoints / l.size());
+		for(int i=0; i<meanPoints; i++) stars = stars + "★";
+		for(int i=0; i<5-meanPoints; i++) stars = stars + "☆";
+		return stars;
+	}
+	
     /**
      * {@inheritDoc}
      */
