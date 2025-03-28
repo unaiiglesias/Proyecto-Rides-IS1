@@ -12,9 +12,7 @@ import javax.jws.WebService;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import dataAccess.DataAccess;
-import domain.Ride;
-import domain.Rider;
-import domain.Driver;
+import domain.*;
 import domain.ReservationRequest;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.IncorrectCredentialsException;
@@ -78,6 +76,33 @@ public class BLFacadeImplementation  implements BLFacade {
     	}
 	}
 	
+	public void addReview(Integer points, String message, Ride ride, Rider rider, Driver driver) {
+		dbManager.open();
+		Review review = new Review(points, message, ride, rider, driver);
+		dbManager.addReview(review);
+		dbManager.close();
+	}
+	
+	public String getDriverStars(Driver driver) {
+		String stars = "";
+		dbManager.open();
+		List<Review> l = dbManager.getDriverReviews(driver);
+		dbManager.close();
+		Integer sumPoints = 0;
+		for(Review rev : l) sumPoints += rev.getPoints();
+		int meanPoints = (int) Math.round((double) sumPoints / l.size());
+		for(int i=0; i<meanPoints; i++) stars = stars + "★";
+		for(int i=0; i<5-meanPoints; i++) stars = stars + "☆";
+		return stars;
+	}
+	
+	public List<Review> getReviewsOfDriver(Driver driver){
+		dbManager.open();
+		List<Review> l = dbManager.getReviewsOfDriver(driver);
+		dbManager.close();
+		return l;
+	}
+	
     /**
      * {@inheritDoc}
      */
@@ -130,6 +155,29 @@ public class BLFacadeImplementation  implements BLFacade {
 		return l;
 	}
 	
+	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride){
+		List<ReservationRequest> l = null;
+		dbManager.open();
+		l = dbManager.getAcceptedReservationsOfRide(ride);
+		Collections.sort(l, new Comparator<ReservationRequest>() {
+			public int compare(ReservationRequest r1, ReservationRequest r2) {
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
+		dbManager.close();
+		return l;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean removeReservation(ReservationRequest reservation) {
+		dbManager.open();
+		Boolean rm = dbManager.removeReservation(reservation);
+		dbManager.close();
+		return rm;
+	}
+	
     /**
      * {@inheritDoc}
      */
@@ -151,12 +199,21 @@ public class BLFacadeImplementation  implements BLFacade {
 	@WebMethod
 	public List<Ride> getPosteriorRidesOfDriver(Driver driver) {
 		dbManager.open();
-		Calendar today = Calendar.getInstance();
-	   	int month=today.get(Calendar.MONTH);
-	   	int year=today.get(Calendar.YEAR);
-	   	if (month==12) { month=1; year+=1;}  
-		Date date = UtilDate.newDate(year, month, today.get(Calendar.DAY_OF_MONTH));
-		List<Ride> l = dbManager.getRidesOfDriver(driver, date);
+		Date date = getCurrentDate();
+		List<Ride> l = dbManager.getRidesOfDriver(driver, date, 0);
+		Collections.sort(l, new Comparator<Ride>() {
+			public int compare(Ride r1, Ride r2) {
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
+		dbManager.close();
+		return l;
+	}
+	
+	public List<Ride> getEndedRidesOfDriver(Driver driver){
+		dbManager.open();
+		Date date = getCurrentDate();
+		List<Ride> l = dbManager.getRidesOfDriver(driver, date, 1);
 		Collections.sort(l, new Comparator<Ride>() {
 			public int compare(Ride r1, Ride r2) {
 				return r1.getDate().compareTo(r2.getDate());
@@ -246,6 +303,45 @@ public class BLFacadeImplementation  implements BLFacade {
 		Boolean accepted = dbManager.acceptReservationRequest(rr);
 		dbManager.close();
 		return accepted;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<ReservationRequest> getRidesDoneByRider(Rider rider) {
+		dbManager.open();
+		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), 1);
+		dbManager.close();
+		Collections.sort(l, new Comparator<ReservationRequest>() {
+			public int compare(ReservationRequest r1, ReservationRequest r2) {
+				return r1.getRide().getDate().compareTo(r2.getRide().getDate());
+			}
+		});
+		return l;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<ReservationRequest> getFutureRidesOfRider(Rider rider) {
+		dbManager.open();
+		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), 0);
+		dbManager.close();
+		Collections.sort(l, new Comparator<ReservationRequest>() {
+			public int compare(ReservationRequest r1, ReservationRequest r2) {
+				return r1.getRide().getDate().compareTo(r2.getRide().getDate());
+			}
+		});
+		return l;
+	}
+	
+	private Date getCurrentDate() {
+		// TODO: Is this correct?
+		Calendar today = Calendar.getInstance();
+	   	int month=today.get(Calendar.MONTH);
+	   	int year=today.get(Calendar.YEAR);
+	   	if (month==12) { month=1; year+=1;}  
+		return UtilDate.newDate(year, month, today.get(Calendar.DAY_OF_MONTH));
 	}
 	
 	

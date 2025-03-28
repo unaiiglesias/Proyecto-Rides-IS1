@@ -33,6 +33,8 @@ public class Ride implements Serializable {
 	private List<ReservationRequest> reservations;
 	@ManyToOne
 	private Driver driver;  
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<Review> reviews;
 	
 	public Ride(){
 		super();
@@ -49,6 +51,7 @@ public class Ride implements Serializable {
 		this.price=price;
 		this.driver = driver;
 		this.reservations = new ArrayList<ReservationRequest>();
+		this.reviews = new ArrayList<Review>();
 	}
 
 	
@@ -62,6 +65,7 @@ public class Ride implements Serializable {
 		this.price=price;
 		this.driver = driver;
 		this.reservations = new ArrayList<ReservationRequest>();
+		this.reviews = new ArrayList<Review>();
 	}
 	
 	public void addReservationRequest(ReservationRequest r) {
@@ -74,6 +78,10 @@ public class Ride implements Serializable {
 	
 	public int numReservationRequest() {
 		return this.reservations.size();
+	}
+	
+	public void addReview(Review review) {
+		this.reviews.add(review);
 	}
 	
 	/**
@@ -200,6 +208,10 @@ public class Ride implements Serializable {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+	
+	public List<Review> getReviews(){
+		return this.reviews;
+	}
 
 	public String getStringDate() {
 		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -216,9 +228,5 @@ public class Ride implements Serializable {
 	public String toString(){
 		return rideNumber+";"+";"+from+";"+to+";"+date;  
 	}
-
-
-
-
 	
 }

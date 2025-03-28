@@ -8,6 +8,7 @@ import domain.Ride;
 import domain.Rider;
 import domain.Driver;
 import domain.ReservationRequest;
+import domain.Review;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.RideAlreadyExistException;
 import exceptions.UserAlreadyExistException;
@@ -92,6 +93,12 @@ public interface BLFacade  {
 	 */
 	public void addDriver(String email, String password, String name, String surname, int age, String licensePlate, String vehicleModel) throws UserAlreadyExistException;
 	
+	public void addReview(Integer points, String message, Ride ride, Rider rider, Driver driver);
+	
+	public List<Review> getReviewsOfDriver(Driver driver);
+	
+	public String getDriverStars(Driver driver);
+	
 	/**
 	 * This method does the login of a Rider or Driver
 	 * @return instance of Rider (or Driver) 
@@ -118,6 +125,14 @@ public interface BLFacade  {
 	 */
 	public List<ReservationRequest> getReservationsOfRide(Ride ride);
 	
+	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride);
+	
+	/**
+	 * This method removes a reservation request
+	 * @param reservation The ReservationRequest to be removed
+	 * @return true if removed successfully, else false
+	 */
+	public boolean removeReservation(ReservationRequest reservation);
 	/**
 	 * This method finds all the Rides create by a given driver
 	 * @param driver The driver whose rides will be found
@@ -139,10 +154,25 @@ public interface BLFacade  {
 	 */
 	public List<Ride> getPosteriorRidesOfDriver(Driver driver);
 	
+	public List<Ride> getEndedRidesOfDriver(Driver driver);
 	
 	/**
 	 * This method accepts a given ReservationRequest.
 	 * @param rr The reservation request to accept
 	 */
 	public boolean acceptReservationRequest(ReservationRequest rr);
+	
+	/**
+	 * This method finds all the Rides done by a Rider
+	 * @param rider The Rider whose already done Rides (accepted Reservation Requests) will find
+	 * @return a sorted by Ride's date list of ReservationRequest
+	 */
+	public List<ReservationRequest> getRidesDoneByRider(Rider rider);
+	
+	/**
+	 * This method finds all the future Rides that might be done by a Rider
+	 * @param rider The Rider whose already done Rides (Reservation Requests) will find
+	 * @return a sorted by Ride's date list of ReservationRequest
+	 */
+	public List<ReservationRequest> getFutureRidesOfRider(Rider rider);
 }

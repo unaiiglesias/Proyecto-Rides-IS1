@@ -28,7 +28,7 @@ public class MainGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public JPanel jContentPane = null;
-	public JButton jButtonQueryQueries = null;
+	public JButton queryRidesButton = null;
 
     private static BLFacade appFacadeInterface;
 	
@@ -39,14 +39,14 @@ public class MainGUI extends JFrame {
 	public static void setBussinessLogic (BLFacade afi){
 		appFacadeInterface=afi;
 	}
-	protected JLabel jLabelSelectOption;
+	protected JLabel headerLabel;
 	public JLabel languageSelectorLabel;
 	public DefaultComboBoxModel<String> languageSelectorModel;
 	public JComboBox<String> languageSelector;
 	public JButton loginJButton;
 	public JButton logoutJButton;
 	public JButton signUpJButton;
-	public JLabel currentUserJLabel;
+	public JLabel currentUserLabel;
 	
 	/**
 	 * This is the default constructor
@@ -76,24 +76,24 @@ public class MainGUI extends JFrame {
 		this.setSize(656, 543);
 		
 		// HEADER label
-		jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
-		jLabelSelectOption.setBounds(0, 11, 644, 97);
-		jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
-		jLabelSelectOption.setForeground(Color.BLACK);
-		jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
-		jContentPane.add(jLabelSelectOption);
+		headerLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.HeaderLabel"));
+		headerLabel.setBounds(0, 11, 644, 97);
+		headerLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		headerLabel.setForeground(Color.BLACK);
+		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		jContentPane.add(headerLabel);
 		
 		// Query Rides button
-		jButtonQueryQueries = new JButton();
-		jButtonQueryQueries.setBounds(0, 108, 644, 97);
-		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
-		jButtonQueryQueries.addActionListener(new java.awt.event.ActionListener() {
+		queryRidesButton = new JButton();
+		queryRidesButton.setBounds(0, 108, 644, 97);
+		queryRidesButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
+		queryRidesButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				JFrame a = new FindRidesGUI(currentSession);
 				a.setVisible(true);
 			}
 		});
-		jContentPane.add(jButtonQueryQueries);
+		jContentPane.add(queryRidesButton);
 		
 		// Language selector combo box
 		languageSelectorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
@@ -147,18 +147,18 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new RegisterGUI();
 				a.setVisible(true);
-				dispose();
 			}
 		});
 		signUpJButton.setBounds(524, 35, 120, 36);
 		jContentPane.add(signUpJButton);
 		
 		// Current Session label
-		currentUserJLabel = new JLabel("");
-		currentUserJLabel.setBounds(165, 4, 319, 19);
-		currentUserJLabel.setVisible(false);
-		jContentPane.add(currentUserJLabel);
-		currentUserJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		currentUserLabel = new JLabel("");
+		currentUserLabel.setBounds(165, 4, 319, 19);
+		currentUserLabel.setVisible(false);
+		jContentPane.add(currentUserLabel);
+		currentUserLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		
 		// The label is long, so that any email can fit, but aligns to the right
 		
 		/*
@@ -168,13 +168,15 @@ public class MainGUI extends JFrame {
 		 	Driver: query rides, request ride, create ride, show requests
 		 */
 		
+
+		
 	}
 	
 	
 	// Refresh translations text
 	public void paintAgain() {
-		jLabelSelectOption.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
-		jButtonQueryQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
+		headerLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.HeaderLabel"));
+		queryRidesButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
 		signUpJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
 		loginJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogIn"));

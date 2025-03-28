@@ -20,6 +20,7 @@ import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Driver;
 import domain.ReservationRequest;
+import domain.Review;
 import domain.Ride;
 import domain.Rider;
 import exceptions.RideAlreadyExistException;
@@ -109,7 +110,13 @@ public class DataAccess  {
 			Ride ride5 = driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,15), 3, 31);
 			Ride ride6 = driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 2, 75);
 			Ride ride7 = driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year,month,6), 2, 57);
-			Ride ride8 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,14), 1, 30);
+			Ride ride8 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2019,01,14), 3, 30);
+			Ride ride9 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2020,10,14), 4, 30);
+			Ride ride10 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2010,4,14), 3, 30);
+			Ride ride11 = driver3.addRide("Donostia", "Santander", UtilDate.newDate(year,month,30), 4, 30);
+			Ride ride12 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2012,4,14), 3, 30);
+			Ride ride13 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2013,4,14), 3, 30);
+			Ride ride14 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2014,4,14), 3, 30);
 
 			db.persist(driver1);
 			db.persist(driver2);
@@ -121,14 +128,30 @@ public class DataAccess  {
 			db.getTransaction().commit();
 			
 			// Create some example Requests
-			ReservationRequest reservation1 = new ReservationRequest(rider1, ride1, 3);
+			ReservationRequest reservation1 = new ReservationRequest(rider1, ride1, 2);
 			addReservationRequest(reservation1);
 			ReservationRequest reservation2 = new ReservationRequest(rider2, ride1, 1);
 			addReservationRequest(reservation2);
 			ReservationRequest reservation3 = new ReservationRequest(rider1, ride8, 1);
+			reservation3.setReservationState("accepted");
 			addReservationRequest(reservation3);
 			ReservationRequest reservation4 = new ReservationRequest(rider3, ride1, 1);
 			addReservationRequest(reservation4);
+			ReservationRequest reservation5 = new ReservationRequest(rider1, ride9, 1);
+			reservation5.setReservationState("accepted");
+			addReservationRequest(reservation5);
+			ReservationRequest reservation6 = new ReservationRequest(rider1, ride10, 1);
+			reservation6.setReservationState("accepted");
+			addReservationRequest(reservation6);
+			ReservationRequest reservation7 = new ReservationRequest(rider1, ride11, 1);
+			reservation7.setReservationState("accepted");
+			addReservationRequest(reservation7);
+			ReservationRequest reservation8 = new ReservationRequest(rider1, ride12, 1);
+			reservation8.setReservationState("accepted");
+			addReservationRequest(reservation8);
+			ReservationRequest reservation9 = new ReservationRequest(rider1, ride13, 1);
+			reservation9.setReservationState("accepted");
+			addReservationRequest(reservation9);
 			// This needs to be done out of the transaction because each of the method calls creates its own transaction
 			
 			System.out.println("SUCCESS: Db initialized with example data");
@@ -178,15 +201,59 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		return true;
 	}
+	
+	public void addReview(Review review) {
+		Ride ride = db.find(Ride.class, review.getRide());
+		Rider rider = db.find(Rider.class, review.getRider());
+		Driver driver = db.find(Driver.class, review.getDriver());
+		db.getTransaction().begin();
+		ride.addReview(review);
+		rider.addMadeReview(review);
+		driver.addReview(review);
+		db.getTransaction().commit();
+	}
+	
+	public List<Review> getDriverReviews(Driver driver){
+		Driver dr = db.find(Driver.class, driver.getEmail());
+		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1", Review.class);
+		query.setParameter(1, dr.getEmail());
+		List<Review> l = query.getResultList();
+		return l;
+	}
+	
+	public List<Review> getReviewsOfDriver(Driver driver){
+		Driver dr = db.find(Driver.class, driver.getEmail());
+		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1", Review.class);
+		query.setParameter(1, dr.getEmail());
+		List<Review> l = query.getResultList();
+		return l;
+	}
 
 	public List<ReservationRequest> getReservationsOfRide(Ride ride) {
-		db.getTransaction().begin();
 		Ride r = db.find(Ride.class, ride.getRideNumber());
 		TypedQuery<ReservationRequest> query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1", ReservationRequest.class);
 		query.setParameter(1, r.getRideNumber());
 		List<ReservationRequest> l = query.getResultList();
-		db.getTransaction().commit();
 		return l;
+	}
+	
+	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride){
+		Ride r = db.find(Ride.class, ride.getRideNumber());
+		TypedQuery<ReservationRequest> query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1 AND r.reservationState = 'accepted'", ReservationRequest.class);
+		query.setParameter(1, r.getRideNumber());
+		List<ReservationRequest> l = query.getResultList();
+		return l;
+	}
+	
+	public boolean removeReservation(ReservationRequest reservation) {
+		ReservationRequest rr = db.find(ReservationRequest.class, reservation.getId());
+		if(rr == null) return false;
+		db.getTransaction().begin();
+		rr.getRide().removeReservationRequest(rr);
+		rr.getRider().removeReservationRequest(rr);
+		db.remove(rr);
+		db.getTransaction().commit();
+		return true;
 	}
 	
 	public List<Ride> getRidesOfDriver(Driver driver){
@@ -199,10 +266,14 @@ public class DataAccess  {
 		return l;
 	}
 	
-	public List<Ride> getRidesOfDriver(Driver driver, Date date) {
+	public List<Ride> getRidesOfDriver(Driver driver, Date date, int previousRides) {
 		db.getTransaction().begin();
 		Driver d = db.find(Driver.class, driver.getEmail());
-		TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1 AND r.date > ?2", Ride.class);
+		TypedQuery<Ride> query;
+		if(previousRides == 1)
+			query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1 AND r.date <= ?2", Ride.class);
+		else
+			query = db.createQuery("SELECT r FROM Ride r WHERE r.driver.email= ?1 AND r.date > ?2", Ride.class);
 		query.setParameter(1, d.getEmail());
 		query.setParameter(2, date);
 		List<Ride> l = query.getResultList();
@@ -357,6 +428,27 @@ public class DataAccess  {
 		reservation.setReservationState("accepted");
 		db.getTransaction().commit();
 		return true;
+	}
+	
+	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider){
+		Rider r = db.find(Rider.class, rider.getEmail());
+		TypedQuery<ReservationRequest> query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1", ReservationRequest.class);
+		query.setParameter(1, r.getEmail());
+		List<ReservationRequest> l = query.getResultList();
+		return l;
+		
+	}
+	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider, Date date, int previousReservationRequests){
+		Rider r = db.find(Rider.class, rider.getEmail());
+		TypedQuery<ReservationRequest> query;
+		if(previousReservationRequests==1)
+			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.ride.date <= ?2 AND rr.reservationState = 'accepted'", ReservationRequest.class);
+		else
+			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.ride.date > ?2", ReservationRequest.class);
+		query.setParameter(1, r.getEmail());
+		query.setParameter(2, date);
+		List<ReservationRequest> l = query.getResultList();
+		return l;
 	}
 	
 	public void open(){
