@@ -141,24 +141,12 @@ public class BLFacadeImplementation  implements BLFacade {
 	
     /**
      * {@inheritDoc}
+     * status: null, pending, accepted
      */
-	public List<ReservationRequest> getReservationsOfRide(Ride ride) {
+	public List<ReservationRequest> getReservationsOfRide(Ride ride, String status) {
 		List<ReservationRequest> l = null;
 		dbManager.open();
-		l = dbManager.getReservationsOfRide(ride);
-		Collections.sort(l, new Comparator<ReservationRequest>() {
-			public int compare(ReservationRequest r1, ReservationRequest r2) {
-				return r1.getDate().compareTo(r2.getDate());
-			}
-		});
-		dbManager.close();
-		return l;
-	}
-	
-	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride){
-		List<ReservationRequest> l = null;
-		dbManager.open();
-		l = dbManager.getAcceptedReservationsOfRide(ride);
+		l = dbManager.getReservationsOfRide(ride, status);
 		Collections.sort(l, new Comparator<ReservationRequest>() {
 			public int compare(ReservationRequest r1, ReservationRequest r2) {
 				return r1.getDate().compareTo(r2.getDate());

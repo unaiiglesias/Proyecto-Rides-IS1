@@ -200,7 +200,7 @@ public class ShowRequestsGUI extends JFrame {
 	}
 	
 	public void updateReservations() {
-		List<ReservationRequest> rrList=facade.getReservationsOfRide(selectedRide);
+		List<ReservationRequest> rrList=facade.getReservationsOfRide(selectedRide, null);
 		reservationsTableModel.setRowCount(0);
 		if (rrList.isEmpty()) reservationsJLabel.setVisible(true);
 		for (ReservationRequest rr : rrList){

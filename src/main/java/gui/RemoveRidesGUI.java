@@ -291,7 +291,7 @@ public class RemoveRidesGUI extends JFrame {
 	 * Update current ride's reservation table info
 	 */
 	public void updateReservations() {
-		List<ReservationRequest> rrList=facade.getAcceptedReservationsOfRide(selectedRide);
+		List<ReservationRequest> rrList=facade.getReservationsOfRide(selectedRide, "accepted");
 		reservationsTableModel.setRowCount(0);
 		for (ReservationRequest rr : rrList){
 			Vector<Object> row = new Vector<Object>();

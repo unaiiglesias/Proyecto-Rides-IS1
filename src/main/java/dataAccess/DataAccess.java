@@ -90,6 +90,10 @@ public class DataAccess  {
 		   int year=today.get(Calendar.YEAR);
 		   if (month==12) { month=1; year+=1;}  
 	    
+		   // TODO
+		   Date past = UtilDate.newDate(year, month, year - 1),
+				future = UtilDate.newDate(year, month, year + 1);
+		   
 		   // Create some Riders
 		   Rider rider1 = new Rider("example1@rider.com", "rider", "Jon", "Pelaio", 15);
 		   Rider rider2 = new Rider("example2@rider.com", "rider", "Matias", "Gutierrez", 30);
@@ -103,7 +107,7 @@ public class DataAccess  {
 			//Create some example rides
 			// From To Date nPlaces Price
 			
-			Ride ride1 = driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year,month,30), 3, 73);
+			Ride ride1 = driver1.addRide("Donostia", "Bilbo", future, 3, 73);
 			Ride ride2 = driver1.addRide("Donostia", "Gazteiz", UtilDate.newDate(year,month,6), 4, 82);
 			Ride ride3 = driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year,month,25), 4, 24);
 			Ride ride4 = driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year,month,24), 4, 33);
@@ -113,7 +117,7 @@ public class DataAccess  {
 			Ride ride8 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2019,01,14), 3, 30);
 			Ride ride9 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2020,10,14), 4, 30);
 			Ride ride10 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2010,4,14), 3, 30);
-			Ride ride11 = driver3.addRide("Donostia", "Santander", UtilDate.newDate(year,month,30), 4, 30);
+			Ride ride11 = driver3.addRide("Donostia", "Santander", future, 4, 30);
 			Ride ride12 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2012,4,14), 3, 30);
 			Ride ride13 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2013,4,14), 3, 30);
 			Ride ride14 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2014,4,14), 3, 30);
@@ -190,7 +194,7 @@ public class DataAccess  {
 		Ride ride = db.find(Ride.class, rr.getRide().getRideNumber());
 		Rider rider = db.find(Rider.class, rr.getRider().getEmail());
 		// Check if there is already a reservation request made by the rider
-		List<ReservationRequest> l = getReservationsOfRide(ride);
+		List<ReservationRequest> l = getReservationsOfRide(ride, null);
 		for(ReservationRequest reservation : l)
 			if(reservation.getRider().equals(rider)) return false;
 		db.getTransaction().begin();
@@ -229,17 +233,22 @@ public class DataAccess  {
 		return l;
 	}
 
-	public List<ReservationRequest> getReservationsOfRide(Ride ride) {
+	/*
+	 * status: null (all reservations), pending, accepted
+	 */
+	public List<ReservationRequest> getReservationsOfRide(Ride ride, String status) {
 		Ride r = db.find(Ride.class, ride.getRideNumber());
-		TypedQuery<ReservationRequest> query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1", ReservationRequest.class);
-		query.setParameter(1, r.getRideNumber());
-		List<ReservationRequest> l = query.getResultList();
-		return l;
-	}
-	
-	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride){
-		Ride r = db.find(Ride.class, ride.getRideNumber());
-		TypedQuery<ReservationRequest> query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1 AND r.reservationState = 'accepted'", ReservationRequest.class);
+		TypedQuery<ReservationRequest> query;
+		if (status == null)
+		{
+			query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1", ReservationRequest.class);
+		}
+		else
+		{
+			query = db.createQuery("SELECT r FROM ReservationRequest r WHERE r.ride.rideNumber = ?1 AND r.reservationState = ?2", ReservationRequest.class);
+			query.setParameter(2, status);
+		}
+		
 		query.setParameter(1, r.getRideNumber());
 		List<ReservationRequest> l = query.getResultList();
 		return l;

@@ -123,9 +123,7 @@ public interface BLFacade  {
 	 * This method finds all the ReservationRequests associated to a ride
 	 * @return a sorted by date list ReservationRequests
 	 */
-	public List<ReservationRequest> getReservationsOfRide(Ride ride);
-	
-	public List<ReservationRequest> getAcceptedReservationsOfRide(Ride ride);
+	public List<ReservationRequest> getReservationsOfRide(Ride ride, String status);
 	
 	/**
 	 * This method removes a reservation request
