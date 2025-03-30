@@ -59,6 +59,11 @@ public class ShowRequestsGUI extends JFrame {
 	@SuppressWarnings("serial")
 	public ShowRequestsGUI(Driver d) {
 		
+		/**
+		 * WARNING: This class is currently unused as it has been replaced by ShowPendingRequestsGUI.
+		 * 			It will likely be deleted in the future.
+		 */
+		
 		// Utility variables
 		this.driver = d;
 		facade = MainGUI.getBusinessLogic();
@@ -178,7 +183,7 @@ public class ShowRequestsGUI extends JFrame {
 				int selectedRow = reservationsTable.getSelectedRow();
 				if(selectedRow != -1) {					
 					ReservationRequest rr = (ReservationRequest) reservationsTableModel.getValueAt(selectedRow, 5);
-					Boolean accepted = facade.acceptReservationRequest(rr);
+					Boolean accepted = facade.modifyReservationRequestState(rr, "accepted");
 					if(!accepted) jLabelError.setVisible(true);
 					else jLabelError.setVisible(false);
 					updateReservations();

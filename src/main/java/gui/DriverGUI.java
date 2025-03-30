@@ -67,7 +67,7 @@ public class DriverGUI extends RiderGUI {
 		jButtonShowRequests.setBounds(0, 487, 644, 97);
 		getContentPane().add(jButtonShowRequests);
 		jButtonShowRequests.setVisible(true);
-		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
+		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.ShowPendingReservationRequests"));
 		jButtonShowRequests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new ShowPendingRequestsGUI((Driver) currentSession);

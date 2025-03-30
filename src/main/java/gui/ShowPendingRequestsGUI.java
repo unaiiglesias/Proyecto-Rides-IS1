@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ShowPendingRequestsGUI extends JFrame {
 
@@ -54,15 +57,17 @@ public class ShowPendingRequestsGUI extends JFrame {
 		facade = MainGUI.getBusinessLogic();
 		
 		// JFrame Config
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(604, 459);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setSize(604, 505);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		// Top label
-		JLabel headerLabel = new JLabel("Pending reservation requests");
+		JLabel headerLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.headerLabel"));
+		headerLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		headerLabel.setBounds(10, 11, 568, 30);
 		contentPane.add(headerLabel);
 		
@@ -111,33 +116,58 @@ public class ShowPendingRequestsGUI extends JFrame {
 			e1.printStackTrace();
 		}
 		
-		
-		// Accept request button
-		acceptButton = new JButton("New button");
-		acceptButton.setBounds(300, 364, 135, 45);
-		contentPane.add(acceptButton);
-		
 		// No seats avaliable error label (triggered when trying to accept a requests that asks for too many seats
 		noSeatsAvaliableErrorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.NoSeatsAvaliableError"));
-		noSeatsAvaliableErrorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		noSeatsAvaliableErrorLabel.setVerticalAlignment(SwingConstants.TOP);
-		noSeatsAvaliableErrorLabel.setBounds(54, 387, 500, 22);
+		noSeatsAvaliableErrorLabel.setBounds(10, 364, 568, 45);
 		noSeatsAvaliableErrorLabel.setForeground(new Color(255,0,0));
 		noSeatsAvaliableErrorLabel.setVisible(false);
 		contentPane.add(noSeatsAvaliableErrorLabel);
 		
 		// No pending reservation requests label
 		noPendingReservationRequestsLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.noPendingReservationRequestsLabel"));
-		noPendingReservationRequestsLabel.setBounds(187, 11, 391, 30);
+		noPendingReservationRequestsLabel.setBounds(10, 364, 568, 45);
 		noPendingReservationRequestsLabel.setForeground(new Color(255,0,0));
 		noPendingReservationRequestsLabel.setVisible(false);
 		contentPane.add(noPendingReservationRequestsLabel);
 		
 		// Reject request button
-		rejectButton = new JButton("New button");
-		rejectButton.setBounds(120, 364, 135, 45);
+		rejectButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.rejectButton"));
+		rejectButton.setBounds(131, 410, 135, 45);
 		contentPane.add(rejectButton);
+		rejectButton.setEnabled(false);
+		rejectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				if (selectedRow == -1)
+					return; // Some kind of error happened (shouldn't happen)
+				ReservationRequest rr = (ReservationRequest) tableModel.getValueAt(selectedRow, 5);
+				facade.modifyReservationRequestState(rr, "rejected");
+				updateReservations();
+				rejectButton.setEnabled(false);
+				acceptButton.setEnabled(false);
+			}
+		});
 
+		// Accept request button
+		acceptButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.acceptButton"));
+		acceptButton.setBounds(326, 410, 135, 45);
+		contentPane.add(acceptButton);
+		acceptButton.setEnabled(false);
+		acceptButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				if (selectedRow == -1)
+					return; // Some kind of error happened (shouldn't happen)
+				ReservationRequest rr = (ReservationRequest) tableModel.getValueAt(selectedRow, 5);
+				Boolean accepted = facade.modifyReservationRequestState(rr, "accepted");
+				if(!accepted) noSeatsAvaliableErrorLabel.setVisible(true);
+				else noSeatsAvaliableErrorLabel.setVisible(false);
+				updateReservations();
+				acceptButton.setEnabled(false);
+				rejectButton.setEnabled(false);
+			}
+		});
+		
 		// Fill the table with data
 		updateReservations();
 

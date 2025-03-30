@@ -283,9 +283,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	/**
 	 * {@inheritDoc}
 	 */
-	public boolean acceptReservationRequest(ReservationRequest rr) {
+	public boolean modifyReservationRequestState(ReservationRequest rr, String newStatus) {
 		dbManager.open();
-		Boolean accepted = dbManager.acceptReservationRequest(rr);
+		Boolean accepted = dbManager.modifyReservationRequest(rr, newStatus);
 		dbManager.close();
 		return accepted;
 	}

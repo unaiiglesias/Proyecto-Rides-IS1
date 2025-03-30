@@ -36,7 +36,10 @@ public class DataAccess  {
 	private  EntityManager  db;
 	private  EntityManagerFactory emf;
 
+	private String[] validStatesPrim = {"accepted", "rejected", "pending", "paid"};
+	private List<String> validStates = new ArrayList<String>(Arrays.asList(validStatesPrim));
 
+	
 	ConfigXML c=ConfigXML.getInstance();
 
      public DataAccess()  {
@@ -141,7 +144,7 @@ public class DataAccess  {
 			ReservationRequest reservation3 = new ReservationRequest(rider1, ride8, 1);
 			reservation3.setReservationState("accepted");
 			addReservationRequest(reservation3);
-			ReservationRequest reservation4 = new ReservationRequest(rider3, ride1, 1);
+			ReservationRequest reservation4 = new ReservationRequest(rider3, ride1, 16);
 			addReservationRequest(reservation4);
 			ReservationRequest reservation5 = new ReservationRequest(rider1, ride9, 1);
 			reservation5.setReservationState("accepted");
@@ -426,17 +429,34 @@ public class DataAccess  {
 	}
 	
 	/**
-	 * This method accepts a ReservationRequest if it's corresponding Ride has any seat left.
-	 * @param rr The ReservationRequest to accept
-	 * @return true if accepted else false
+	 * Modifies given reservation request's state to the one given. 
+	 * Accepted case is only modified if enough seats are left
+	 * Paid case is only modified if reservationRequest was accepted
+	 *  
+	 * @param rr ReservationRequest to modify
+	 * @param newStatus 
+	 * @return true if the change was performed, false otherwise
 	 */
-	public boolean acceptReservationRequest(ReservationRequest rr) {;
+	public boolean modifyReservationRequest(ReservationRequest rr, String newState)
+	{
 		Ride ride = db.find(Ride.class, rr.getRide().getRideNumber());
-		// if no places available return false
-		if((ride.getRemainingPlaces() - rr.getNumSeats()) < 0) return false;
-		db.getTransaction().begin();
+		
+		if (!validStates.contains(newState))
+		{
+			// If newState is invalid, do nothing
+			System.out.println("WARNING: modifyReservationRequest with invalid state " + newState);
+			return false;
+		}
+		
 		ReservationRequest reservation = db.find(ReservationRequest.class, rr.getId());
-		reservation.setReservationState("accepted");
+		
+		if (newState == "accepted" && (ride.getRemainingPlaces() - rr.getNumSeats()) < 0) return false;
+		else if (newState == "paid" && reservation.getReservationState() != "accepted") return false;
+		
+		db.getTransaction().begin();
+
+		reservation.setReservationState(newState);
+		
 		db.getTransaction().commit();
 		return true;
 	}
@@ -455,7 +475,7 @@ public class DataAccess  {
 	 * @param rider 
 	 * @param today
 	 * @param onlyGetPast true, false, null (all)
-	 * @param state pending, accepted, rejected, null (all) ; if state is invalid, it will be considered null
+	 * @param state pending, accepted, rejected, paid, null (all) ; if state is invalid, it will be considered null
 	 */
 	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider, Date today, Boolean onlyGetPast, String state){
 		Rider r = db.find(Rider.class, rider.getEmail());
@@ -471,8 +491,7 @@ public class DataAccess  {
 			q = q + "AND rr.ride.date > ?2 ";
 		
 		
-		String[] validState = {"accepted", "rejected", "pending"};
-		if (state == null || !Arrays.asList(validState).contains(state))
+		if (state == null || !validStates.contains(state))
 			;
 		else
 			q = q + "AND rr.reservationState = '" + state + "' ";

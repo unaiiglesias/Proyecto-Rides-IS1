@@ -157,10 +157,11 @@ public interface BLFacade  {
 	public List<Ride> getEndedRidesOfDriver(Driver driver);
 	
 	/**
-	 * This method accepts a given ReservationRequest.
+	 * This method modifies a given ReservationRequest's state.
 	 * @param rr The reservation request to accept
+	 * @param newState pending, accepted, rejected, paid
 	 */
-	public boolean acceptReservationRequest(ReservationRequest rr);
+	public boolean modifyReservationRequestState(ReservationRequest rr, String newState);
 	
 	/**
 	 * This method finds all the Rides done by a Rider
