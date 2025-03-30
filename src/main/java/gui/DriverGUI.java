@@ -70,7 +70,7 @@ public class DriverGUI extends RiderGUI {
 		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
 		jButtonShowRequests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame a = new ShowRequestsGUI((Driver) currentSession);
+				JFrame a = new ShowPendingRequestsGUI((Driver) currentSession);
 				a.setVisible(true);
 			}
 		});

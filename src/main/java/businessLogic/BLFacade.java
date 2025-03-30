@@ -121,6 +121,8 @@ public interface BLFacade  {
 	
 	/**
 	 * This method finds all the ReservationRequests associated to a ride
+	 * @param ride
+	 * @param status pending, accepted, rejected, null
 	 * @return a sorted by date list ReservationRequests
 	 */
 	public List<ReservationRequest> getReservationsOfRide(Ride ride, String status);
@@ -168,9 +170,21 @@ public interface BLFacade  {
 	public List<ReservationRequest> getRidesDoneByRider(Rider rider);
 	
 	/**
-	 * This method finds all the future Rides that might be done by a Rider
-	 * @param rider The Rider whose already done Rides (Reservation Requests) will find
-	 * @return a sorted by Ride's date list of ReservationRequest
+	 * Get the reservation requests that a rider has made (rides it has requested)
+	 * Params can be used to filter what requests to retrieve
+	 * 
+	 * @param rider 
+	 * @param onlyGetPast true (past rides), false (future/pending rides), null (all rides)
+	 * @param state pending, accepted, rejected, null (all)
 	 */
-	public List<ReservationRequest> getFutureRidesOfRider(Rider rider);
+	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider, Boolean onlyGetPast, String state);
+	
+	/**
+	 * Get a list of all pending reservation requests of a driver. Requests made to expired rides (past rides)
+	 * will NOT be returned.
+	 * Results will be sorted by date
+	 * 
+	 * @return
+	 */
+	public List<ReservationRequest> getPendingReservationRequestsOfDriver(Driver driver);
 }

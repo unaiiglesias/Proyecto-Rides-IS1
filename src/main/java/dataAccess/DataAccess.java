@@ -1,9 +1,11 @@
 package dataAccess;
 
+import java.awt.Window.Type;
 import java.io.File;
 import java.net.NoRouteToHostException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -447,15 +449,65 @@ public class DataAccess  {
 		return l;
 		
 	}
-	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider, Date date, int previousReservationRequests){
+	
+	/**
+	 * {@inheritDoc}
+	 * @param rider 
+	 * @param today
+	 * @param onlyGetPast true, false, null (all)
+	 * @param state pending, accepted, rejected, null (all) ; if state is invalid, it will be considered null
+	 */
+	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider, Date today, Boolean onlyGetPast, String state){
 		Rider r = db.find(Rider.class, rider.getEmail());
 		TypedQuery<ReservationRequest> query;
+		
+		// For code simplicity purposes, we'll use an auxiliary variable to construct the query
+		String q = "SELECT rr FROM ReservationRequest rr WHERE rr.rider.email = ?1 "; 
+		if (onlyGetPast == null)
+			;
+		else if (onlyGetPast)
+			q = q + "AND rr.ride.date <= ?2 ";
+		else if (!onlyGetPast)
+			q = q + "AND rr.ride.date > ?2 ";
+		
+		
+		String[] validState = {"accepted", "rejected", "pending"};
+		if (state == null || !Arrays.asList(validState).contains(state))
+			;
+		else
+			q = q + "AND rr.reservationState = '" + state + "' ";
+			
+		/*
 		if(previousReservationRequests==1)
 			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.ride.date <= ?2 AND rr.reservationState = 'accepted'", ReservationRequest.class);
 		else
 			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.ride.date > ?2", ReservationRequest.class);
+		*/
+		
+		query = db.createQuery(q, ReservationRequest.class);
+		
 		query.setParameter(1, r.getEmail());
-		query.setParameter(2, date);
+		query.setParameter(2, today);
+		List<ReservationRequest> l = query.getResultList();
+		return l;
+	}
+	
+	/**
+	 * Get a list of all pending reservation requests of a driver. Requests made to expired rides (past rides)
+	 * will NOT be returned.
+	 * Results will be sorted by date
+	 * 
+	 * @return
+	 */
+	public List<ReservationRequest> getPendingReservationRequestsOfDriver(Driver driver, Date today)
+	{
+		Driver r = db.find(Driver.class, driver.getEmail());
+		TypedQuery<ReservationRequest> query;
+		
+		query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.ride.driver.email = ?1 AND rr.ride.date > ?2 AND rr.reservationState = 'pending'", ReservationRequest.class);
+		
+		query.setParameter(1, r.getEmail());
+		query.setParameter(2, today);
 		List<ReservationRequest> l = query.getResultList();
 		return l;
 	}

@@ -1,23 +1,19 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
 import businessLogic.BLFacade;
 import domain.Driver;
 import domain.ReservationRequest;
 import domain.Ride;
-
 import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -33,6 +29,7 @@ public class ShowRequestsGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Driver driver;
+	private BLFacade facade;
 	
 	private JLabel rideSelectionLabel;
 	private JComboBox<Ride> ridesComboBox;
@@ -52,7 +49,6 @@ public class ShowRequestsGUI extends JFrame {
 		ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.RequestState") 
 	};
 	private JLabel reservationsJLabel;
-	private BLFacade facade;
 	private JButton acceptReservationJButton;
 	private JLabel jLabelError;
 
@@ -69,7 +65,7 @@ public class ShowRequestsGUI extends JFrame {
 		
 		// JFrame config
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setSize(new Dimension(604, 459));
+		this.setSize(604, 459);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

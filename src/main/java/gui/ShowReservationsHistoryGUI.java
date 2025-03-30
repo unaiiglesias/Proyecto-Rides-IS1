@@ -5,19 +5,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 import businessLogic.BLFacade;
 import domain.*;
-
 import javax.swing.JLabel;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -259,7 +255,8 @@ public class ShowReservationsHistoryGUI extends JFrame {
 	
 	// Update pending reservation requests table data
 	public void updateReservationRequests() {
-		List<ReservationRequest> rrList=facade.getFutureRidesOfRider(currentUser);
+		// We want to display all future pending reservation requests
+		List<ReservationRequest> rrList=facade.getReservationRequestsOfRider(currentUser, false, "pending");
 		
 		reservationRequestsTableModel.setRowCount(0);
 		for (ReservationRequest rr : rrList){

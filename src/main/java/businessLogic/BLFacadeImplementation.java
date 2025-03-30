@@ -4,16 +4,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
-
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import dataAccess.DataAccess;
 import domain.*;
-import domain.ReservationRequest;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.IncorrectCredentialsException;
 import exceptions.RideAlreadyExistException;
@@ -41,7 +37,7 @@ public class BLFacadeImplementation  implements BLFacade {
     public BLFacadeImplementation(DataAccess da)  {
 		
 		System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
-		ConfigXML c=ConfigXML.getInstance();
+		ConfigXML c = ConfigXML.getInstance();
 		
 		dbManager=da;		
 	}
@@ -155,6 +151,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return l;
 	}
+	
 	
 	/**
 	 * {@inheritDoc}
@@ -298,7 +295,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	 */
 	public List<ReservationRequest> getRidesDoneByRider(Rider rider) {
 		dbManager.open();
-		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), 1);
+		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), false, null);
 		dbManager.close();
 		Collections.sort(l, new Comparator<ReservationRequest>() {
 			public int compare(ReservationRequest r1, ReservationRequest r2) {
@@ -311,9 +308,25 @@ public class BLFacadeImplementation  implements BLFacade {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<ReservationRequest> getFutureRidesOfRider(Rider rider) {
+	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider, Boolean onlyGetPast, String state) {
 		dbManager.open();
-		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), 0);
+		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), onlyGetPast, state);
+		dbManager.close();
+		Collections.sort(l, new Comparator<ReservationRequest>() {
+			public int compare(ReservationRequest r1, ReservationRequest r2) {
+				return r1.getRide().getDate().compareTo(r2.getRide().getDate());
+			}
+		});
+		return l;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<ReservationRequest> getPendingReservationRequestsOfDriver(Driver driver)
+	{
+		dbManager.open();
+		List<ReservationRequest> l = dbManager.getPendingReservationRequestsOfDriver(driver, getCurrentDate());
 		dbManager.close();
 		Collections.sort(l, new Comparator<ReservationRequest>() {
 			public int compare(ReservationRequest r1, ReservationRequest r2) {
