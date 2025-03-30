@@ -295,7 +295,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	 */
 	public List<ReservationRequest> getRidesDoneByRider(Rider rider) {
 		dbManager.open();
-		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), false, null);
+		List<ReservationRequest> l = dbManager.getReservationRequestsOfRider(rider, getCurrentDate(), true, "paid");
 		dbManager.close();
 		Collections.sort(l, new Comparator<ReservationRequest>() {
 			public int compare(ReservationRequest r1, ReservationRequest r2) {
@@ -335,6 +335,44 @@ public class BLFacadeImplementation  implements BLFacade {
 		});
 		return l;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void depositMoney (double amount, Rider r)
+	{	
+		dbManager.open();
+		dbManager.depositMoney(amount, r);
+		dbManager.close();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean payReservationRequest (ReservationRequest rr, Rider rider)
+	{
+		// If the rr isn't accepted, it wont even allow payment
+		if (!rr.getReservationState().equals("accepted"))
+		{
+			System.out.println("WARNING: payReservationRequest called on not accepted rr");
+			System.out.println(rr.getReservationState());
+			return false;
+		}
+			
+		dbManager.open();
+		boolean res = dbManager.payReservationRequest(rr, rider);
+		dbManager.close();
+		
+		if (res)
+			System.out.println("PAYMENT SUCCEEDED");
+		else
+		{
+			System.out.println("PAYMENT FAILED");
+		}
+		
+		return res;
+	}
+	
 	
 	private Date getCurrentDate() {
 		// TODO: Is this correct?

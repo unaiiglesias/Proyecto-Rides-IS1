@@ -40,9 +40,11 @@ public class ShowReservationsHistoryGUI extends JFrame {
 			"Date", "Ride's Date", "From", "To", "Seats", "Driver's Name", "State"
 	};
 	private DefaultTableCellRenderer render;
-	private JButton cancelReservationJButton;
+	private JButton cancelReservationButton;
 	private JButton showReviewsButton;
 	private JButton addReviewButton;
+	private JButton payReservationButton;
+	private JLabel paymentErrorLabel;
 	
 
 	
@@ -150,7 +152,17 @@ public class ShowReservationsHistoryGUI extends JFrame {
 			public void valueChanged(ListSelectionEvent l) {
 				int selectedRow = reservationRequestsTable.getSelectedRow();
 				if(selectedRow != -1) {
-					cancelReservationJButton.setEnabled(true);
+					ReservationRequest selectedRide = (ReservationRequest) reservationRequestsTableModel.getValueAt(selectedRow, 7);
+					if (selectedRide.getReservationState().equals("pending"))
+						// TODO: We may want to warn the user about this (or might even change in the future
+						cancelReservationButton.setEnabled(true);
+					else
+						cancelReservationButton.setEnabled(false);
+					
+					if (selectedRide.getReservationState().equals("accepted"))
+						payReservationButton.setEnabled(true);
+					else
+						payReservationButton.setEnabled(false);
 				}
 			}
 		});
@@ -187,8 +199,8 @@ public class ShowReservationsHistoryGUI extends JFrame {
 		}
 		
 		// Cancel reservation button
-		cancelReservationJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHistorGUI.CancelRequest"));
-		cancelReservationJButton.addActionListener(new ActionListener() {
+		cancelReservationButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHistorGUI.CancelRequest"));
+		cancelReservationButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Remove the ride and update the Ride's table
 				int selectedRow = reservationRequestsTable.getSelectedRow();
@@ -196,15 +208,16 @@ public class ShowReservationsHistoryGUI extends JFrame {
 					ReservationRequest rr = (ReservationRequest) reservationRequestsTableModel.getValueAt(selectedRow, 7);
 					facade.removeReservation(rr);
 					updateReservationRequests();
-					cancelReservationJButton.setEnabled(false);
+					cancelReservationButton.setEnabled(false);
+					payReservationButton.setEnabled(false);
 				} else {
 					// Tell the user something went wrong
 				}
 			}
 		});
-		cancelReservationJButton.setBounds(284, 650, 223, 32);
-		cancelReservationJButton.setEnabled(false);
-		contentPane.add(cancelReservationJButton);
+		cancelReservationButton.setBounds(159, 650, 223, 32);
+		cancelReservationButton.setEnabled(false);
+		contentPane.add(cancelReservationButton);
 		
 		addReviewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHisttoryGUI.addReviewButton"));
 		addReviewButton.addActionListener(new ActionListener() {
@@ -220,7 +233,8 @@ public class ShowReservationsHistoryGUI extends JFrame {
 					if(a.reviewDone) {
 						facade.addReview(a.starsGiven, a.message, ride, currentUser, ride.getDriver());
 						updateRidesDone();
-						addReviewButton.setEnabled(false);					}
+						addReviewButton.setEnabled(false);
+					}
 				}
 			}
 		});
@@ -232,6 +246,41 @@ public class ShowReservationsHistoryGUI extends JFrame {
 		// TODO: Add functionality
 		showReviewsButton.setBounds(392, 309, 223, 32);
 		contentPane.add(showReviewsButton);
+		
+		// Pay reservation button
+		payReservationButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHistoryGUI.payReservationButton"));
+		payReservationButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = reservationRequestsTable.getSelectedRow();
+				if (selectedRow == -1)
+				{
+					// Wrong row selected, shouldn't happen
+					return;
+				}
+				ReservationRequest rr = (ReservationRequest) reservationRequestsTableModel.getValueAt(selectedRow, 7);
+				boolean payment = facade.payReservationRequest(rr, user);
+				if (payment)
+				{
+					payReservationButton.setEnabled(false);
+					cancelReservationButton.setEnabled(false);
+				}
+				else
+					paymentErrorLabel.setVisible(true);
+				
+				updateReservationRequests();
+			}
+		});
+		payReservationButton.setBounds(392, 650, 223, 31);
+		payReservationButton.setEnabled(false);
+		contentPane.add(payReservationButton);
+		
+		// Payment error label
+		paymentErrorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHistoryGUI.paymentErrorLabel"));
+		paymentErrorLabel.setVerticalAlignment(SwingConstants.TOP);
+		paymentErrorLabel.setBounds(625, 638, 218, 54);
+		paymentErrorLabel.setForeground(new Color(255,0,0));
+		paymentErrorLabel.setVisible(false);
+		contentPane.add(paymentErrorLabel);
 		
 	}
 	
@@ -255,10 +304,14 @@ public class ShowReservationsHistoryGUI extends JFrame {
 	
 	// Update pending reservation requests table data
 	public void updateReservationRequests() {
-		// We want to display all future pending reservation requests
-		List<ReservationRequest> rrList=facade.getReservationRequestsOfRider(currentUser, false, "pending");
-		
 		reservationRequestsTableModel.setRowCount(0);
+		List<ReservationRequest> rrList;
+		
+		// We also want to display accepted ones that still haven't been paid
+		rrList = facade.getReservationRequestsOfRider(currentUser, false, "accepted");
+		// We want to display all future pending reservation requests
+		rrList.addAll(facade.getReservationRequestsOfRider(currentUser, false, "pending"));
+
 		for (ReservationRequest rr : rrList){
 			Vector<Object> row = new Vector<Object>();
 			Ride ride = rr.getRide();

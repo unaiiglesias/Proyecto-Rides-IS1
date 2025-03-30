@@ -17,6 +17,7 @@ public class Rider {
 	private String password;
 	private String name;
 	private String surname;
+	private double balance;
 	private int age;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<ReservationRequest> reservations;
@@ -47,6 +48,7 @@ public class Rider {
 		this.age = age;
 		this.reservations = new ArrayList<ReservationRequest>();
 		this.reviewsMade = new ArrayList<Review>();
+		this.balance = 0;
 	}
 
 	public String getEmail() {
@@ -93,6 +95,33 @@ public class Rider {
 		return this.reservations;
 	}
 	
+	public double getBalance() {
+		return this.balance;
+	}
 	
+	public void setBalance(double newBalance) {
+		this.balance = newBalance;
+	}
 	
+	/**
+	 * Tries to pay the indicated amount.
+	 * If the payment was carried out successfully, return true. Otherwise, returns false 
+	 * 
+	 * @param amount
+	 * @return false if not enough money to pay, true otherwise
+	 */
+	public boolean pay (double amount) {
+		if (this.balance < amount)
+			return false;
+		this.balance -= amount;
+		return true;
+	}
+	
+	/**
+	 * Receives the indicated amount of money (adds it to the balance)
+	 * @param amount
+	 */
+	public void getPaid (double amount) {
+		this.balance += amount;
+	}
 }

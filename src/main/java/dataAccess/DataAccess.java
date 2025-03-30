@@ -450,14 +450,18 @@ public class DataAccess  {
 		
 		ReservationRequest reservation = db.find(ReservationRequest.class, rr.getId());
 		
-		if (newState == "accepted" && (ride.getRemainingPlaces() - rr.getNumSeats()) < 0) return false;
-		else if (newState == "paid" && reservation.getReservationState() != "accepted") return false;
+		if (newState.equals("accepted") && (ride.getRemainingPlaces() - rr.getNumSeats()) < 0) return false;
+		else if (newState.equals("paid") && !reservation.getReservationState().equals("accepted")) return false;
 		
 		db.getTransaction().begin();
 
 		reservation.setReservationState(newState);
 		
 		db.getTransaction().commit();
+		
+		// Given object also need to be modified
+		rr.setReservationState(newState);
+		
 		return true;
 	}
 	
@@ -495,13 +499,6 @@ public class DataAccess  {
 			;
 		else
 			q = q + "AND rr.reservationState = '" + state + "' ";
-			
-		/*
-		if(previousReservationRequests==1)
-			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.ride.date <= ?2 AND rr.reservationState = 'accepted'", ReservationRequest.class);
-		else
-			query = db.createQuery("SELECT rr FROM ReservationRequest rr WHERE rr.rider.email= ?1 AND rr.ride.date > ?2", ReservationRequest.class);
-		*/
 		
 		query = db.createQuery(q, ReservationRequest.class);
 		
@@ -529,6 +526,56 @@ public class DataAccess  {
 		query.setParameter(2, today);
 		List<ReservationRequest> l = query.getResultList();
 		return l;
+	}
+	
+	/**
+	 * Increase r's balance by amount
+	 * 
+	 * @param amount
+	 * @param r
+	 */
+	public void depositMoney (double amount, Rider r)
+	{
+		Rider dbR = db.find(Rider.class, r.getEmail());
+		db.getTransaction().begin();
+		dbR.getPaid(amount);
+		db.getTransaction().commit();
+	}
+	
+	/**
+	 * Attemp to pay a reservation request as rider. Will return true if operation succeeded, false otherwise.
+	 * 
+	 * @param rr
+	 * @param rider
+	 * @return true if payment succeeded (rider has enough money), false otherwise
+	 */
+	public boolean payReservationRequest (ReservationRequest rr, Rider rider)
+	{
+		Rider dbRider = db.find(Rider.class, rider.getEmail());
+		ReservationRequest dbRR = db.find(ReservationRequest.class, rr.getId());
+		Ride dbRide = db.find(Ride.class, dbRR.getRide().getRideNumber()); 
+		Driver dbDriver = db.find(Driver.class, dbRide.getDriver().getEmail()); 
+		
+		double totalPrice = dbRide.getPrice() * dbRR.getNumSeats();
+				
+		System.out.println("Total cost: " + totalPrice);
+		System.out.println("Balance: " + rider.getBalance());
+		System.out.println("DB balance: " + dbRider.getBalance());
+		
+		if (dbRider.getBalance() < totalPrice)
+			return false; // Not enough funds, cant pay
+		
+		db.getTransaction().begin();
+		dbRR.setReservationState("paid");
+		dbRider.pay(totalPrice);
+		dbDriver.getPaid(totalPrice);
+		db.getTransaction().commit();
+		
+		// Given objects also need to be modified, as they are not re-fetched from DB
+		rider.pay(totalPrice);
+		rr.setReservationState("paid");
+		
+		return true;
 	}
 	
 	public void open(){

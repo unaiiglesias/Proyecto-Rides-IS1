@@ -188,4 +188,22 @@ public interface BLFacade  {
 	 * @return
 	 */
 	public List<ReservationRequest> getPendingReservationRequestsOfDriver(Driver driver);
+	
+	/**
+	 * Increase r's balance by amount
+	 * 
+	 * @param amount
+	 * @param r
+	 */
+	public void depositMoney (double amount, Rider r);
+	
+	/**
+	 * Attemp to pay a reservation request as rider. Will return true if operation succeeded, false otherwise.
+	 * Only accepted reservation requests may be paid.
+	 * 
+	 * @param rr
+	 * @param rider
+	 * @return true if payment succeeded (enough balance and accepted), false otherwise
+	 */
+	public boolean payReservationRequest (ReservationRequest rr, Rider rider);
 }
