@@ -173,21 +173,24 @@ public interface BLFacade  {
 	/**
 	 * Get the reservation requests that a rider has made (rides it has requested)
 	 * Params can be used to filter what requests to retrieve
+	 * Result will be sorted by date
 	 * 
 	 * @param rider 
-	 * @param onlyGetPast true (past rides), false (future/pending rides), null (all rides)
-	 * @param state pending, accepted, rejected, null (all)
+	 * @param onlyGetPast true (past/historic rides), false (future/pending rides), null (all rides)
+	 * @param state pending, accepted, rejected, paid, null (all)
 	 */
 	public List<ReservationRequest> getReservationRequestsOfRider(Rider rider, Boolean onlyGetPast, String state);
 	
 	/**
-	 * Get a list of all pending reservation requests of a driver. Requests made to expired rides (past rides)
-	 * will NOT be returned.
-	 * Results will be sorted by date
+	 * Get the reservation requests that a driver has received. (requests made to it's rides)
+	 * Params can be used to filter what requests to retrieve
+	 * Result will be sorted by date
 	 * 
-	 * @return
+	 * @param driver
+	 * @param onlyGetPast true (past/historic rides), false (future/pending rides), null (all rides)
+	 * @param state pending, accepted, rejected, paid, null (all)
 	 */
-	public List<ReservationRequest> getPendingReservationRequestsOfDriver(Driver driver);
+	public List<ReservationRequest> getReservationRequestsOfDriver(Driver driver, Boolean onlyGetPast, String state);
 	
 	/**
 	 * Increase r's balance by amount

@@ -132,7 +132,7 @@ public class ShowPendingRequestsGUI extends JFrame {
 		
 		// Reject request button
 		rejectButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.rejectButton"));
-		rejectButton.setBounds(131, 410, 135, 45);
+		rejectButton.setBounds(129, 410, 150, 45);
 		contentPane.add(rejectButton);
 		rejectButton.setEnabled(false);
 		rejectButton.addActionListener(new ActionListener() {
@@ -150,7 +150,7 @@ public class ShowPendingRequestsGUI extends JFrame {
 
 		// Accept request button
 		acceptButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.acceptButton"));
-		acceptButton.setBounds(326, 410, 135, 45);
+		acceptButton.setBounds(309, 410, 150, 45);
 		contentPane.add(acceptButton);
 		acceptButton.setEnabled(false);
 		acceptButton.addActionListener(new ActionListener() {
@@ -176,8 +176,8 @@ public class ShowPendingRequestsGUI extends JFrame {
 	
 	public void updateReservations() {
 		
-		
-		List<ReservationRequest> rrList = facade.getPendingReservationRequestsOfDriver(driver);
+		List<ReservationRequest> rrList = facade.getReservationRequestsOfDriver(driver, false, "pending");
+		rrList.addAll(facade.getReservationRequestsOfDriver(driver, false, "accepted"));
 		
 		tableModel.setRowCount(0);
 		if (rrList.isEmpty()) noPendingReservationRequestsLabel.setVisible(true);

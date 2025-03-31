@@ -505,7 +505,8 @@ public class DataAccess  {
 		query = db.createQuery(q, ReservationRequest.class);
 		
 		query.setParameter(1, r.getEmail());
-		query.setParameter(2, today);
+		if (onlyGetPast != null)
+			query.setParameter(2, today);
 		List<ReservationRequest> l = query.getResultList();
 		return l;
 	}
@@ -526,6 +527,45 @@ public class DataAccess  {
 		
 		query.setParameter(1, r.getEmail());
 		query.setParameter(2, today);
+		List<ReservationRequest> l = query.getResultList();
+		return l;
+	}
+	
+	/**
+	 * Get the reservation requests that a driver has received. (requests made to it's rides)
+	 * Params can be used to filter what requests to retrieve
+	 * Result will be sorted by date
+	 * 
+	 * @param driver
+	 * @param onlyGetPast true (past/historic rides), false (future/pending rides), null (all rides)
+	 * @param state pending, accepted, rejected, paid, null (all)
+	 */
+	public List<ReservationRequest> getReservationRequestsOfDriver(Driver driver, Date today, Boolean onlyGetPast, String state)
+	{
+		Driver dbDriver = db.find(Driver.class, driver.getEmail());
+		TypedQuery<ReservationRequest> query;
+		
+		// For code simplicity purposes, we'll use an auxiliary variable to construct the query
+		String q = "SELECT rr FROM ReservationRequest rr WHERE rr.ride.driver.email = ?1 ";
+
+		if (onlyGetPast == null)
+			;
+		else if (onlyGetPast)
+			q += "AND rr.ride.date <= ?2 ";
+		else if (!onlyGetPast)
+			q += "AND rr.ride.date > ?2 ";
+		
+		if (state == null || !validStates.contains(state))
+			;
+		else
+			q += "AND rr.reservationState = '" + state + "'";
+		
+		query = db.createQuery(q, ReservationRequest.class);
+		
+		query.setParameter(1, dbDriver.getEmail());
+		if (onlyGetPast != null)
+			query.setParameter(2, today);
+		
 		List<ReservationRequest> l = query.getResultList();
 		return l;
 	}

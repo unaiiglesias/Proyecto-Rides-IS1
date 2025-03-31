@@ -319,14 +319,14 @@ public class BLFacadeImplementation  implements BLFacade {
 		});
 		return l;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<ReservationRequest> getPendingReservationRequestsOfDriver(Driver driver)
+	public List<ReservationRequest> getReservationRequestsOfDriver(Driver driver, Boolean onlyGetPast, String state)
 	{
 		dbManager.open();
-		List<ReservationRequest> l = dbManager.getPendingReservationRequestsOfDriver(driver, getCurrentDate());
+		List<ReservationRequest> l = dbManager.getReservationRequestsOfDriver(driver, getCurrentDate(), onlyGetPast, state);
 		dbManager.close();
 		Collections.sort(l, new Comparator<ReservationRequest>() {
 			public int compare(ReservationRequest r1, ReservationRequest r2) {

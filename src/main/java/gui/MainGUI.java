@@ -96,7 +96,7 @@ public class MainGUI extends JFrame {
 		jContentPane.add(queryRidesButton);
 		
 		// Language selector combo box
-		languageSelectorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
+		languageSelectorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel"));
 		languageSelectorLabel.setBounds(4, 15, 89, 14);
 		jContentPane.add(languageSelectorLabel);
 		languageSelectorModel = new DefaultComboBoxModel<String>(avaliableLanguages);
@@ -177,7 +177,7 @@ public class MainGUI extends JFrame {
 	public void paintAgain() {
 		headerLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.HeaderLabel"));
 		queryRidesButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
-		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel.text"));
+		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel"));
 		signUpJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
 		loginJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogIn"));
 		logoutJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogOut"));

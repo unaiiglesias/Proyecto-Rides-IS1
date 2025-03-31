@@ -12,7 +12,7 @@ public class DriverGUI extends RiderGUI {
 	private static final long serialVersionUID = 1L;
 
 	public JButton createRideButton;
-	public JButton jButtonShowRequests;
+	public JButton showRequestsButton;
 	public JButton removeRideButton;
 	
 	/**
@@ -27,10 +27,6 @@ public class DriverGUI extends RiderGUI {
 		this.setSize(656, 628);
 
 		System.out.println("GUI overloading: DriverGUI");
-		
-		// Current Session label
-		currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
-		currentUserLabel.setVisible(true);
 		
 		// The size is defined by MainGUI, only change if more space needed
 		//this.setSize(656, 543);
@@ -62,13 +58,13 @@ public class DriverGUI extends RiderGUI {
 			}
 		});
 		
-		// Show requests button
-		jButtonShowRequests = new JButton();
-		jButtonShowRequests.setBounds(0, 487, 644, 97);
-		getContentPane().add(jButtonShowRequests);
-		jButtonShowRequests.setVisible(true);
-		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.ShowPendingReservationRequests"));
-		jButtonShowRequests.addActionListener(new ActionListener() {
+		// Show Pending reservation requests button
+		showRequestsButton = new JButton();
+		showRequestsButton.setBounds(0, 487, 644, 97);
+		getContentPane().add(showRequestsButton);
+		showRequestsButton.setVisible(true);
+		showRequestsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.ShowPendingReservationRequests"));
+		showRequestsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new ShowPendingRequestsGUI((Driver) currentSession);
 				a.setVisible(true);
@@ -85,12 +81,10 @@ public class DriverGUI extends RiderGUI {
 	// Updated with all added in this GUI
 	public void paintAgain() {
 		super.paintAgain();
-		
-		currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
-		
-		createRideButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateRide"));
-		jButtonShowRequests.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ShowRequests"));
-		removeRideButton.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.RemoveRides"));
+				
+		createRideButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.CreateRide"));
+		showRequestsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.ShowPendingReservationRequests"));
+		removeRideButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.RemoveRides"));
 	}
 	
 }

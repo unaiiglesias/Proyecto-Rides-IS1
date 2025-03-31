@@ -33,7 +33,7 @@ public class CreateRideGUI extends JFrame {
 	private JLabel jLabelSeats = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.NumberOfSeats"));
 	private JLabel jLabRideDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideDate"));
 	private JLabel jLabelPrice = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.Price"));
-
+	JLabel euroLabel;
 	
 	
 	private JTextField jTextFieldSeats = new JTextField();
@@ -67,6 +67,10 @@ public class CreateRideGUI extends JFrame {
 		jLabelPrice.setBounds(new Rectangle(6, 159, 173, 20));
 		jTextFieldPrice.setBounds(new Rectangle(139, 159, 60, 20));
 
+		euroLabel = new JLabel("€");
+		euroLabel.setBounds(208, 162, 46, 14);
+		this.getContentPane().add(euroLabel);
+		
 		jCalendar.setBounds(new Rectangle(300, 50, 225, 150));
 		scrollPaneEvents.setBounds(new Rectangle(25, 44, 346, 116));
 
@@ -130,6 +134,8 @@ public class CreateRideGUI extends JFrame {
 		fieldDestination.setBounds(104, 81, 123, 26);
 		getContentPane().add(fieldDestination);
 		fieldDestination.setColumns(10);
+		
+
 		 //Code for JCalendar
 		this.jCalendar.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent propertychangeevent) {

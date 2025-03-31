@@ -20,6 +20,7 @@ public class RiderGUI extends MainGUI {
 	private JLabel balanceLabel;
 	private JLabel balanceAmount;
 	
+	private JButton depositMoneyButton;
 	private JButton showReservationsButton;
 	
 	/**
@@ -33,7 +34,7 @@ public class RiderGUI extends MainGUI {
 		
 		// Current Session label
 		if (d != null) // WindowBuilder design view fix
-			currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
+			currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.account") + ": " + currentSession.getEmail());
 		currentUserLabel.setVisible(true);
 		
 		// Disable login stuff
@@ -52,7 +53,7 @@ public class RiderGUI extends MainGUI {
 		jContentPane.add(balanceAmount);
 		
 		// Deposit money (to balance) button
-		JButton depositMoneyButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.depositMoneyButton"));
+		depositMoneyButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.depositMoneyButton"));
 		depositMoneyButton.setBounds(12, 65, 180, 24);
 		jContentPane.add(depositMoneyButton);
 		depositMoneyButton.addActionListener(new ActionListener() {
@@ -105,6 +106,9 @@ public class RiderGUI extends MainGUI {
 		super.paintAgain();
 		
 		balanceAmount.setText("" + this.currentSession.getBalance());
-		currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.account") + ": " + currentSession.getEmail());
+		currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.account") + ": " + currentSession.getEmail());
+		depositMoneyButton.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.depositMoneyButton"));
+		showReservationsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.ShowReservationsButton"));
+		
 	}
 }
