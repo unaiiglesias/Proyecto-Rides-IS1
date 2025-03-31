@@ -206,4 +206,12 @@ public interface BLFacade  {
 	 * @return true if payment succeeded (enough balance and accepted), false otherwise
 	 */
 	public boolean payReservationRequest (ReservationRequest rr, Rider rider);
+	
+	/**
+	 * Adds a rating to a review.
+	 * @param rider The rider that does the review's rating
+	 * @param review The review being rated
+	 * @param rating The rating (-1 or 1) given to the review
+	 */
+	public void addReviewRating(Review review, Rider rider, Integer rating);
 }

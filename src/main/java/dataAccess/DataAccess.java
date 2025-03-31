@@ -23,6 +23,7 @@ import configuration.UtilDate;
 import domain.Driver;
 import domain.ReservationRequest;
 import domain.Review;
+import domain.ReviewRating;
 import domain.Ride;
 import domain.Rider;
 import exceptions.RideAlreadyExistException;
@@ -122,7 +123,8 @@ public class DataAccess  {
 			Ride ride8 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2019,01,14), 3, 30);
 			Ride ride9 = driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(2020,10,14), 4, 30);
 			Ride ride10 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2010,4,14), 3, 30);
-			Ride ride11 = driver3.addRide("Donostia", "Santander", future, 4, 30);
+			Ride ride11 = driver3.addRide("Donostia", "Santander", UtilDate.newDate(year,month,25), 4, 30);
+			Ride ride11b = driver3.addRide("Donostia", "Santander", future, 4, 30);
 			Ride ride12 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2012,4,14), 3, 30);
 			Ride ride13 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2013,4,14), 3, 30);
 			Ride ride14 = driver3.addRide("Santander", "Donostia", UtilDate.newDate(2014,4,14), 3, 30);
@@ -142,27 +144,27 @@ public class DataAccess  {
 			ReservationRequest reservation2 = new ReservationRequest(rider2, ride1, 1);
 			addReservationRequest(reservation2);
 			ReservationRequest reservation3 = new ReservationRequest(rider1, ride8, 1);
-			reservation3.setReservationState("accepted");
+			reservation3.setReservationState("padi");
 			addReservationRequest(reservation3);
 			ReservationRequest reservation4 = new ReservationRequest(rider3, ride1, 16);
 			addReservationRequest(reservation4);
 			ReservationRequest reservation5 = new ReservationRequest(rider1, ride9, 1);
-			reservation5.setReservationState("accepted");
+			reservation5.setReservationState("paid");
 			addReservationRequest(reservation5);
 			ReservationRequest reservation6 = new ReservationRequest(rider1, ride10, 1);
-			reservation6.setReservationState("accepted");
+			reservation6.setReservationState("paid");
 			addReservationRequest(reservation6);
 			ReservationRequest reservation7 = new ReservationRequest(rider1, ride11, 1);
-			reservation7.setReservationState("accepted");
+			reservation7.setReservationState("paid");
 			addReservationRequest(reservation7);
 			ReservationRequest reservation8 = new ReservationRequest(rider1, ride12, 1);
-			reservation8.setReservationState("accepted");
+			reservation8.setReservationState("paid");
 			addReservationRequest(reservation8);
 			ReservationRequest reservation9 = new ReservationRequest(rider1, ride13, 1);
-			reservation9.setReservationState("accepted");
+			reservation9.setReservationState("paid");
 			addReservationRequest(reservation9);
 			// This needs to be done out of the transaction because each of the method calls creates its own transaction
-			
+
 			System.out.println("SUCCESS: Db initialized with example data");
 		}
 		catch (Exception e){
@@ -224,7 +226,7 @@ public class DataAccess  {
 	
 	public List<Review> getDriverReviews(Driver driver){
 		Driver dr = db.find(Driver.class, driver.getEmail());
-		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1", Review.class);
+		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1 ORDER BY rev.popularity, rev.date", Review.class);
 		query.setParameter(1, dr.getEmail());
 		List<Review> l = query.getResultList();
 		return l;
@@ -232,7 +234,7 @@ public class DataAccess  {
 	
 	public List<Review> getReviewsOfDriver(Driver driver){
 		Driver dr = db.find(Driver.class, driver.getEmail());
-		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1", Review.class);
+		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1  ORDER BY rev.popularity, rev.date", Review.class);
 		query.setParameter(1, dr.getEmail());
 		List<Review> l = query.getResultList();
 		return l;
@@ -543,7 +545,7 @@ public class DataAccess  {
 	}
 	
 	/**
-	 * Attemp to pay a reservation request as rider. Will return true if operation succeeded, false otherwise.
+	 * Attempt to pay a reservation request as rider. Will return true if operation succeeded, false otherwise.
 	 * 
 	 * @param rr
 	 * @param rider
@@ -577,6 +579,33 @@ public class DataAccess  {
 		
 		return true;
 	}
+	
+	/**
+	 * Adds a ReviewRating if it hasn't yet, else modifies the rating.
+	 * @param rating The ReviewRating to add or modify
+	 */
+	public void addReviewRating(ReviewRating rating) {
+		TypedQuery<ReviewRating> query = db.createQuery("SELECT rate FROM ReviewRating rate WHERE rate.review.id = ?1 AND rate.rider.email = ?2", ReviewRating.class);
+		Review review = db.find(Review.class, rating.getReview().getId());
+		Rider rider = db.find(Rider.class, rating.getRider().getEmail());
+		
+		query.setParameter(1, review.getId());
+		query.setParameter(2, rider.getEmail());
+		List<ReviewRating> l = query.getResultList();
+		ReviewRating r;
+		
+		db.getTransaction().begin();
+		// if the reviewRating exists modify it
+		if(l.size() > 0) {
+			r = l.get(0);
+			r.setRating(rating.getRating());
+		} else {
+			review.addReviewRating(rating);
+			rider.addReviewRating(rating);
+		}
+		db.getTransaction().commit();
+	}
+	
 	
 	public void open(){
 		

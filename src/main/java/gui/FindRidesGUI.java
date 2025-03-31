@@ -75,11 +75,10 @@ public class FindRidesGUI extends JFrame {
 		BLFacade facade = MainGUI.getBusinessLogic();
 	    class ButtonRenderer extends JButton implements TableCellRenderer {
 	        public ButtonRenderer() {
-	            setOpaque(true);  // Hacer opaco el botón
+	            setOpaque(true); 
 	        }
 
 	        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-	            // El texto del botón será el valor de la celda de la tabla
 	            setText(value.toString());
 	            return this;
 	        }
@@ -96,7 +95,7 @@ public class FindRidesGUI extends JFrame {
 	                public void actionPerformed(ActionEvent e) {
 	                    // Mostrar mensaje con el texto del botón
 	    				int selectedRow = tableRides.getSelectedRow();
-	                    ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver()));
+	                    ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver()), null);
 	                    a.setVisible(true);
 	                    fireEditingStopped(); 
 	                }

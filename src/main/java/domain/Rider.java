@@ -23,11 +23,46 @@ public class Rider {
 	private List<ReservationRequest> reservations;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Review> reviewsMade;
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<ReviewRating> ratings;
 	
 	public Rider() {
 		
 	}
 	
+	public Rider(String email, String password, String name, String surname, int age) {
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
+		this.age = age;
+		this.reservations = new ArrayList<ReservationRequest>();
+		this.reviewsMade = new ArrayList<Review>();
+		this.balance = 0;
+		this.ratings = new ArrayList<ReviewRating>();
+	}
+	
+	public List<Review> getReviewsMade() {
+		return reviewsMade;
+	}
+
+	public void setReviewsMade(List<Review> reviewsMade) {
+		this.reviewsMade = reviewsMade;
+	}
+
+	public List<ReviewRating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<ReviewRating> ratings) {
+		this.ratings = ratings;
+	}
+
+	public void setReservations(List<ReservationRequest> reservations) {
+		this.reservations = reservations;
+	}
+
+
 	public void addReservationRequest(ReservationRequest rr) {
 		this.reservations.add(rr);
 	}
@@ -40,15 +75,8 @@ public class Rider {
 		this.reviewsMade.add(review);
 	}
 	
-	public Rider(String email, String password, String name, String surname, int age) {
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.surname = surname;
-		this.age = age;
-		this.reservations = new ArrayList<ReservationRequest>();
-		this.reviewsMade = new ArrayList<Review>();
-		this.balance = 0;
+	public void addReviewRating(ReviewRating rating) {
+		this.ratings.add(rating);
 	}
 
 	public String getEmail() {

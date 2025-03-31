@@ -1,7 +1,9 @@
 package domain;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -19,6 +21,9 @@ public class Review {
 	private Rider rider;
 	@ManyToOne 
 	private Driver driver;
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<ReviewRating> ratings;
+	private Integer popularity = 0;
 	
 	public Review(Integer points, String message, Ride ride, Rider rider, Driver driver) {
 		this.points = points;
@@ -27,6 +32,36 @@ public class Review {
 		this.date = new Date();
 		this.rider = rider;
 		this.driver = driver;
+		this.ratings = new ArrayList<ReviewRating>();
+	}
+	
+	public Integer getPopularity() {
+		return popularity;
+	}
+
+	public void setPopularity(Integer popularity) {
+		this.popularity = popularity;
+	}
+
+	public void addReviewRating(ReviewRating rating) {
+		this.ratings.add(rating);
+		this.setPopularity(this.getPopularity() + rating.getRating());
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public List<ReviewRating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<ReviewRating> ratings) {
+		this.ratings = ratings;
 	}
 
 	public Integer getId() {

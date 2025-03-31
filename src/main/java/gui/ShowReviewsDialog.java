@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -12,10 +15,14 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import businessLogic.BLFacade;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import domain.Review;
+import domain.Rider;
 import swingResources.StarRating;
 
 import javax.swing.JLabel;
@@ -29,7 +36,10 @@ public class ShowReviewsDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ShowReviewsDialog(List<Review> reviews) {
+	public ShowReviewsDialog(List<Review> reviews, Rider currentUser) {
+		
+		BLFacade facade = MainGUI.getBusinessLogic();
+		
 		setModal(true);
 		setBounds(100, 100, 565, 365);
 		getContentPane().setLayout(null);
@@ -94,6 +104,39 @@ public class ShowReviewsDialog extends JDialog {
 				sp.setPreferredSize(new Dimension(450, 30));
 				sp.setAlignmentX(Component.LEFT_ALIGNMENT);
 				thisReview.add(sp);
+
+				
+				/*
+				 * Ratings only available if currentUser != null
+				 */
+				if(currentUser!=null) {
+					thisReview.add(Box.createVerticalStrut(3));
+					JPanel ratingPanel = new JPanel();
+					ratingPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+					ratingPanel.setPreferredSize(new Dimension(450, 20));
+					ratingPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+					ratingPanel.setBorder(null);
+					
+					JButton upRating = new JButton("👍");
+					upRating.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							facade.addReviewRating(r, currentUser, 1);
+						}
+					});
+					upRating.setBorder(null);
+					ratingPanel.add(upRating);	
+					
+					JButton downRating = new JButton("👎");
+					downRating.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							facade.addReviewRating(r, currentUser, -1);
+						}
+					});
+					downRating.setBorder(null);
+					ratingPanel.add(downRating);	
+					thisReview.add(ratingPanel);
+				}
+
 			}
 			thisReview.setAlignmentX(Component.LEFT_ALIGNMENT);
 			reviewJPanel.add(thisReview);

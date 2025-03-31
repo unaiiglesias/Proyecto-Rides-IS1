@@ -373,6 +373,16 @@ public class BLFacadeImplementation  implements BLFacade {
 		return res;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void addReviewRating(Review review, Rider rider, Integer rating) {
+		ReviewRating r = new ReviewRating(review, rider, rating);
+		dbManager.open();
+		dbManager.addReviewRating(r);
+		dbManager.close();
+	}
+	
 	
 	private Date getCurrentDate() {
 		// TODO: Is this correct?
