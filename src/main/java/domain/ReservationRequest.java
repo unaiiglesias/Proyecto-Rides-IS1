@@ -10,9 +10,9 @@ public class ReservationRequest {
 	@Id
 	@GeneratedValue // Automatically will assign a non-used ID
 	private Integer id;
+	private Date date;
 	private Integer numSeats;
 	private String reservationState = "pending"; // "pending", "accepted", "rejected" or "paid
-	private Date date;
 	@ManyToOne
 	private Rider rider;
 	@ManyToOne

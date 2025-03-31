@@ -452,7 +452,7 @@ public class DataAccess  {
 		
 		ReservationRequest reservation = db.find(ReservationRequest.class, rr.getId());
 		
-		if (newState.equals("accepted") && (ride.getRemainingPlaces() - rr.getNumSeats()) < 0) return false;
+		if (newState.equals("accepted") && ride.getRemainingPlaces() < rr.getNumSeats()) return false;
 		else if (newState.equals("paid") && !reservation.getReservationState().equals("accepted")) return false;
 		
 		db.getTransaction().begin();

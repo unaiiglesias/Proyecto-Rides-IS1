@@ -15,6 +15,7 @@ public class Review {
 	private Date date;
 	private Integer points;
 	private String message;
+	private Integer popularity;
 	@ManyToOne
 	private Ride ride;
 	@ManyToOne
@@ -23,7 +24,6 @@ public class Review {
 	private Driver driver;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<ReviewRating> ratings;
-	private Integer popularity = 0;
 	
 	public Review(Integer points, String message, Ride ride, Rider rider, Driver driver) {
 		this.points = points;
@@ -33,6 +33,7 @@ public class Review {
 		this.rider = rider;
 		this.driver = driver;
 		this.ratings = new ArrayList<ReviewRating>();
+		this.popularity = 0;
 	}
 	
 	public Integer getPopularity() {

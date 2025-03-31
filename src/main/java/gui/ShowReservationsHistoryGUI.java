@@ -157,11 +157,7 @@ public class ShowReservationsHistoryGUI extends JFrame {
 				int selectedRow = reservationRequestsTable.getSelectedRow();
 				if(selectedRow != -1) {
 					ReservationRequest selectedRide = (ReservationRequest) reservationRequestsTableModel.getValueAt(selectedRow, 7);
-					if (selectedRide.getReservationState().equals("pending"))
-						// TODO: We may want to warn the user about this (or might even change in the future
-						cancelReservationButton.setEnabled(true);
-					else
-						cancelReservationButton.setEnabled(false);
+					cancelReservationButton.setEnabled(true);
 					
 					if (selectedRide.getReservationState().equals("accepted"))
 						payReservationButton.setEnabled(true);
