@@ -53,7 +53,7 @@ public class DriverGUI extends RiderGUI {
 		removeRideButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.RemoveRides"));
 		removeRideButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame a = new RemoveRidesGUI((Driver) currentSession);
+				JFrame a = new CreatedRidesHistoryGUI((Driver) currentSession);
 				a.setVisible(true);
 			}
 		});
@@ -66,7 +66,7 @@ public class DriverGUI extends RiderGUI {
 		showRequestsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.ShowPendingReservationRequests"));
 		showRequestsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame a = new ShowPendingRequestsGUI((Driver) currentSession);
+				JFrame a = new PendingInboundRequestsGUI((Driver) currentSession);
 				a.setVisible(true);
 			}
 		});

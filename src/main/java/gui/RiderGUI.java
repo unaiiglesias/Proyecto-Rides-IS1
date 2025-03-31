@@ -87,7 +87,7 @@ public class RiderGUI extends MainGUI {
 		jContentPane.add(showReservationsButton);
 		showReservationsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame a = new ShowReservationsHistoryGUI(currentSession);
+				JFrame a = new ReservationHistoryGUI(currentSession);
 				// We want to update balance after this window closes, as it might have been modified
 				a.addWindowListener(new WindowAdapter() {
 				    @Override

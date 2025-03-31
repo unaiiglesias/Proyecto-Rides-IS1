@@ -89,7 +89,7 @@ public class MainGUI extends JFrame {
 		queryRidesButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.QueryRides"));
 		queryRidesButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				JFrame a = new FindRidesGUI(currentSession);
+				JFrame a = new QueryRidesGUI(currentSession);
 				a.setVisible(true);
 			}
 		});

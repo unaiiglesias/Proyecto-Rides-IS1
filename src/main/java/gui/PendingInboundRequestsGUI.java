@@ -23,7 +23,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ShowPendingRequestsGUI extends JFrame {
+public class PendingInboundRequestsGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Driver driver;
@@ -50,7 +50,7 @@ public class ShowPendingRequestsGUI extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings("serial")
-	public ShowPendingRequestsGUI(Driver d) {
+	public PendingInboundRequestsGUI(Driver d) {
 		
 		// Utility variables
 		this.driver = d;

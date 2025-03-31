@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 
-public class FindRidesGUI extends JFrame {
+public class QueryRidesGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public Rider rider;
@@ -67,7 +67,7 @@ public class FindRidesGUI extends JFrame {
 	private final JLabel jLabelNumSeats = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowRequestsGUI.NumSeats")); 
 
 	@SuppressWarnings("serial")
-	public FindRidesGUI(Rider rider)
+	public QueryRidesGUI(Rider rider)
 	{
 		/*
 		 * Auxiliar clases

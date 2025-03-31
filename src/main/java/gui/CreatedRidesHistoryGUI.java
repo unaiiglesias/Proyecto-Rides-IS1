@@ -27,7 +27,7 @@ import domain.ReservationRequest;
 import domain.Ride;
 import java.awt.Font;
 
-public class RemoveRidesGUI extends JFrame {
+public class CreatedRidesHistoryGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Driver driver;
@@ -68,7 +68,7 @@ public class RemoveRidesGUI extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings("serial")
-	public RemoveRidesGUI(Driver d) {
+	public CreatedRidesHistoryGUI(Driver d) {
 		
 		// DEBUG
 		System.out.println("Openning: RemoveRidesGUI");

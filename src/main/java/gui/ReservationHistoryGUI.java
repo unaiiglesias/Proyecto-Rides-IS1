@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-public class ShowReservationsHistoryGUI extends JFrame {
+public class ReservationHistoryGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private BLFacade facade;
@@ -53,7 +53,7 @@ public class ShowReservationsHistoryGUI extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings("serial")
-	public ShowReservationsHistoryGUI(Rider user) {
+	public ReservationHistoryGUI(Rider user) {
 		
 		System.out.println("Displaying: ShowReservationsHistoryGUI");
 		
