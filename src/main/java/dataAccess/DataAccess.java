@@ -165,6 +165,19 @@ public class DataAccess  {
 			addReservationRequest(reservation9);
 			// This needs to be done out of the transaction because each of the method calls creates its own transaction
 
+			// Iteration 2: Add riders to this ride so that they can review
+			ReservationRequest reservation10 = new ReservationRequest(rider2, ride10, 1);
+			reservation10.setReservationState("paid");
+			addReservationRequest(reservation10);
+			ReservationRequest reservation11 = new ReservationRequest(rider3, ride10, 1);
+			reservation11.setReservationState("paid");
+			addReservationRequest(reservation11);
+			// Add some example reviews
+			addReview(new Review(5, "Me ha gustado", ride10, rider1, ride10.getDriver()));
+			addReview(new Review(1, "A mi no", ride10, rider2, ride10.getDriver()));
+			addReview(new Review(3, "No esta mal", ride10, rider3, ride10.getDriver()));
+			
+			
 			System.out.println("SUCCESS: Db initialized with example data");
 		}
 		catch (Exception e){
@@ -234,7 +247,7 @@ public class DataAccess  {
 	
 	public List<Review> getReviewsOfDriver(Driver driver){
 		Driver dr = db.find(Driver.class, driver.getEmail());
-		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1  ORDER BY rev.popularity, rev.date", Review.class);
+		TypedQuery<Review> query = db.createQuery("SELECT rev FROM Review rev WHERE rev.driver.email = ?1  ORDER BY rev.popularity DESC, rev.date", Review.class);
 		query.setParameter(1, dr.getEmail());
 		List<Review> l = query.getResultList();
 		return l;

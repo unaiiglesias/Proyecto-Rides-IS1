@@ -2,24 +2,19 @@ package gui;
 
 import businessLogic.BLFacade;
 import configuration.UtilDate;
-
 import com.toedter.calendar.JCalendar;
-
-import domain.Review;
+import domain.Driver;
 import domain.Ride;
 import domain.Rider;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
 import java.text.DateFormat;
 import java.util.*;
 import java.util.List;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -95,8 +90,10 @@ public class QueryRidesGUI extends JFrame {
 	                public void actionPerformed(ActionEvent e) {
 	                    // Mostrar mensaje con el texto del botón
 	    				int selectedRow = tableRides.getSelectedRow();
-	                    ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver()), null);
-	                    a.setVisible(true);
+	                    //ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver()), null);
+	                    Driver d = ((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver();
+	                    NewShowReviews a = new NewShowReviews(d);
+	    				a.setVisible(true);
 	                    fireEditingStopped(); 
 	                }
 	            });
