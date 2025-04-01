@@ -7270,7 +7270,7 @@
 									"parentStyle": true,
 									"left": 513,
 									"top": 485,
-									"width": 82,
+									"width": 82.2490234375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGMFafnwMlzf08="
@@ -7634,7 +7634,7 @@
 									"parentStyle": true,
 									"left": 498,
 									"top": 125,
-									"width": 86,
+									"width": 86.58447265625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGMFahAHsmiCgk="
@@ -9917,7 +9917,7 @@
 									"parentStyle": true,
 									"left": 523.5,
 									"top": 189,
-									"width": 92,
+									"width": 93.07177734375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGVUs+eMo3zzKQ="
@@ -10572,7 +10572,7 @@
 									"parentStyle": true,
 									"left": 502.5,
 									"top": 605,
-									"width": 106,
+									"width": 106.79541015625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGVUtB/v55pG/g="
@@ -11754,7 +11754,7 @@
 									"parentStyle": true,
 									"left": 491.5,
 									"top": 565,
-									"width": 130,
+									"width": 131.3798828125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGV6CTT01dNMKA="
@@ -12092,7 +12092,7 @@
 									"parentStyle": true,
 									"left": 507.5,
 									"top": 525,
-									"width": 91,
+									"width": 92.36083984375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGV6CVm8Fledi4="
@@ -12870,7 +12870,7 @@
 									"parentStyle": true,
 									"left": 486.5,
 									"top": 325,
-									"width": 185,
+									"width": 185.5634765625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGV6Ca7fHMSilY="
@@ -13505,7 +13505,7 @@
 									"parentStyle": true,
 									"left": 849.5,
 									"top": 349,
-									"width": 83,
+									"width": 83.68359375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGV6CgHooQMw+A="
@@ -13992,7 +13992,7 @@
 									"parentStyle": true,
 									"left": 518.5,
 									"top": 277,
-									"width": 106,
+									"width": 106.83349609375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGV7IdMSmWbulA="
@@ -14202,7 +14202,7 @@
 									"parentStyle": true,
 									"left": 517.5,
 									"top": 237,
-									"width": 102,
+									"width": 103.18359375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGV7JC6QvHH/cU="
@@ -14976,7 +14976,7 @@
 									"parentStyle": true,
 									"left": 861,
 									"top": 405,
-									"width": 99,
+									"width": 100.30810546875,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGV8yWE9phFtcQ="
@@ -15180,7 +15180,7 @@
 									"parentStyle": true,
 									"left": 914,
 									"top": 461,
-									"width": 86,
+									"width": 86.5908203125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGV8yd56auGc3I="
@@ -25132,9 +25132,9 @@
 													},
 													"font": "Arial;13;0",
 													"parentStyle": true,
-													"left": 727.99365234375,
+													"left": 728.72998046875,
 													"top": 333,
-													"width": 162.79833984375,
+													"width": 180.6416015625,
 													"height": 13,
 													"text": "la solicitud de reserva ya existe"
 												},
@@ -25148,7 +25148,7 @@
 													"parentStyle": true,
 													"left": 709,
 													"top": 333,
-													"width": 12.99365234375,
+													"width": 13.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -25182,7 +25182,7 @@
 																	"parentStyle": true,
 																	"left": 724,
 																	"top": 366,
-																	"width": 32.7412109375,
+																	"width": 33.47119140625,
 																	"height": 13,
 																	"text": "[True]"
 																}
@@ -25217,7 +25217,7 @@
 																	"parentStyle": true,
 																	"left": 724,
 																	"top": 439,
-																	"width": 36.09912109375,
+																	"width": 39.0126953125,
 																	"height": 13,
 																	"text": "[False]"
 																}
@@ -27504,9 +27504,9 @@
 													},
 													"font": "Arial;13;0",
 													"parentStyle": true,
-													"left": 959.99365234375,
+													"left": 960.72998046875,
 													"top": 357,
-													"width": 105.904296875,
+													"width": 118.142578125,
 													"height": 13,
 													"text": "np - rr.numSeats < 0"
 												},
@@ -27520,7 +27520,7 @@
 													"parentStyle": true,
 													"left": 941,
 													"top": 357,
-													"width": 12.99365234375,
+													"width": 13.72998046875,
 													"height": 13,
 													"text": "alt"
 												},
@@ -27554,7 +27554,7 @@
 																	"parentStyle": true,
 																	"left": 956,
 																	"top": 390,
-																	"width": 36.09912109375,
+																	"width": 39.0126953125,
 																	"height": 13,
 																	"text": "[False]"
 																}
@@ -27589,7 +27589,7 @@
 																	"parentStyle": true,
 																	"left": 956,
 																	"top": 503,
-																	"width": 36.09912109375,
+																	"width": 39.0126953125,
 																	"height": 13,
 																	"text": "[False]"
 																}
@@ -28947,7 +28947,7 @@
 													"left": 260,
 													"top": 81,
 													"width": 1,
-													"height": 129
+													"height": 390
 												}
 											],
 											"font": "Arial;13;0",
@@ -28955,7 +28955,7 @@
 											"left": 160,
 											"top": 40,
 											"width": 199.998046875,
-											"height": 170,
+											"height": 431,
 											"nameCompartment": {
 												"$ref": "AAAAAAGV80cl+7phVgY="
 											},
@@ -29425,7 +29425,7 @@
 													"left": 661,
 													"top": 81,
 													"width": 1,
-													"height": 377
+													"height": 390
 												}
 											],
 											"font": "Arial;13;0",
@@ -29433,7 +29433,7 @@
 											"left": 584,
 											"top": 40,
 											"width": 154.392578125,
-											"height": 418,
+											"height": 431,
 											"nameCompartment": {
 												"$ref": "AAAAAAGV80lxd776MSc="
 											},
@@ -30744,6 +30744,123 @@
 											"activation": {
 												"$ref": "AAAAAAGV81PVlMBOgOI="
 											}
+										},
+										{
+											"_type": "UMLSeqMessageView",
+											"_id": "AAAAAAGV82IO5ke4nmk=",
+											"_parent": {
+												"$ref": "AAAAAAGV80YoM7nqqyY="
+											},
+											"model": {
+												"$ref": "AAAAAAGV82IO5ke37Y0="
+											},
+											"subViews": [
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAGV82IO5ke5Vkk=",
+													"_parent": {
+														"$ref": "AAAAAAGV82IO5ke4nmk="
+													},
+													"model": {
+														"$ref": "AAAAAAGV82IO5ke37Y0="
+													},
+													"font": "Arial;13;0",
+													"parentStyle": false,
+													"left": 360,
+													"top": 423,
+													"width": 200.17333984375,
+													"height": 13,
+													"alpha": -1.4711286644028423,
+													"distance": 10.04987562112089,
+													"hostEdge": {
+														"$ref": "AAAAAAGV82IO5ke4nmk="
+													},
+													"edgePosition": 1,
+													"text": "10 : solicitud de reserva cancelada"
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAGV82IO5ke6rSw=",
+													"_parent": {
+														"$ref": "AAAAAAGV82IO5ke4nmk="
+													},
+													"model": {
+														"$ref": "AAAAAAGV82IO5ke37Y0="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"parentStyle": false,
+													"left": 460,
+													"top": 459,
+													"height": 13,
+													"alpha": 1.5707963267948966,
+													"distance": 25,
+													"hostEdge": {
+														"$ref": "AAAAAAGV82IO5ke4nmk="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "EdgeLabelView",
+													"_id": "AAAAAAGV82IO5ke7hVU=",
+													"_parent": {
+														"$ref": "AAAAAAGV82IO5ke4nmk="
+													},
+													"model": {
+														"$ref": "AAAAAAGV82IO5ke37Y0="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"parentStyle": false,
+													"left": 461,
+													"top": 424,
+													"height": 13,
+													"alpha": -1.5707963267948966,
+													"distance": 10,
+													"hostEdge": {
+														"$ref": "AAAAAAGV82IO5ke4nmk="
+													},
+													"edgePosition": 1
+												},
+												{
+													"_type": "UMLActivationView",
+													"_id": "AAAAAAGV82IO5ke8As4=",
+													"_parent": {
+														"$ref": "AAAAAAGV82IO5ke4nmk="
+													},
+													"model": {
+														"$ref": "AAAAAAGV82IO5ke37Y0="
+													},
+													"visible": false,
+													"font": "Arial;13;0",
+													"parentStyle": false,
+													"left": 260,
+													"top": 440,
+													"width": 14,
+													"height": 25
+												}
+											],
+											"font": "Arial;13;0",
+											"parentStyle": false,
+											"head": {
+												"$ref": "AAAAAAGV80cl/LpmeYI="
+											},
+											"tail": {
+												"$ref": "AAAAAAGV80lxd77/dBQ="
+											},
+											"points": "661:440;261:440",
+											"nameLabel": {
+												"$ref": "AAAAAAGV82IO5ke5Vkk="
+											},
+											"stereotypeLabel": {
+												"$ref": "AAAAAAGV82IO5ke6rSw="
+											},
+											"propertyLabel": {
+												"$ref": "AAAAAAGV82IO5ke7hVU="
+											},
+											"activation": {
+												"$ref": "AAAAAAGV82IO5ke8As4="
+											}
 										}
 									]
 								}
@@ -30904,6 +31021,21 @@
 										"$ref": "AAAAAAGV81Pf6MBf8Ws="
 									},
 									"arguments": "rr"
+								},
+								{
+									"_type": "UMLMessage",
+									"_id": "AAAAAAGV82IO5ke37Y0=",
+									"_parent": {
+										"$ref": "AAAAAAGV80YoM7npHCs="
+									},
+									"name": "solicitud de reserva cancelada",
+									"source": {
+										"$ref": "AAAAAAGV80lxdr74CMI="
+									},
+									"target": {
+										"$ref": "AAAAAAGV80cl+7pfP4Q="
+									},
+									"messageSort": "reply"
 								}
 							],
 							"participants": [
@@ -31337,7 +31469,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGV812cBd8ptjY="
 							},
-							"name": "date"
+							"name": "date",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -31345,7 +31478,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGV812cBd8ptjY="
 							},
-							"name": "rating"
+							"name": "rating",
+							"type": ""
 						}
 					]
 				}
