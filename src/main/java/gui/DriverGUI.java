@@ -63,10 +63,10 @@ public class DriverGUI extends RiderGUI {
 		showRequestsButton.setBounds(0, 487, 644, 97);
 		getContentPane().add(showRequestsButton);
 		showRequestsButton.setVisible(true);
-		showRequestsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.ShowPendingReservationRequests"));
+		showRequestsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.InboundReservationRequests"));
 		showRequestsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame a = new PendingInboundRequestsGUI((Driver) currentSession);
+				JFrame a = new InboundRequestsGUI((Driver) currentSession);
 				a.setVisible(true);
 			}
 		});
@@ -83,7 +83,7 @@ public class DriverGUI extends RiderGUI {
 		super.paintAgain();
 				
 		createRideButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.CreateRide"));
-		showRequestsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.ShowPendingReservationRequests"));
+		showRequestsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.InboundReservationRequests"));
 		removeRideButton.setText(ResourceBundle.getBundle("Etiquetas").getString("DriverGUI.RemoveRides"));
 	}
 	

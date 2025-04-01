@@ -23,7 +23,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PendingInboundRequestsGUI extends JFrame {
+public class InboundRequestsGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Driver driver;
@@ -50,7 +50,7 @@ public class PendingInboundRequestsGUI extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings("serial")
-	public PendingInboundRequestsGUI(Driver d) {
+	public InboundRequestsGUI(Driver d) {
 		
 		// Utility variables
 		this.driver = d;
@@ -65,7 +65,7 @@ public class PendingInboundRequestsGUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		// Top label
-		JLabel headerLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.headerLabel"));
+		JLabel headerLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("InboundRequestsGUI.headerLabel"));
 		headerLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		headerLabel.setBounds(10, 11, 568, 30);
@@ -86,8 +86,13 @@ public class PendingInboundRequestsGUI extends JFrame {
 					boolean rideSelected = true;
 					if(rr == null) 
 						rideSelected = false;
-					acceptButton.setEnabled(rideSelected);
+					
+					// Only if rr is pending should it be acceptable
+					acceptButton.setEnabled(rideSelected && rr.getReservationState().equals("pending"));
+					// rr can be rejected both if it has been accepted or it is pending (paid ones are not shown)
 					rejectButton.setEnabled(rideSelected);
+					// If some drive is clicked, hide the error (so that it isn't always showing)
+					noSeatsAvaliableErrorLabel.setVisible(false);
 				}
 			}
 		});
@@ -117,21 +122,23 @@ public class PendingInboundRequestsGUI extends JFrame {
 		}
 		
 		// No seats avaliable error label (triggered when trying to accept a requests that asks for too many seats
-		noSeatsAvaliableErrorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.NoSeatsAvaliableError"));
+		noSeatsAvaliableErrorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("InboundRequestsGUI.NoSeatsAvaliableError"));
+		noSeatsAvaliableErrorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		noSeatsAvaliableErrorLabel.setBounds(10, 364, 568, 45);
 		noSeatsAvaliableErrorLabel.setForeground(new Color(255,0,0));
 		noSeatsAvaliableErrorLabel.setVisible(false);
 		contentPane.add(noSeatsAvaliableErrorLabel);
 		
 		// No pending reservation requests label
-		noPendingReservationRequestsLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.noPendingReservationRequestsLabel"));
+		noPendingReservationRequestsLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("InboundRequestsGUI.noPendingReservationRequestsLabel"));
+		noPendingReservationRequestsLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		noPendingReservationRequestsLabel.setBounds(10, 364, 568, 45);
 		noPendingReservationRequestsLabel.setForeground(new Color(255,0,0));
 		noPendingReservationRequestsLabel.setVisible(false);
 		contentPane.add(noPendingReservationRequestsLabel);
 		
 		// Reject request button
-		rejectButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.rejectButton"));
+		rejectButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("InboundRequestsGUI.rejectButton"));
 		rejectButton.setBounds(129, 410, 150, 45);
 		contentPane.add(rejectButton);
 		rejectButton.setEnabled(false);
@@ -149,7 +156,7 @@ public class PendingInboundRequestsGUI extends JFrame {
 		});
 
 		// Accept request button
-		acceptButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowPendingRequestsGUI.acceptButton"));
+		acceptButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("InboundRequestsGUI.acceptButton"));
 		acceptButton.setBounds(309, 410, 150, 45);
 		contentPane.add(acceptButton);
 		acceptButton.setEnabled(false);
