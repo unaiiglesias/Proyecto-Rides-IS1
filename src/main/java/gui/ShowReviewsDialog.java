@@ -1,26 +1,19 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Locale;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import businessLogic.BLFacade;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
 import domain.Review;
 import domain.Rider;
 import swingResources.StarRating;

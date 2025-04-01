@@ -63,7 +63,7 @@ public class ReservationHistoryGUI extends JFrame {
 		
 		// JFrame config
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 869, 731);
+		setBounds(100, 100, 869, 751);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setTitle("Rides & Reservation panel"); // TODO: Improve naming and add translations		
@@ -278,14 +278,14 @@ public class ReservationHistoryGUI extends JFrame {
 				updateReservationRequests();
 			}
 		});
-		payReservationButton.setBounds(392, 650, 223, 31);
+		payReservationButton.setBounds(392, 650, 223, 32);
 		payReservationButton.setEnabled(false);
 		contentPane.add(payReservationButton);
 		
 		// Payment error label
 		paymentErrorLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHistoryGUI.paymentErrorLabel"));
 		paymentErrorLabel.setVerticalAlignment(SwingConstants.TOP);
-		paymentErrorLabel.setBounds(625, 638, 218, 54);
+		paymentErrorLabel.setBounds(388, 687, 282, 14);
 		paymentErrorLabel.setForeground(new Color(255,0,0));
 		paymentErrorLabel.setVisible(false);
 		contentPane.add(paymentErrorLabel);
