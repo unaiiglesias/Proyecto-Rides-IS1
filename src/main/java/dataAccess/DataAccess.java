@@ -173,9 +173,9 @@ public class DataAccess  {
 			reservation11.setReservationState("paid");
 			addReservationRequest(reservation11);
 			// Add some example reviews
-			addReview(new Review(8, "Me ha gustado", ride10, rider1, ride10.getDriver()));
-			addReview(new Review(2, "A mi no", ride10, rider2, ride10.getDriver()));
-			addReview(new Review(6, "No esta mal", ride10, rider3, ride10.getDriver()));
+			addReview(new Review(5, "Me ha gustado", ride10, rider1, ride10.getDriver()));
+			addReview(new Review(1, "A mi no", ride10, rider2, ride10.getDriver()));
+			addReview(new Review(3, "No esta mal", ride10, rider3, ride10.getDriver()));
 			
 			
 			System.out.println("SUCCESS: Db initialized with example data");
