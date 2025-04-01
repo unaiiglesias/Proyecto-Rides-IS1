@@ -200,6 +200,9 @@ public class ReservationHistoryGUI extends JFrame {
 		
 		// Cancel reservation button
 		cancelReservationButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHistorGUI.CancelRequest"));
+		cancelReservationButton.setBounds(159, 650, 223, 32);
+		cancelReservationButton.setEnabled(false);
+		contentPane.add(cancelReservationButton);
 		cancelReservationButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Remove the ride and update the Ride's table
@@ -215,11 +218,11 @@ public class ReservationHistoryGUI extends JFrame {
 				}
 			}
 		});
-		cancelReservationButton.setBounds(159, 650, 223, 32);
-		cancelReservationButton.setEnabled(false);
-		contentPane.add(cancelReservationButton);
 		
 		addReviewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHisttoryGUI.addReviewButton"));
+		addReviewButton.setBounds(159, 309, 223, 32);
+		addReviewButton.setEnabled(false);
+		contentPane.add(addReviewButton);
 		addReviewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Get the selected Ride
@@ -238,22 +241,22 @@ public class ReservationHistoryGUI extends JFrame {
 				}
 			}
 		});
-		addReviewButton.setBounds(159, 309, 223, 32);
-		contentPane.add(addReviewButton);
-		
+
 		rateReviewsButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHisttoryGUI.showReviews"));
+		rateReviewsButton.setBounds(392, 309, 223, 32);
+		rateReviewsButton.setEnabled(false);
+		contentPane.add(rateReviewsButton);
 		rateReviewsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = ridesDoneTable.getSelectedRow();
 				if(selectedRow != -1) {
-	                ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) ridesDoneTableModel.getValueAt(selectedRow, 5)).getDriver()), currentUser);
-	                a.setVisible(true);
+	                //ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) ridesDoneTableModel.getValueAt(selectedRow, 5)).getDriver()), currentUser);
+					Driver d = ((Ride) ridesDoneTableModel.getValueAt(selectedRow, 5)).getDriver();
+					NewShowReviews a = new NewShowReviews(d);
+					a.setVisible(true);
 				}
 			}
 		});
-		rateReviewsButton.setBounds(392, 309, 223, 32);
-		rateReviewsButton.setEnabled(false);
-		contentPane.add(rateReviewsButton);
 		
 		// Pay reservation button
 		payReservationButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowReservationsHistoryGUI.payReservationButton"));
