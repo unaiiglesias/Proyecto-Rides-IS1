@@ -90,9 +90,8 @@ public class QueryRidesGUI extends JFrame {
 	                public void actionPerformed(ActionEvent e) {
 	                    // Mostrar mensaje con el texto del botón
 	    				int selectedRow = tableRides.getSelectedRow();
-	                    //ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver()), null);
 	                    Driver d = ((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver();
-	                    NewShowReviews a = new NewShowReviews(d);
+	                    ShowReviews a = new ShowReviews(d);
 	    				a.setVisible(true);
 	                    fireEditingStopped(); 
 	                }

@@ -23,7 +23,7 @@ import domain.Review;
 import domain.Rider;
 import swingResources.StarRating;
 
-public class NewShowReviews extends JFrame {
+public class ShowReviews extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -38,7 +38,7 @@ public class NewShowReviews extends JFrame {
 	/**
 	 * JFrame that shows the reviews made to r
 	 */
-	public NewShowReviews(Driver d) {
+	public ShowReviews(Driver d) {
 		
 		// Generic variable
 		this.reviewedUser = d;

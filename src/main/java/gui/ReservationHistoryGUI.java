@@ -250,9 +250,8 @@ public class ReservationHistoryGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = ridesDoneTable.getSelectedRow();
 				if(selectedRow != -1) {
-	                //ShowReviewsDialog a = new ShowReviewsDialog(facade.getReviewsOfDriver(((Ride) ridesDoneTableModel.getValueAt(selectedRow, 5)).getDriver()), currentUser);
 					Driver d = ((Ride) ridesDoneTableModel.getValueAt(selectedRow, 5)).getDriver();
-					NewShowReviews a = new NewShowReviews(d);
+					ShowReviews a = new ShowReviews(d);
 					a.setVisible(true);
 				}
 			}
