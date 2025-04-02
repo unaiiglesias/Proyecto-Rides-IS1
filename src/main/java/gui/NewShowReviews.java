@@ -99,7 +99,7 @@ public class NewShowReviews extends JFrame {
         panel.setPreferredSize(new Dimension(500, 140)); // Fixed size for every review
                 
         // Author name and email
-        JLabel authorLabel = new JLabel("Autor: " + reviewer.getEmail() + " (" + reviewer.getEmail() + ")");
+        JLabel authorLabel = new JLabel("Autor: " + reviewer.getName() + " (" + reviewer.getEmail() + ")");
         authorLabel.setBounds(10, 0, 500, 30);
         panel.add(authorLabel);
         
