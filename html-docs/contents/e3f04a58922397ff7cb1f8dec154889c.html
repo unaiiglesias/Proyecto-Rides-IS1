@@ -61,11 +61,12 @@
           
             <h1>Flujo de eventos: Eliminar viaje</h1>
 
-<ol><li>El sistema muestra el historial de viajes creados del conductor.</li><li>El conductor selecciona el viaje a eliminar, así como sus solicitudes aceptadas de viajeros en el caso de tenerlas.</li><li>El sistema elimina el viaje de la lista.</li></ol>
+<ol><li>El conductor selecciona un viaje</li><li>El conductor selecciona la opcion de eliminar dicho ciaje</li><li>El sistema elimina el viaje</li></ol>
 
 <h2>Flujo de eventos alternativo</h2>
 
-<ul><li>Si el viaje a eliminar tiene alguna solicitud, tanto aceptada como pendiente, no se eliminará y el sistema mostrará un mensaje indicandolo.</li><li>Si el viaje pertenece a una fecha pasada, se mostrará en fondo amarillo y no se podrá seleccionar.</li><li>Si no hay viajes creados, el sistema lo indicará.</li></ul>
+<p>3.1 Si el viaje a eliminar tiene alguna solicitud, tanto aceptada como pendiente, no se eliminará y el sistema mostrará un mensaje indicandolo.
+2.1 Si el viaje pertenece a una fecha pasada, se mostrará en fondo amarillo y no se podrá seleccionar.</p>
           
         </div>
       </section>
@@ -128,15 +129,6 @@
       
         
         
-<section class="element-list">
-    <h3>Actors</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='8655f45090fd86e8d6f767e54a6be5ec.html'><span class='node-icon staruml-icon icon-UMLActor'></span>Driver</a></li>
-        
-    </ul>
-</section>
-
 
 
         
@@ -354,6 +346,15 @@
 
         
         
+<section class="element-list">
+    <h3>Dependencies</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='f67aa6a3a6cfa995b3603cdf94a98821.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Show Created Rides History</a></li>
+        
+    </ul>
+</section>
+
 
 
         
@@ -369,7 +370,7 @@
     <h3>Relationships</h3>
     <ul class="nav nav-list">
         
-        <li><a href='14aac7a4eed82716a4e3ed3d5492d2bf.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Driver—Remove Ride)</a></li>
+        <li><a href='4c1ccc25cfce2b359451eefe44b9950a.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Remove Ride→Show Created Rides History)</a></li>
         
     </ul>
 </section>
@@ -380,6 +381,15 @@
 
       
       
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='4c1ccc25cfce2b359451eefe44b9950a.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Remove Ride→Show Created Rides History)</a></li>
+        
+    </ul>
+</section>
+
 
 
       <!-- Diagrams -->

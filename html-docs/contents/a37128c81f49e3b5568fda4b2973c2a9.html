@@ -61,7 +61,11 @@
           
             <h1>Flujo de eventos: Valorar reseña</h1>
 
-<ol><li>El viajero podrá valorar cada reseña mostrada individualmente con un punto positivo o negativo.</li></ol>
+<ol><li>El sistema muestra la reseña</li><li>El usuario oprime el boton de votar positivamente la reseña</li><li>El sistema aumenta la &quot;popularidad&quot; de la reseña</li></ol>
+
+<h2>Flujo Alternativo</h2>
+
+<p>2.1 Si el usuario oprime el boton de votar negativamente la rseña, el sistema le resta popularidad</p>
           
         </div>
       </section>
@@ -124,23 +128,23 @@
       
         
         
-
-
-        
-        
-
-
-        
-        
 <section class="element-list">
-    <h3>Extending Use Cases</h3>
+    <h3>Actors</h3>
     <ul class="nav nav-list">
         
-        <li><a href='aa53c50266b819765e7bea2ca53917ff.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Show Reviews</a></li>
+        <li><a href='dcde89fba9cce653f88edad933aa3a00.html'><span class='node-icon staruml-icon icon-UMLActor'></span>Rider</a></li>
         
     </ul>
 </section>
 
+
+
+        
+        
+
+
+        
+        
 
       
 
@@ -350,6 +354,15 @@
 
         
         
+<section class="element-list">
+    <h3>Dependencies</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='aa53c50266b819765e7bea2ca53917ff.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Show Reviews</a></li>
+        
+    </ul>
+</section>
+
 
 
         
@@ -365,7 +378,9 @@
     <h3>Relationships</h3>
     <ul class="nav nav-list">
         
-        <li><a href='18a5e708a40d81b8a205bf19c20f6c46.html'><span class='node-icon staruml-icon icon-UMLExtend'></span>(Show Reviews→Rate Review)</a></li>
+        <li><a href='6094219eeb585d55cb1657d379dcde47.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Rider—Rate Review)</a></li>
+        
+        <li><a href='141d04c4b3219733dcd417e17d39df16.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Rate Review→Show Reviews)</a></li>
         
     </ul>
 </section>
@@ -376,6 +391,15 @@
 
       
       
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='141d04c4b3219733dcd417e17d39df16.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Rate Review→Show Reviews)</a></li>
+        
+    </ul>
+</section>
+
 
 
       <!-- Diagrams -->

@@ -61,11 +61,11 @@
           
             <h1>Flujo de eventos: Añadir reseña</h1>
 
-<ol><li>El sistema muestra los viajes pasados realizados por el viajero.</li><li>El viajero escribe su reseña y proporciona una cantidad de estrellas (puntuación de 0 a 5).</li></ol>
+<ol><li>El sistema muestra los viajes pasados realizados por el viajero.</li><li>El viajero selecciona la opcion de añadir reseña a dicho conductor</li><li>El viajero escribe su reseña y proporciona una cantidad de estrellas (de 0 a 5).</li><li>El sistema almacena la reseña hecha a dicho conductor por dicho viajero debido a dicho viaje</li></ol>
 
 <h2>Flujo alternativo</h2>
 
-<ul><li>Si el viajero ya ha puesto una reseña en un viaje, no podrá poner más en el mismo.</li></ul>
+<p>2.1 Si el viajero ya ha puesto una reseña en ese viaje, no podrá poner más en el mismo.</p>
           
         </div>
       </section>
@@ -128,15 +128,6 @@
       
         
         
-<section class="element-list">
-    <h3>Actors</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='dcde89fba9cce653f88edad933aa3a00.html'><span class='node-icon staruml-icon icon-UMLActor'></span>Rider</a></li>
-        
-    </ul>
-</section>
-
 
 
         
@@ -354,6 +345,15 @@
 
         
         
+<section class="element-list">
+    <h3>Dependencies</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='974b2ea8726355506c489fb61ccd34a3.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Show Rides and Reservation Request History</a></li>
+        
+    </ul>
+</section>
+
 
 
         
@@ -369,7 +369,7 @@
     <h3>Relationships</h3>
     <ul class="nav nav-list">
         
-        <li><a href='f270c22282bd0c018f8859b89d5f795a.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Rider—Add Review)</a></li>
+        <li><a href='e081f1a0a3a992790f435eabdae6509d.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Add Review→Show Rides and Reservation Request History)</a></li>
         
     </ul>
 </section>
@@ -380,6 +380,15 @@
 
       
       
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='e081f1a0a3a992790f435eabdae6509d.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Add Review→Show Rides and Reservation Request History)</a></li>
+        
+    </ul>
+</section>
+
 
 
       <!-- Diagrams -->

@@ -65,7 +65,8 @@
 
 <h2>Flujo alternativo</h2>
 
-<ul><li>Si la reserva está pagada, el sistema no la mostrará ni se podrá cancelar.</li><li>Si la reserva pertenece a un viaje con fecha pasada, el sistema no la mostrará.</li></ul>
+<p>2.1 Si la reserva está pagada, el sistema no la mostrará ni se podrá cancelar.
+2.2 Si la reserva pertenece a un viaje con fecha pasada, el sistema no la mostrará.</p>
           
         </div>
       </section>
@@ -128,15 +129,6 @@
       
         
         
-<section class="element-list">
-    <h3>Actors</h3>
-    <ul class="nav nav-list">
-        
-        <li><a href='dcde89fba9cce653f88edad933aa3a00.html'><span class='node-icon staruml-icon icon-UMLActor'></span>Rider</a></li>
-        
-    </ul>
-</section>
-
 
 
         
@@ -423,6 +415,15 @@
 
         
         
+<section class="element-list">
+    <h3>Dependencies</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='974b2ea8726355506c489fb61ccd34a3.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Show Rides and Reservation Request History</a></li>
+        
+    </ul>
+</section>
+
 
 
         
@@ -438,7 +439,7 @@
     <h3>Relationships</h3>
     <ul class="nav nav-list">
         
-        <li><a href='b6a166a777ec512c5be6f178628123eb.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>(Rider—Cancel Reservation Request)</a></li>
+        <li><a href='df438810365aa99923f97f85ba790dd2.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Cancel Reservation Request→Show Rides and Reservation Request History)</a></li>
         
     </ul>
 </section>
@@ -454,6 +455,8 @@
     <ul class="nav nav-list">
         
         <li><a href='9a9a4a5e0fd2b99490b8189b7084de0e.html'><span class='node-icon staruml-icon icon-UMLInteraction'></span>CancelReservationRequestSD</a></li>
+        
+        <li><a href='df438810365aa99923f97f85ba790dd2.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Cancel Reservation Request→Show Rides and Reservation Request History)</a></li>
         
     </ul>
 </section>

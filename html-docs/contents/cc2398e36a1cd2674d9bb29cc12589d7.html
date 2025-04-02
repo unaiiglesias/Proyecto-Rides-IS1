@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Accept Reservation Request</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../assets/css/jquery.bonsai.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/icon-font/icons.css">
+<script type="text/javascript" src="../assets/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.bonsai.js"></script>
+<script type="text/javascript" src="../assets/js/imageMapResizer.min.js"></script>
+
+  </head>
+  <body>
+    <div>
+
+      <!-- Name Title -->
+
+      <h1>Accept Reservation Request</h1>
+
+      <!-- Type and Stereotype -->
+
+      <section style="margin-top: .5em;">
+        <span class="alert alert-info">
+          <span class="node-icon staruml-icon icon-UMLUseCase"></span>
+          UMLUseCase
+        </span>
+        
+      </section>
+
+      <!-- Path -->
+
+      <section style="margin-top: 10px">
+        
+        
+        
+          
+          <span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>Untitled</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='ed4c5a4675ae4c4969685f4eb80494ee.html'><span class='node-icon staruml-icon icon-UMLModel'></span>Requirements</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='cc2398e36a1cd2674d9bb29cc12589d7.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Accept Reservation Request</a></span>
+        
+      </section>
+
+      <!-- Diagram -->
+
+      
+
+      <!-- Description -->
+
+      
+      <section>
+        <h3>Description</h3>
+        <div>
+          
+            <h1>Flujo de eventos: Aceptar petición de reserva</h1>
+
+<ol><li>El conductor selecciona una solicitud de reserva</li><li>El conductor selecciona la opcion de aceptar reserva</li><li>La reserva cambia de estado a aceptada</li></ol>
+
+<h2>Flujo alternativo</h2>
+
+<p>2.1 Si el viajero solicita más asientos de los disponibles, la reserva no se acepta y el sistema lo indica.
+2.2 Si la solicitud ya se encuentra aceptada, pero esta pendiente de pago, el sistema no permite que se acepte</p>
+          
+        </div>
+      </section>
+      
+
+      <!-- Specification -->
+
+      
+
+      <!-- Directed Relationship -->
+
+      
+
+      <!-- Undirected Relationship -->
+
+      
+
+      <!-- Classifier -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Interface -->
+
+      
+
+      <!-- Component -->
+
+      
+
+      <!-- Node -->
+
+      
+
+      <!-- Actor -->
+
+      
+
+      <!-- Use Case -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Template Parameters -->
+
+      
+
+      <!-- Literals -->
+
+      
+
+      <!-- Attributes -->
+
+      
+      <section>
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="cd57916e98139245175c5ae7b29141cb.html">Role1</a></td>
+            <td><a href='8655f45090fd86e8d6f767e54a6be5ec.html'><span class='node-icon staruml-icon icon-UMLActor'></span>Driver</a> </td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="dd56e60716db43c576d0e2d0ed528650.html">Role2</a></td>
+            <td><a href='ec5e94786b3c4cd8e83e3b38faccae18.html'><span class='node-icon staruml-icon icon-UMLClass'></span>ShowPendingRequestsGUI</a> </td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="8d46a13ce8c956315c1c0e2abc734959.html">Role3</a></td>
+            <td><a href='4c1072ae0fc83070a454d03ff421928e.html'><span class='node-icon staruml-icon icon-UMLClass'></span>BLFacade</a> </td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="babef077f233223d254d679b11ceaa49.html">Role4</a></td>
+            <td><a href='5d72e4152d07ff448174280ac3764b17.html'><span class='node-icon staruml-icon icon-UMLClass'></span>DataAccess</a> </td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="b93c64380094af2b95df71eac61b360d.html">Role5</a></td>
+            <td><a href='5ef37c4b8e41251f399e8535fbd4bfaa.html'><span class='node-icon staruml-icon icon-UMLClass'></span>EntityManager</a> </td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="1ade16ae01ff0aafebe25905aca3b678.html">Role6</a></td>
+            <td><a href='992bba727c7e65d4c13e04547469c5fa.html'><span class='node-icon staruml-icon icon-UMLClass'></span>Ride</a> </td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="b298672780a4a7287e88384612ba52db.html">Role7</a></td>
+            <td><a href='21571b393b5985e48e37b6e0d4169d85.html'><span class='node-icon staruml-icon icon-UMLClass'></span>ReservationRequest</a> </td>
+            <td></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Operations -->
+
+      
+
+      <!-- Receptions -->
+
+      
+
+      <!-- Extension Points -->
+
+      
+
+      <!-- Parameters -->
+
+      
+
+      <!-- Diagrams -->
+
+      
+      
+
+      <!-- Behavior -->
+
+      
+
+      <!-- Action -->
+
+      
+
+      <!-- Interaction -->
+
+      
+
+      <!-- CombinedFragment -->
+
+      
+
+      <!-- Activity -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State -->
+
+      
+
+      <!-- Vertex -->
+
+      
+
+      <!-- Transition -->
+
+      
+
+      <!-- Data Model (ERD) -->
+
+      
+
+      <!-- Columns (ERD) -->
+
+      
+
+      <!-- Related Entities (ERD) -->
+
+      
+
+      <!-- Data Flows (DFD) -->
+
+      
+
+      <!-- Flows (Flowchart) -->
+
+      
+
+      <!-- Properties -->
+
+      <section>
+        <h3>Properties</h3>
+        
+        <table class="table table-striped table-bordered">
+    <tr>
+        <th width="50%">Name</th>
+        <th width="50%">Value</th>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>name</td>
+        <td>Accept Reservation Request</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>stereotype</td>
+        <td><span class='label label-info'>null</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>visibility</td>
+        <td>public</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>isAbstract</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isFinalSpecialization</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isLeaf</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>extensionPoints</td>
+        <td>
+            
+        </td>
+    </tr>
+    
+    
+    
+</table>                
+
+      </section>
+
+      <!-- Tags -->
+
+      
+
+      <!-- Constraints, Dependencies, Dependants -->
+
+      
+        
+        
+
+
+        
+        
+<section class="element-list">
+    <h3>Dependencies</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='6aa7ba91677e0f64bb6420855364b4f4.html'><span class='node-icon staruml-icon icon-UMLUseCase'></span>Show Inbound Reservation Requests</a></li>
+        
+    </ul>
+</section>
+
+
+
+        
+        
+
+      
+
+      <!-- Relationships -->
+
+      
+      
+<section class="element-list">
+    <h3>Relationships</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='d90189eb2c52e3e4373eb32536d77d39.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Accept Reservation Request→Show Inbound Reservation Requests)</a></li>
+        
+    </ul>
+</section>
+
+
+
+      <!-- Owned Elements -->
+
+      
+      
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='fb29f1bac260f3f00927a724e9f0ae72.html'><span class='node-icon staruml-icon icon-UMLInteraction'></span>AcceptReservationSD</a></li>
+        
+        <li><a href='d90189eb2c52e3e4373eb32536d77d39.html'><span class='node-icon staruml-icon icon-UMLDependency'></span>includes (Accept Reservation Request→Show Inbound Reservation Requests)</a></li>
+        
+    </ul>
+</section>
+
+
+
+      <!-- Diagrams -->
+      
+      
+      
+<section class="element-list">
+    <h3>Diagrams</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='ef6c6f43ab5e539e5c89f160401f20f9.html'><span class='node-icon staruml-icon icon-UMLUseCaseDiagram'></span>Use Case Model</a></li>
+        
+    </ul>
+</section>
+
+
+      
+      
+      <!-- Image Map Resizer (https://github.com/davidjbradshaw/image-map-resizer) -->
+      <script>
+      imageMapResize();
+      </script>
+    </div>
+  </body>
+</html>
