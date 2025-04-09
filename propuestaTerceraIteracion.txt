@@ -7,4 +7,4 @@ Nuevos CU para la iteracion 3:
 
 Notas para el Product Owner:
  - El tema del monedero y la carga de dinero ya está implementada porque en la iteración 2 implementamos sistema de pago
- - Para las peticiones a la API de google maps, para esta version en desarrollo, utilizaremos una clave nuestra. A la hora de desplegar la aplicación, usted tendrá que crear una cuenta de google y proporcionar su propia clave de la API. En la version final de la aplicación, sus clientes harán peticiones a la lógica de negocio, quien hará las peticiones a la API de Google Maps, por lo tanto, los clientes no tendrán la clave de la API
+ - Para la duracion estimada del viaje estamos contemplando utilizar otras alternativas a google maps, ya que es de pago y requiere de una clave para utilizar la API
