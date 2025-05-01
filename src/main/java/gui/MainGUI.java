@@ -44,7 +44,6 @@ public class MainGUI extends JFrame {
 	public DefaultComboBoxModel<String> languageSelectorModel;
 	public JComboBox<String> languageSelector;
 	public JButton loginJButton;
-	public JButton logoutJButton;
 	public JButton signUpJButton;
 	public JLabel currentUserLabel;
 	
@@ -127,19 +126,6 @@ public class MainGUI extends JFrame {
 		loginJButton.setBounds(524, 0, 120, 36);
 		jContentPane.add(loginJButton);
 		
-		// Log out button
-		logoutJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogOut"));
-		if(currentSession==null) logoutJButton.setVisible(false);
-		logoutJButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame a = new MainGUI(null);
-				a.setVisible(true);
-				dispose();
-			}
-		});
-		logoutJButton.setBounds(524, 0, 120, 36);
-		jContentPane.add(logoutJButton);
-		
 		// Sign up button
 		signUpJButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
 		if(currentSession!=null) signUpJButton.setVisible(false);
@@ -180,7 +166,6 @@ public class MainGUI extends JFrame {
 		languageSelectorLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.languageSelectorLabel"));
 		signUpJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignUp"));
 		loginJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogIn"));
-		logoutJButton.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.LogOut"));
 	}
 } // @jve:decl-index=0:visual-constraint="0,0"
 

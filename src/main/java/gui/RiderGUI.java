@@ -17,9 +17,9 @@ public class RiderGUI extends MainGUI {
 
 	private static final long serialVersionUID = 1L;
 
+	public JButton logoutButton;
 	private JLabel balanceLabel;
 	private JLabel balanceAmount;
-	
 	private JButton depositMoneyButton;
 	private JButton showReservationsButton;
 	
@@ -40,6 +40,18 @@ public class RiderGUI extends MainGUI {
 		// Disable login stuff
 		signUpJButton.setVisible(false);
 		loginJButton.setVisible(false);
+		
+		// Log out button
+		logoutButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.LogOut"));
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new MainGUI(null);
+				a.setVisible(true);
+				dispose();
+			}
+		});
+		logoutButton.setBounds(524, 0, 120, 36);
+		jContentPane.add(logoutButton);
 		
 		// Balance label
 		balanceLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.balanceLabel"));
@@ -105,6 +117,7 @@ public class RiderGUI extends MainGUI {
 		public void paintAgain() {
 		super.paintAgain();
 		
+		logoutButton.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.LogOut"));
 		balanceAmount.setText("" + this.currentSession.getBalance());
 		currentUserLabel.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.account") + ": " + currentSession.getEmail());
 		depositMoneyButton.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.depositMoneyButton"));
