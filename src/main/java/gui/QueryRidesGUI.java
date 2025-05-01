@@ -6,6 +6,8 @@ import com.toedter.calendar.JCalendar;
 import domain.Driver;
 import domain.Ride;
 import domain.Rider;
+import util.MapAPI;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -31,6 +33,12 @@ public class QueryRidesGUI extends JFrame {
 
 	private JLabel jLabelOrigin = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.LeavingFrom"));
 	private JLabel jLabelDestination = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.GoingTo"));
+	
+	// ETA Stuff
+	private JLabel jLabelEstimatedTime;
+	private JTextField estimatedTravelDuration;
+	MapAPI api = new MapAPI();
+	
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideDate"));
 	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.Rides")); 
 
@@ -159,9 +167,15 @@ public class QueryRidesGUI extends JFrame {
 		getContentPane().add(jLabelOrigin);
 
 		getContentPane().add(jLabelDestination);
+		jComboBoxOrigin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				updateETA();
+			}
+		});
 
 		jComboBoxOrigin.setModel(originLocations);
 		jComboBoxOrigin.setBounds(new Rectangle(103, 50, 172, 20));
+		
 		
 
 		List<String> aCities=facade.getDestinationCities((String)jComboBoxOrigin.getSelectedItem());
@@ -182,6 +196,11 @@ public class QueryRidesGUI extends JFrame {
 				tableModelRides.fireTableDataChanged();
 
 				
+			}
+		});
+		jComboBoxDestination.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateETA();
 			}
 		});
 
@@ -205,7 +224,17 @@ public class QueryRidesGUI extends JFrame {
 
 		this.getContentPane().add(jComboBoxDestination, null);
 
-
+		// Estimated time of Arrival stuff
+		jLabelEstimatedTime = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("QueryRidesGUI.EstimatedTime"));
+		jLabelEstimatedTime.setBounds(6, 108, 130, 25);
+		this.getContentPane().add(jLabelEstimatedTime, null);
+		
+		estimatedTravelDuration = new JTextField(ResourceBundle.getBundle("Etiquetas").getString("QueryRidesGUI.CalculatingETA"));
+		estimatedTravelDuration.setEditable(false);
+		estimatedTravelDuration.setBounds(145, 108, 130, 25);
+		this.getContentPane().add(estimatedTravelDuration, null);
+		updateETA();
+		
 		jCalendar1.setBounds(new Rectangle(300, 50, 225, 150));
 
 
@@ -415,6 +444,34 @@ public class QueryRidesGUI extends JFrame {
 		this.setVisible(false);
 	}
 	
-
+	private void updateETA() {
+		/**
+		 * Update Estimated Time of Arrival
+		 */
+		System.out.println("Updating ETA...");
+		
+		estimatedTravelDuration.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryRidesGUI.CalculatingETA"));
+		
+		api.asyncRequest(
+				(String) jComboBoxOrigin.getSelectedItem(), 
+				(String) jComboBoxDestination.getSelectedItem(),
+				res -> {
+					if (res == -1)
+					{
+						System.out.println("Reqeust success with wrong result: " + res);
+						estimatedTravelDuration.setText(ResourceBundle.getBundle("Etiquetas").getString("QueryRidesGUI.FailedETA"));
+						return;
+					}
+					
+					System.out.println("Request success: " + res + " mins");
+					int h = res / 60, min = res % 60;
+					estimatedTravelDuration.setText(String.valueOf(h) + "h " + String.valueOf(min) + "min");
+				},
+				error -> {
+					System.out.println("Request error: " + error.getMessage());
+				}
+		);
+		
+	}
 
 }
