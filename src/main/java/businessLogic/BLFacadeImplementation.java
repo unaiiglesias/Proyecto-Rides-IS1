@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.swing.ImageIcon;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import dataAccess.DataAccess;
@@ -393,6 +394,11 @@ public class BLFacadeImplementation  implements BLFacade {
 		return UtilDate.newDate(year, month, today.get(Calendar.DAY_OF_MONTH));
 	}
 	
+	public void setRiderProfilePic(Rider r, ImageIcon icon) {
+		dbManager.open();
+		dbManager.setRiderProfilePic(r, icon);
+		dbManager.close();
+	}
 	
 	public void close() {
 		DataAccess dB4oManager=new DataAccess();

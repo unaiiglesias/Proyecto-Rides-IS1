@@ -17,6 +17,7 @@ import exceptions.IncorrectCredentialsException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.swing.ImageIcon;
  
 /**
  * Interface that specifies the business logic.
@@ -217,4 +218,12 @@ public interface BLFacade  {
 	 * @param rating The rating (-1 or 1) given to the review
 	 */
 	public void addReviewRating(Review review, Rider rider, Integer rating);
+	
+	/**
+	 * Changes a given riders profile picture to the one given
+	 * 
+	 * @param r
+	 * @param icon
+	 */
+	public void setRiderProfilePic(Rider r, ImageIcon icon);
 }

@@ -1,9 +1,6 @@
 package dataAccess;
 
-import java.awt.Window.Type;
 import java.io.File;
-import java.net.NoRouteToHostException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -12,12 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-
+import javax.swing.ImageIcon;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Driver;
@@ -657,6 +653,14 @@ public class DataAccess  {
 			rider.addReviewRating(rating);
 		}
 		db.getTransaction().commit();
+	}
+	
+	public void setRiderProfilePic(Rider r, ImageIcon icon) {
+		Rider rider = db.find(Rider.class, r);
+		db.getTransaction().begin();
+		rider.setProfilePicIcon(icon);
+		db.getTransaction().commit();
+		r.setProfilePicIcon(icon);
 	}
 	
 	

@@ -2,11 +2,12 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
+import javax.swing.ImageIcon;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlID;
+import util.ImageManagerUtil;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
@@ -19,6 +20,9 @@ public class Rider {
 	private String surname;
 	private double balance;
 	private int age;
+	@Lob
+	private byte[] profilePic; // Annotation for Large OBject
+
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<ReservationRequest> reservations;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
@@ -36,6 +40,7 @@ public class Rider {
 		this.name = name;
 		this.surname = surname;
 		this.age = age;
+		this.profilePic = ImageManagerUtil.getDefaultIconArr();
 		this.reservations = new ArrayList<ReservationRequest>();
 		this.reviewsMade = new ArrayList<Review>();
 		this.balance = 0;
@@ -117,6 +122,22 @@ public class Rider {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	public byte[] getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(byte[] profilePic) {
+		this.profilePic = profilePic;
+	}
+	
+	public ImageIcon getProfilePicIcon () {
+		return ImageManagerUtil.convertByteArrToIcon(this.profilePic);
+	}
+	
+	public void setProfilePicIcon (ImageIcon icon) {
+		this.profilePic = ImageManagerUtil.convertImageIconToByteArr(icon);
 	}
 	
 	public List<ReservationRequest> getReservations(){

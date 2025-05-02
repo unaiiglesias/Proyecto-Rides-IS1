@@ -5,18 +5,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
 import domain.Rider;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 
 public class RiderGUI extends MainGUI {
 
 	private static final long serialVersionUID = 1L;
 
+	private JButton profileButton;
 	public JButton logoutButton;
 	private JLabel balanceLabel;
 	private JLabel balanceAmount;
@@ -41,6 +41,26 @@ public class RiderGUI extends MainGUI {
 		signUpJButton.setVisible(false);
 		loginJButton.setVisible(false);
 		
+		// Profile icon button
+		profileButton = new JButton(d.getProfilePicIcon());
+		profileButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame a = new ManageRiderGUI(d);
+				// We want to update profile picture after this window closes, as it might have been modified
+				a.addWindowListener(new WindowAdapter() {
+				    @Override
+				    public void windowClosed(WindowEvent e) {
+				    	profileButton.setIcon(d.getProfilePicIcon());
+				    }
+				});
+				a.setVisible(true);
+			}
+		});
+		// Make button transparent as well
+		profileButton.setContentAreaFilled(false);
+		profileButton.setBounds(547, 4, 64, 64);
+		jContentPane.add(profileButton);
+		
 		// Log out button
 		logoutButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.LogOut"));
 		logoutButton.addActionListener(new ActionListener() {
@@ -50,7 +70,7 @@ public class RiderGUI extends MainGUI {
 				dispose();
 			}
 		});
-		logoutButton.setBounds(524, 0, 120, 36);
+		logoutButton.setBounds(522, 72, 112, 24);
 		jContentPane.add(logoutButton);
 		
 		// Balance label
