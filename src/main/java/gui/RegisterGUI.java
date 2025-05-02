@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,6 +24,7 @@ import exceptions.UserAlreadyExistException;
 import javax.swing.JSpinner;
 import java.awt.Font;
 import javax.swing.JCheckBox;
+import util.UserDataValidator;
 
 public class RegisterGUI extends JFrame {
 
@@ -104,32 +104,45 @@ public class RegisterGUI extends JFrame {
 				Rider user = null; 
 				String email = null;
 				try {
+					String validation;
+					
 					email = emailField.getText();
-					// Chech for @
-					if (email.split("@").length != 2) throw new IncorrectEmailException("Missing @");
-					// Check for domain (.com, .net, .org, .eus...)
-					// The dot (".") needs to be escaped because split gets a regex
-					else if (email.split("@")[1].split("\\.").length != 2 ) throw new IncorrectEmailException("Missing domain");
+					validation = UserDataValidator.validateEmail(email);
+					if (validation != null)
+						throw new Exception(validation);
 					
 					String password = new String(passwordField.getPassword());
-					if (password.equals("")) throw new Exception("Password can't be empty");
+					validation = UserDataValidator.validatePassword(password);
+					if (validation != null) 
+						throw new Exception(validation);
 					
 					String name = nameTextField.getText();
-					if (name.equals("")) throw new Exception("Name can't be empty");
+					validation = UserDataValidator.validateName(name);
+					if (validation != null)
+						throw new Exception(validation);
 					
 					String surname = surnameTextField.getText();
-					if (surname.equals("")) throw new Exception("Surname can't be empty");
+					validation = UserDataValidator.validateSurname(surname);
+					if (validation != null)
+						throw new Exception(validation);
 					
 					Integer age = (Integer) spinner.getValue();
-					if (age <= 0) throw new Exception("Incorrect age");
-					else if (driverCheckBox.isSelected() && age < 18) throw new Exception("Minors can't be drivers");
+					validation = UserDataValidator.validateAge(age);
+					if (validation != null)
+						throw new Exception(validation);
+					if (driverCheckBox.isSelected() && age < 18) throw new Exception("Minors can't be drivers");
+					
 					
 					if(driverCheckBox.isSelected()) {
 						String licensePlate = licensePlateField.getText();
-						if (licensePlate.equals("")) throw new Exception("Drivers need to register their license plate");
+						validation = UserDataValidator.validateLicensePlate(licensePlate);
+						if (validation != null)
+							throw new Exception(validation);
 						
 						String vehicleModel = vehicleModelField.getText();
-						if (vehicleModel.equals("")) throw new Exception("Drivers need to register their vehicle model");
+						validation = UserDataValidator.validateVehicleModel(vehicleModel);
+						if (validation != null)
+							throw new Exception(validation);
 						
 						facade.addDriver(email, password, name, surname, age, licensePlate, vehicleModel);
 					} else {
