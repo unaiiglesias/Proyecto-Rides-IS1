@@ -4,12 +4,14 @@ import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import businessLogic.BLFacade;
 import domain.Rider;
 import util.ImageManagerUtil;
+import util.UserDataValidator;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -20,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class ManageRiderGUI extends JFrame {
 
@@ -35,14 +38,21 @@ public class ManageRiderGUI extends JFrame {
 	private JTextField nameField;
 	private JFileChooser selector;
 	private JLabel errorLabel;
-
+	private JLabel surnameLabel;
+	private JTextField surnameField;
+	private JLabel passwordLabel;
+	private JPasswordField passwordField;
+	private JCheckBox showPassword;
+	private JButton applyButton;
+	private JButton cancelButton;
+	
 	/**
 	 * GUI to view full rider info and modify some of it
 	 */
 	public ManageRiderGUI(Rider r) {
 		bl = MainGUI.getBusinessLogic();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 470, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -101,28 +111,113 @@ public class ManageRiderGUI extends JFrame {
 		resetIcon.setBounds(260, 30, 150, 24);
 		contentPane.add(resetIcon);
 		
-		emailLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ManageRiderGUI.emailLabel"));
-		emailLabel.setBounds(10, 86, 80, 20);
+		emailLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Email"));
+		emailLabel.setBounds(10, 90, 80, 20);
 		contentPane.add(emailLabel);
 		
 		emailField = new JTextField();
 		emailField.setEditable(false);
 		emailField.setText(r.getEmail());
-		emailField.setBounds(100, 85, 190, 20);
+		emailField.setBounds(100, 90, 190, 20);
 		contentPane.add(emailField);
 		
-		nameLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ManageRiderGUI.nameLabel"));
-		nameLabel.setBounds(10, 119, 80, 20);
+		nameLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Name"));
+		nameLabel.setBounds(10, 120, 80, 20);
 		contentPane.add(nameLabel);
 		
 		nameField = new JTextField();
-		nameField.setEditable(false);
-		nameField.setText(r.getName() + " " + r.getSurname());
-		nameField.setBounds(100, 118, 190, 20);
+		nameField.setText(r.getName());
+		nameField.setBounds(100, 120, 190, 20);
 		contentPane.add(nameField);
 		
+		surnameLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Surname"));
+		surnameLabel.setBounds(10, 150, 80, 20);
+		contentPane.add(surnameLabel);
+		
+		surnameField = new JTextField();
+		surnameField.setText(r.getSurname());
+		surnameField.setBounds(100, 150, 190, 20);
+		contentPane.add(surnameField);
+		surnameField.setColumns(10);
+		
+		passwordLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegisterGUI.Password"));
+		passwordLabel.setBounds(10, 180, 80, 20);
+		contentPane.add(passwordLabel);
+		passwordField = new JPasswordField();
+		passwordField.setText(r.getPassword());
+		
+		passwordField.setBounds(100, 180, 190, 20);
+		contentPane.add(passwordField);
+		
+		showPassword = new JCheckBox(ResourceBundle.getBundle("Etiquetas").getString("ManageRiderGUI.showPassword"));
+		showPassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				char current = passwordField.getEchoChar();
+				if (current == (char) 0)
+					passwordField.setEchoChar('*');
+				else
+					passwordField.setEchoChar((char) 0);
+			}
+		});
+		showPassword.setBounds(296, 179, 152, 23);
+		contentPane.add(showPassword);
+		
+		applyButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ManageRiderGUI.apply"));
+		applyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Update to new info and close
+				String name = nameField.getText(), surname = surnameField.getText(), password = new String(passwordField.getPassword()), validation;
+				
+				if (!name.equals(r.getName()))
+				{
+					validation = UserDataValidator.validateName(name);
+					if (validation != null)
+					{
+						errorLabel.setText("ERROR: " + validation);
+						return;
+					}
+					bl.updateName(r, name);
+					System.out.println("Updating name to: " + name);
+				}
+				if (!surname.equals(r.getSurname()))
+				{
+					validation = UserDataValidator.validateSurname(surname);
+					if (validation != null)
+					{
+						errorLabel.setText("ERROR: " + validation);
+						return;
+					}
+					bl.updateSurname(r, surname);
+					System.out.println("Updating surname to: " + surname);
+				}
+				if (!password.equals(r.getPassword()))
+				{
+					validation = UserDataValidator.validatePassword(password);
+					if (validation != null)
+					{
+						errorLabel.setText("ERROR: " + validation);
+						return;
+					}
+					bl.updatePassword(r, password);
+					System.out.println("Updating password to: " + password.replaceAll(".","*")); // Censore password to console log
+				}
+				dispose();
+			}
+		});
+		applyButton.setBounds(100, 209, 100, 25);
+		contentPane.add(applyButton);
+		
+		cancelButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ManageRiderGUI.cancel"));
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		cancelButton.setBounds(260, 209, 100, 25);
+		contentPane.add(cancelButton);
+		
 		errorLabel = new JLabel();
-		errorLabel.setBounds(14, 230, 410, 20);
+		errorLabel.setBounds(10, 230, 410, 20);
 		errorLabel.setForeground(new Color(255,0,0));
 		contentPane.add(errorLabel);
 		

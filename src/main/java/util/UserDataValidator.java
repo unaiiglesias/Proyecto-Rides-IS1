@@ -1,5 +1,7 @@
 package util;
 
+import java.util.ResourceBundle;
+
 public class UserDataValidator {
 	/**
 	 * User data can be inserted while registering (RegisterGUI) or when updating it (ManageRiderGUI).
@@ -12,41 +14,42 @@ public class UserDataValidator {
 	public static String validateEmail (String email)
 	{
 		// Chech for @
-		if (email.split("@").length != 2) return"Missing @";
+		if (email.split("@").length != 2) return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.missing@");
 		// Check for domain (.com, .net, .org, .eus...)
 		// The dot (".") needs to be escaped because split gets a regex
-		else if (email.split("@")[1].split("\\.").length != 2 ) return "Missing domain";
+		else if (email.split("@")[1].split("\\.").length != 2 ) 
+			return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.missingDomain");
 		
 		return null;
 	}
 
 	public static String validatePassword (String password) {
-		if (password.equals("")) return "Password can't be empty";
+		if (password.equals("")) return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.emptyPassword");
 		return null;
 	}
 
 	public static String validateName (String name) {
-		if (name.equals("")) return "Name can't be empty";
+		if (name.equals("")) return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.emptyName");
 		return null;
 	}
 	
 	public static String validateSurname (String surname) {
-		if (surname.equals("")) return "Surname can't be empty";
+		if (surname.equals("")) return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.emptySurname");
 		return null;
 	}
 	
 	public static String validateAge (Integer age) {
-		if (age <= 0) return "Incorrect age";
+		if (age <= 0) return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.incorrectAge");
 		return null;
 	}
 	
 	public static String validateLicensePlate (String licensePlate) {
-		if (licensePlate.equals("")) return "Drivers need to register their license plate";
+		if (licensePlate.equals("")) return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.emptyLicensePlate");
 		return null;
 	}
 	
 	public static String validateVehicleModel (String vehicleModel) {
-		if (vehicleModel.equals("")) return "Drivers need to register their vehicle model";
+		if (vehicleModel.equals("")) return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.emptyVehicleModel");
 		return null;
 	}
 }

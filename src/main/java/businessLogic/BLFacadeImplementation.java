@@ -400,6 +400,25 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 	
+	
+	public void updateName(Rider r, String newName) {
+		dbManager.open();
+		dbManager.updateName(r, newName);
+		dbManager.close();
+	}
+	
+	public void updateSurname(Rider r, String newSurname) {
+		dbManager.open();
+		dbManager.updateSurname(r, newSurname);
+		dbManager.close();
+	}
+	
+	public void updatePassword(Rider r, String newPassword) {
+		dbManager.open();
+		dbManager.updatePassword(r, newPassword);
+		dbManager.close();
+	}
+	
 	public void close() {
 		DataAccess dB4oManager=new DataAccess();
 

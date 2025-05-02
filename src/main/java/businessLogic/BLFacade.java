@@ -226,4 +226,11 @@ public interface BLFacade  {
 	 * @param icon
 	 */
 	public void setRiderProfilePic(Rider r, ImageIcon icon);
+	
+	/**
+	 * Updates attributes of Rider instance on DB
+	 */
+	public void updateName(Rider r, String newName);
+	public void updateSurname(Rider r, String newSurname);
+	public void updatePassword(Rider r, String newPassword);
 }

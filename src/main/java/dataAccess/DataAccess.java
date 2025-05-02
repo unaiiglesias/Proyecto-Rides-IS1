@@ -663,6 +663,30 @@ public class DataAccess  {
 		r.setProfilePicIcon(icon);
 	}
 	
+	public void updateName(Rider r, String newName) {
+		Rider rider = db.find(Rider.class, r);
+		db.getTransaction().begin();
+		rider.setName(newName);;
+		db.getTransaction().commit();
+		r.setName(newName);
+	}
+	
+	public void updateSurname(Rider r, String newSurname) {
+		Rider rider = db.find(Rider.class, r);
+		db.getTransaction().begin();
+		rider.setSurname(newSurname);;
+		db.getTransaction().commit();
+		r.setSurname(newSurname);	
+	}
+	
+	public void updatePassword(Rider r, String newPassword) {
+		Rider rider = db.find(Rider.class, r);
+		db.getTransaction().begin();
+		rider.setPassword(newPassword);
+		db.getTransaction().commit();
+		r.setPassword(newPassword);	
+	}
+	
 	
 	public void open(){
 		
