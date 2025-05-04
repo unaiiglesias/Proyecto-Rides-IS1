@@ -100,6 +100,13 @@ public class BLFacadeImplementation  implements BLFacade {
 		return l;
 	}
 	
+	public List<Review> getReviewsOfRide(Ride ride){
+		dbManager.open();
+		List<Review> l = dbManager.getReviewsOfRide(ride);
+		dbManager.close();
+		return l;
+	}
+	
     /**
      * {@inheritDoc}
      */

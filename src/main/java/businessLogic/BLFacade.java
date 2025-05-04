@@ -98,6 +98,8 @@ public interface BLFacade  {
 	
 	public List<Review> getReviewsOfDriver(Driver driver);
 	
+	public List<Review> getReviewsOfRide(Ride ride);
+	
 	public String getDriverStars(Driver driver);
 	
 	/**

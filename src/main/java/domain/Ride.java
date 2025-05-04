@@ -224,6 +224,10 @@ public class Ride implements Serializable {
 			if(rr.getReservationState().equalsIgnoreCase("accepted")) accepted++;
 		return this.nPlaces - accepted;
 	}
+	
+	public boolean hasReviews() {
+		return(this.reviews.size() != 0);
+	}
 
 	public String toString(){
 		return rideNumber+";"+";"+from+";"+to+";"+date;  

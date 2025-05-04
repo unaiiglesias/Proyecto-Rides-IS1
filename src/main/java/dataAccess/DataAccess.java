@@ -177,7 +177,6 @@ public class DataAccess  {
 			review2.addDriverAnswer("Prueba 2");
 			addReview(review2);
 			Review review3 = new Review(3, "No esta mal", ride10, rider3, ride10.getDriver());
-			review3.addDriverAnswer("Prueba 3");
 			addReview(review3);
 			
 			
@@ -254,6 +253,11 @@ public class DataAccess  {
 		query.setParameter(1, dr.getEmail());
 		List<Review> l = query.getResultList();
 		return l;
+	}
+	
+	public List<Review> getReviewsOfRide(Ride ride){
+		Ride r = db.find(Ride.class, ride);
+		return r.getReviews();
 	}
 
 	/*

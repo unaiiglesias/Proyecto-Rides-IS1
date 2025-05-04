@@ -63,6 +63,7 @@ public class CreatedRidesHistoryGUI extends JFrame {
 	private JLabel selectedRideReservationsLabel;
 
 	private List<Integer> rowsToPaint; // AKA rows that correspond to ended rides
+	private JButton viewRideReviewsButton;
 	
 	/**
 	 * Create the frame.
@@ -180,6 +181,9 @@ public class CreatedRidesHistoryGUI extends JFrame {
 					Ride r = (Ride) ridesTableModel.getValueAt(selectedRow, 3);
 					selectedRide = r;
 					updateReservations();
+					
+					//If current ride has reviews, allow button to show them
+					viewRideReviewsButton.setEnabled(r.hasReviews());
 				}
 			}
 		});
@@ -207,8 +211,32 @@ public class CreatedRidesHistoryGUI extends JFrame {
 
 			}
 		});
-		removeRideButton.setBounds(395, 296, 134, 37);
+		removeRideButton.setBounds(489, 296, 134, 37);
 		contentPane.add(removeRideButton);
+		
+		// Button to see ride's reviews
+		viewRideReviewsButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RemoveRidesGUI.SeeReviews"));
+		viewRideReviewsButton.setEnabled(false);
+		viewRideReviewsButton.setBounds(342, 296, 134, 37);
+		viewRideReviewsButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = ridesTable.getSelectedRow();
+				
+				if (selectedRow == -1)
+				{
+					// TODO: Tell the user that somethign went wrong (shouldn't happen)
+					return;
+				}
+				
+				Ride r = (Ride) ridesTableModel.getValueAt(selectedRow, 3);
+				ShowReviews a = new ShowReviews(r);
+				a.setVisible(true);
+				
+			}
+		});
+		contentPane.add(viewRideReviewsButton);
 		
 		// Selected ride reservations label
 		selectedRideReservationsLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RemoveRidesGUI.SelectedRideReservationsLabel"));
@@ -306,5 +334,4 @@ public class CreatedRidesHistoryGUI extends JFrame {
 			reservationsTableModel.addRow(row);
 		}
 	}
-	
 }
