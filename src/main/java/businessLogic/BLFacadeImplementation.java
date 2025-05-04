@@ -419,6 +419,15 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void addDriverAnswer(Review review, String msg) {
+		dbManager.open();
+		dbManager.addDriverAnswer(review, msg);
+		dbManager.close();
+	}
+	
 	public void close() {
 		DataAccess dB4oManager=new DataAccess();
 

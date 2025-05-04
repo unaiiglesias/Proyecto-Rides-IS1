@@ -169,9 +169,16 @@ public class DataAccess  {
 			reservation11.setReservationState("paid");
 			addReservationRequest(reservation11);
 			// Add some example reviews
-			addReview(new Review(5, "Me ha gustado", ride10, rider1, ride10.getDriver()));
-			addReview(new Review(1, "A mi no", ride10, rider2, ride10.getDriver()));
-			addReview(new Review(3, "No esta mal", ride10, rider3, ride10.getDriver()));
+			Review review1 = new Review(5, "Me ha gustado", ride10, rider1, ride10.getDriver());
+			review1.addDriverAnswer("Me parece que tu reseña no representa el sentir del resto de viajeros que he recibido a lo largo de los "
+					+ "ya 5 años en esta plataforma. \n \n \n \n Un saliudo!");
+			addReview(review1);
+			Review review2 = new Review(1, "A mi no", ride10, rider2, ride10.getDriver());
+			review2.addDriverAnswer("Prueba 2");
+			addReview(review2);
+			Review review3 = new Review(3, "No esta mal", ride10, rider3, ride10.getDriver());
+			review3.addDriverAnswer("Prueba 3");
+			addReview(review3);
 			
 			
 			System.out.println("SUCCESS: Db initialized with example data");
@@ -685,6 +692,13 @@ public class DataAccess  {
 		rider.setPassword(newPassword);
 		db.getTransaction().commit();
 		r.setPassword(newPassword);	
+	}
+	
+	public void addDriverAnswer(Review review, String msg) {
+		Review rev = db.find(Review.class, review);
+		db.getTransaction().begin();
+		rev.addDriverAnswer(msg);
+		db.getTransaction().commit();
 	}
 	
 	

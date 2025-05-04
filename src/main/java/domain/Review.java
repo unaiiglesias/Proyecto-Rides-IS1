@@ -16,6 +16,9 @@ public class Review {
 	private Integer points;
 	private String message;
 	private Integer popularity;
+	private String driverAnswer;
+	private Date driverAnswerDate;
+	
 	@ManyToOne
 	private Ride ride;
 	@ManyToOne
@@ -49,6 +52,27 @@ public class Review {
 		this.setPopularity(this.getPopularity() + rating.getRating());
 	}
 	
+	public void addDriverAnswer(String msg) {
+		this.driverAnswer = msg;
+		this.driverAnswerDate = new Date();
+	}
+	
+	public String getDriverAnswer() {
+		return driverAnswer;
+	}
+
+	public void setDriverAnswer(String driverAnswer) {
+		this.driverAnswer = driverAnswer;
+	}
+
+	public Date getDriverAnswerDate() {
+		return driverAnswerDate;
+	}
+
+	public void setDriverAnswerDate(Date driverAnswerDate) {
+		this.driverAnswerDate = driverAnswerDate;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -115,6 +139,11 @@ public class Review {
 	public String getStringDate() {
 		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return(formater.format(this.date));
+	}
+	
+	public String getStringDriverAnswerDate() {
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return(formater.format(this.driverAnswerDate));
 	}
 	
 }

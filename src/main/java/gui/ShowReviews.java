@@ -82,12 +82,13 @@ public class ShowReviews extends JFrame {
 	
     private JPanel createReviewPanel(Review review) {
     	/**
-    	 * Each review panel will be a 500x140 panel that must show
+    	 * Each review panel will be a 500x140 (500 x 240 if the driver answered) panel that must show
     	 * Review author
     	 * Date
     	 * Score
     	 * Message
     	 * Up/Down Vote buttons
+    	 * Driver's answer [if exists]
     	 */
     	
     	Rider reviewer = review.getRider();
@@ -154,6 +155,28 @@ public class ShowReviews extends JFrame {
 			}
 		});
         
+		// Driver's answer text area
+		if(review.getDriverAnswer() != null) {
+	        panel.setPreferredSize(new Dimension(500, 240));
+	        
+	        JLabel answerLabel = new JLabel();
+	        answerLabel.setBounds(10 + messageText.getX(), 5 + messageText.getY() + messageText.getHeight(), 200, 20);
+	        answerLabel.setText("⤷ \t" + review.getStringDriverAnswerDate());
+	        panel.add(answerLabel);
+	        
+	        JTextArea answerMessage = new JTextArea();
+	        answerMessage.setText(review.getDriverAnswer());
+	        answerMessage.setEditable(false);
+	        answerMessage.setWrapStyleWord(true);
+	        answerMessage.setLineWrap(true);
+	        JScrollPane msgScroll = new JScrollPane(answerMessage);
+	        // Won't show the scroll bar
+	        msgScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+	        msgScroll.setBounds(answerLabel.getX(), 3 + answerLabel.getY() + answerLabel.getHeight(), 440, 70);
+	        panel.add(msgScroll);
+	        
+		}
+		
         
         return panel;
     }

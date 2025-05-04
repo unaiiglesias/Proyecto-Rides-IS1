@@ -233,4 +233,11 @@ public interface BLFacade  {
 	public void updateName(Rider r, String newName);
 	public void updateSurname(Rider r, String newSurname);
 	public void updatePassword(Rider r, String newPassword);
+	
+	/**
+	 * Adds driver's answer to a review
+	 * @param review
+	 * @param msg
+	 */
+	public void addDriverAnswer(Review review, String msg);
 }
