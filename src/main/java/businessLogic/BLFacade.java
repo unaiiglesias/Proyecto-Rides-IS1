@@ -4,11 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 //import domain.Booking;
-import domain.Ride;
-import domain.Rider;
-import domain.Driver;
-import domain.ReservationRequest;
-import domain.Review;
+import domain.*;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.RideAlreadyExistException;
 import exceptions.UserAlreadyExistException;
@@ -242,4 +238,49 @@ public interface BLFacade  {
 	 * @param msg
 	 */
 	public void addDriverAnswer(Review review, String msg);
+	
+	/**
+	 * Get the chats in which the rider given is a participant
+	 * @param rider The rider whose chats want to be found
+	 * @return A list with all the chats
+	 */
+	public List<Chat> getChatsOfUser(Rider rider);
+	
+	/**
+	 * Get the chats in which the driver given is a participant
+	 * @param driver The driver whose chats want to be found
+	 * @return A list with all the chats
+	 */
+	public List<Chat> getChatsOfUser(Driver driver);
+	
+	/**
+	 * Find the chat given in the DB
+	 * @param chat The chat to be found
+	 * @return The chat, if found, else null
+	 */
+	public Chat findChat(Chat chat);
+	
+	/**
+	 * Adds a message to a chat
+	 * @param msg
+	 * @param chat
+	 */
+	public void addMessageToChat(String msg, Rider author,  Chat chat);
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

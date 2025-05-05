@@ -16,12 +16,7 @@ import javax.persistence.TypedQuery;
 import javax.swing.ImageIcon;
 import configuration.ConfigXML;
 import configuration.UtilDate;
-import domain.Driver;
-import domain.ReservationRequest;
-import domain.Review;
-import domain.ReviewRating;
-import domain.Ride;
-import domain.Rider;
+import domain.*;
 import exceptions.RideAlreadyExistException;
 import exceptions.RideMustBeLaterThanTodayException;
 import exceptions.UserAlreadyExistException;
@@ -702,6 +697,36 @@ public class DataAccess  {
 		Review rev = db.find(Review.class, review);
 		db.getTransaction().begin();
 		rev.addDriverAnswer(msg);
+		db.getTransaction().commit();
+	}
+	
+	public List<Chat> getChatsOfUser(Rider rider) {
+		Rider r = db.find(Rider.class, rider);
+		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.rider.email = ?1", Chat.class);
+		query.setParameter(1, r.getEmail());
+		List<Chat> l = query.getResultList();
+		return l;
+	}
+	
+	public List<Chat> getChatsOfUser(Driver driver) {
+		Driver dr = db.find(Driver.class, driver);
+		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.driver.email = ?1", Chat.class);
+		query.setParameter(1, dr.getEmail());
+		List<Chat> l = query.getResultList();
+		return l;
+	}
+	
+	public Chat findChat(Chat chat) {
+		Chat c = db.find(Chat.class, chat);
+		return c;
+	}
+	
+	public void addMessageToChat(String msg, Rider author, Chat chat) {
+		Chat c = db.find(Chat.class, chat);
+		Rider msgAuthor = db.find(Rider.class, author);
+		db.getTransaction().begin();
+		Message message = new Message(msgAuthor, c, msg);
+		c.addMessage(message);
 		db.getTransaction().commit();
 	}
 	

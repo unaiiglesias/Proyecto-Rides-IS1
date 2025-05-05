@@ -435,6 +435,45 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<Chat> getChatsOfUser(Rider rider){
+		dbManager.open();
+		List<Chat> l = dbManager.getChatsOfUser(rider);
+		dbManager.close();
+		return l;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<Chat> getChatsOfUser(Driver driver){
+		dbManager.open();
+		List<Chat> l = dbManager.getChatsOfUser(driver);
+		dbManager.close();
+		return l;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public Chat findChat(Chat chat) {
+		dbManager.open();
+		Chat c = dbManager.findChat(chat);
+		dbManager.close();
+		return c;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void addMessageToChat(String msg, Rider author,  Chat chat) {
+		dbManager.open();
+		dbManager.addMessageToChat(msg, author, chat);
+		dbManager.close();
+	}
+	
 	public void close() {
 		DataAccess dB4oManager=new DataAccess();
 
