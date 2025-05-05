@@ -9,10 +9,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Chat {
+	@Id
+	@GeneratedValue
+	private Integer id;
 	private Rider rider;
 	private Driver driver;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
@@ -25,12 +31,21 @@ public class Chat {
 		this.driver = driver;
 		this.messages = new ArrayList<Message>();
 		this.initDate = new Date();
+		this.lastMessage = new Date(); // In order to be able to sort even if no message has been send
 	}
 	
 	public void addMessage(Message message) {
 		this.messages.add(message);
 		if(message.getDate().after(lastMessage)) {
 			lastMessage = message.getDate();
+		}
+	}
+	
+	public Rider getOtherUser(Rider user) {
+		if(user.getEmail().equals(rider.getEmail())) {
+			return (Rider) driver;
+		} else {
+			return rider;
 		}
 	}
 

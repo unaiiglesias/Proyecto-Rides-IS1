@@ -135,34 +135,34 @@ public class DataAccess  {
 			ReservationRequest reservation2 = new ReservationRequest(rider2, ride1, 1);
 			addReservationRequest(reservation2);
 			ReservationRequest reservation3 = new ReservationRequest(rider1, ride8, 1);
-			reservation3.setReservationState("padi");
 			addReservationRequest(reservation3);
+			modifyReservationRequest(reservation3, "paid");
 			ReservationRequest reservation4 = new ReservationRequest(rider3, ride1, 16);
 			addReservationRequest(reservation4);
 			ReservationRequest reservation5 = new ReservationRequest(rider1, ride9, 1);
-			reservation5.setReservationState("paid");
 			addReservationRequest(reservation5);
+			modifyReservationRequest(reservation5, "paid");
 			ReservationRequest reservation6 = new ReservationRequest(rider1, ride10, 1);
-			reservation6.setReservationState("paid");
 			addReservationRequest(reservation6);
+			modifyReservationRequest(reservation6, "paid");
 			ReservationRequest reservation7 = new ReservationRequest(rider1, ride11, 1);
-			reservation7.setReservationState("paid");
 			addReservationRequest(reservation7);
+			modifyReservationRequest(reservation7, "paid");
 			ReservationRequest reservation8 = new ReservationRequest(rider1, ride12, 1);
-			reservation8.setReservationState("paid");
 			addReservationRequest(reservation8);
+			modifyReservationRequest(reservation8, "paid");
 			ReservationRequest reservation9 = new ReservationRequest(rider1, ride13, 1);
-			reservation9.setReservationState("paid");
 			addReservationRequest(reservation9);
+			modifyReservationRequest(reservation9, "paid");
 			// This needs to be done out of the transaction because each of the method calls creates its own transaction
 
 			// Iteration 2: Add riders to this ride so that they can review
 			ReservationRequest reservation10 = new ReservationRequest(rider2, ride10, 1);
-			reservation10.setReservationState("paid");
 			addReservationRequest(reservation10);
+			modifyReservationRequest(reservation10, "paid");
 			ReservationRequest reservation11 = new ReservationRequest(rider3, ride10, 1);
-			reservation11.setReservationState("paid");
 			addReservationRequest(reservation11);
+			modifyReservationRequest(reservation11, "paid");
 			// Add some example reviews
 			Review review1 = new Review(5, "Me ha gustado", ride10, rider1, ride10.getDriver());
 			review1.addDriverAnswer("Me parece que tu reseña no representa el sentir del resto de viajeros que he recibido a lo largo de los "
@@ -473,6 +473,19 @@ public class DataAccess  {
 		db.getTransaction().begin();
 
 		reservation.setReservationState(newState);
+		/*
+		 * Once a reservation is paid, automatically a chat will be created between the Rider and Driver of that ride
+		 */
+		if(newState.equals("paid")) {
+			System.out.println("Entered here!");
+			Driver dr = db.find(Driver.class, rr.getRide().getDriver());
+			Rider r = db.find(Rider.class, rr.getRider());
+			// If there is no chat between current rider and driver, create a new one.
+			if(findChat(r, dr) == null) {
+				Chat chat = new Chat(r, dr);
+				db.persist(chat);
+			}
+		}
 		
 		db.getTransaction().commit();
 		
@@ -622,8 +635,8 @@ public class DataAccess  {
 		if (dbRider.getBalance() < totalPrice)
 			return false; // Not enough funds, cant pay
 		
+		modifyReservationRequest(dbRR, "paid");
 		db.getTransaction().begin();
-		dbRR.setReservationState("paid");
 		dbRider.pay(totalPrice);
 		dbDriver.getPaid(totalPrice);
 		db.getTransaction().commit();
@@ -702,7 +715,7 @@ public class DataAccess  {
 	
 	public List<Chat> getChatsOfUser(Rider rider) {
 		Rider r = db.find(Rider.class, rider);
-		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.rider.email = ?1", Chat.class);
+		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.rider.email = ?1 ORDER BY c.lastMessage DESC", Chat.class);
 		query.setParameter(1, r.getEmail());
 		List<Chat> l = query.getResultList();
 		return l;
@@ -710,7 +723,7 @@ public class DataAccess  {
 	
 	public List<Chat> getChatsOfUser(Driver driver) {
 		Driver dr = db.find(Driver.class, driver);
-		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.driver.email = ?1", Chat.class);
+		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.driver.email = ?1 ORDER BY c.lastMessage DESC", Chat.class);
 		query.setParameter(1, dr.getEmail());
 		List<Chat> l = query.getResultList();
 		return l;
@@ -719,6 +732,20 @@ public class DataAccess  {
 	public Chat findChat(Chat chat) {
 		Chat c = db.find(Chat.class, chat);
 		return c;
+	}
+	
+	public Chat findChat(Rider rider, Driver driver) {
+		Rider r = db.find(Rider.class, rider);
+		Driver dr = db.find(Driver.class, driver);
+		if(r == null | dr == null) {
+			return null;
+		}
+		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.driver.email = ?1 AND c.rider.email = ?2", Chat.class);
+		query.setParameter(1, dr.getEmail());
+		query.setParameter(2,  r.getEmail());
+		List<Chat> l = query.getResultList();
+		if(l.size() == 0) return null;
+		else return l.get(0);
 	}
 	
 	public void addMessageToChat(String msg, Rider author, Chat chat) {

@@ -20,8 +20,7 @@ public class Message {
 		this.author = author;
 		this.chat = chat;
 		this.message = message;
-		// update chat's messages
-		//this.chat.addMessage(message);
+		this.date = new Date();
 	}
 
 	public Integer getId() {

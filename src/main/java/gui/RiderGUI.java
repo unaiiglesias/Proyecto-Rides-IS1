@@ -1,13 +1,18 @@
 package gui;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import domain.Rider;
+import util.ImageManagerUtil;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -22,6 +27,8 @@ public class RiderGUI extends MainGUI {
 	private JLabel balanceAmount;
 	private JButton depositMoneyButton;
 	private JButton showReservationsButton;
+
+	private JButton messagesButton;
 	
 	/**
 	 * Create the frame.
@@ -117,6 +124,17 @@ public class RiderGUI extends MainGUI {
 		showReservationsButton.setText(ResourceBundle.getBundle("Etiquetas").getString("RiderGUI.ShowReservationsButton"));
 		showReservationsButton.setBounds(0, 204, 644, 97);
 		jContentPane.add(showReservationsButton);
+		
+		messagesButton = new JButton();
+		messagesButton.setIcon(new ImageIcon(ImageManagerUtil.readImageFromFile("src/main/resources/messageIcon.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+		messagesButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChatGUI a = new ChatGUI(currentSession);
+				a.setVisible(true);
+			}
+		});
+		messagesButton.setBounds(445, 59, 50, 50);
+		getContentPane().add(messagesButton);
 		showReservationsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new ReservationHistoryGUI(currentSession);
