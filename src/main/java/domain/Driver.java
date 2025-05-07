@@ -30,6 +30,8 @@ public class Driver extends Rider implements Serializable {
 	private List<Ride> rides=new Vector<Ride>();
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Review> reviews;
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+	private List<Chat> chatsAsDriver;
 
 	public Driver() {
 		super();
@@ -42,6 +44,7 @@ public class Driver extends Rider implements Serializable {
 		this.vehicleModel = vehicleModel;
 		this.rides = new ArrayList<Ride>();
 		this.reviews = new ArrayList<Review>();
+		this.chatsAsDriver = new ArrayList<Chat>();
 	}
 	
 	

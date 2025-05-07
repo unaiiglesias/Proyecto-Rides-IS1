@@ -19,7 +19,9 @@ public class Chat {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	@ManyToOne
 	private Rider rider;
+	@ManyToOne
 	private Driver driver;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Message> messages;

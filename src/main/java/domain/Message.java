@@ -12,6 +12,7 @@ public class Message {
 	private Integer id;
 	@ManyToOne
 	private Chat chat;
+	@ManyToOne
 	private Rider author;
 	private Date date;
 	private String message;

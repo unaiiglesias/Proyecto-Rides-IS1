@@ -29,6 +29,11 @@ public class Rider {
 	private List<Review> reviewsMade;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<ReviewRating> ratings;
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+	private List<Chat> chats;
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+	private List<Message> messages;
+	
 	
 	public Rider() {
 		
@@ -45,8 +50,26 @@ public class Rider {
 		this.reviewsMade = new ArrayList<Review>();
 		this.balance = 0;
 		this.ratings = new ArrayList<ReviewRating>();
+		this.chats = new ArrayList<Chat>();
+		this.messages = new ArrayList<Message>();
 	}
 	
+	public List<Chat> getChats() {
+		return chats;
+	}
+
+	public void setChats(List<Chat> chats) {
+		this.chats = chats;
+	}
+
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+
 	public List<Review> getReviewsMade() {
 		return reviewsMade;
 	}
