@@ -133,6 +133,7 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new RegisterGUI();
 				a.setVisible(true);
+				dispose();
 			}
 		});
 		signUpJButton.setBounds(524, 35, 120, 36);
