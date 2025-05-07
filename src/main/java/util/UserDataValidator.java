@@ -17,7 +17,7 @@ public class UserDataValidator {
 		if (email.split("@").length < 2) return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.missing@");
 		// Check for domain (.com, .net, .org, .eus...)
 		// The dot (".") needs to be escaped because split gets a regex
-		else if (email.split("@")[1].split("\\.").length != 2 ) 
+		else if (email.split("@")[1].split("\\.").length < 2 ) 
 			return ResourceBundle.getBundle("Etiquetas").getString("UserDataValidator.missingDomain");
 		
 		return null;
