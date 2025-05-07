@@ -1,13 +1,12 @@
 package util;
 
 import java.util.Properties;
-import jakarta.mail.*;
-import jakarta.mail.internet.*;
 import domain.Driver;
 import domain.ReservationRequest;
 import domain.Ride;
 import domain.Rider;
-
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
 public class EmailManager {
 
@@ -15,6 +14,19 @@ public class EmailManager {
 	// The email will be sent by our company's gmail account, for which we need the app password
 	// (This should be extracted to an .env and UNDER NO CIRMUNSTANCE be compiled into the client app)
 	// AKA: This util class is BussinessLogic only
+	
+	public static void sendRequestAcceptedEmailAsync(ReservationRequest rr) {
+		// Blocking the main thread is not cool...
+		new Thread(() -> {
+			try {
+				System.out.println("Launching thread to send request accepted email..");
+				sendRequestAcceptedEmail(rr);
+			} catch (Exception e) {
+				System.err.println("Email sending thread failed...");
+				e.printStackTrace();
+			}
+		}).start();
+	}
 	
 	public static void sendRequestAcceptedEmail (ReservationRequest rr) {
 		
@@ -24,11 +36,11 @@ public class EmailManager {
 		String receiver = rider.getEmail();
 		
 		String subject = "Su solicitud de viaje a " + ride.getTo() + " ha sido aceptada",  
-				msg = "Estimad@ " + rr.getRider().getName() + ", ";
+				msg;
 		
 		msg = String.format(
-				"Estimado %s,\n\n Su solicitud de viaje desde %s a %s con el/la conductor/a %s (%s) ha sido aceptada.\nLe recordamos que puede realizar el pago hasta un dia antes de la salida del viaje, que será el %s.\n\n¡Gracias por usar nmuestros servicios!", 
-				rider.getName(), ride.getFrom(), ride.getTo(), driver.getName()  + " " + driver.getSurname() + driver.getEmail(), ride.getDate());
+				"Estimado %s,\n\nSu solicitud de viaje desde %s a %s con el/la conductor/a %s (%s) ha sido aceptada.\nLe recordamos que puede realizar el pago hasta un dia antes de la salida del viaje, que será el %s.\n\n¡Gracias por usar nuestros servicios!", 
+				rider.getName(), ride.getFrom(), ride.getTo(), driver.getName()  + " " + driver.getSurname(), driver.getEmail(), ride.getDate());
 		
 		// Configurar para gmail
 		Properties props = new Properties();
@@ -48,8 +60,8 @@ public class EmailManager {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(receiver));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiver));
-			message.setSubject("Mensaje de prueba");
-			message.setText("Hola, esto es un mensaje de prueba");
+			message.setSubject(subject);
+			message.setText(msg);
 
 			Transport.send(message);
 

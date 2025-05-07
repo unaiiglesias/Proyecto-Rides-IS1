@@ -297,7 +297,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		boolean accepted = dbManager.modifyReservationRequest(rr, newStatus);
 		dbManager.close();
 		if (accepted && newStatus.equals("accepted"))
-			EmailManager.sendRequestAcceptedEmail(rr);
+			EmailManager.sendRequestAcceptedEmailAsync(rr);
 		return accepted;
 	}
 	
