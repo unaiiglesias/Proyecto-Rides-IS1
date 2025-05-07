@@ -441,19 +441,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<Chat> getChatsOfUser(Rider rider){
+	public List<Chat> getChatsOfUser(Rider rider, boolean asRider){
 		dbManager.open();
-		List<Chat> l = dbManager.getChatsOfUser(rider);
-		dbManager.close();
-		return l;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<Chat> getChatsOfUser(Driver driver){
-		dbManager.open();
-		List<Chat> l = dbManager.getChatsOfUser(driver);
+		List<Chat> l = dbManager.getChatsOfUser(rider, asRider);
 		dbManager.close();
 		return l;
 	}

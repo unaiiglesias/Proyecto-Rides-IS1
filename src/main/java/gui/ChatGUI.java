@@ -1,8 +1,10 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,13 +17,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import businessLogic.BLFacade;
 import domain.*;
 import util.ImageManagerUtil;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
@@ -33,6 +34,9 @@ public class ChatGUI extends JFrame {
 	private BLFacade facade;
 	private Rider currentUser;
 	private Chat currentChat;
+	private boolean asDriver;
+	
+	private int numChats = 0;
 	
 	private JPanel leftPanel;
 	private JPanel rightPanel;
@@ -41,25 +45,27 @@ public class ChatGUI extends JFrame {
 	private JScrollPane rightPanelScroll;
 	
 
+	
+
 	/**
 	 * Create the frame.
 	 */
-	public ChatGUI(Rider currentUser) {
+	public ChatGUI(Rider currentUser, boolean asDriver) {
 		
 		this.facade = MainGUI.getBusinessLogic();
 		this.currentUser = currentUser;
+		this.asDriver = asDriver;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				chatUpdateTimer.stop();
-				
+				if(rightPanel instanceof ChatJPanel) ((ChatJPanel) rightPanel).stopTimer();
 			}
 		});
 		setBounds(100, 100, 1050, 700);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
@@ -81,7 +87,6 @@ public class ChatGUI extends JFrame {
         rightPanel = new JPanel();
 		rightPanelScroll = new JScrollPane(rightPanel);
         rightPanelScroll.setPreferredSize(new Dimension(800, 630));
-        rightPanelScroll.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
 		contentPane.add(rightPanelScroll);
 		
 		
@@ -95,19 +100,20 @@ public class ChatGUI extends JFrame {
 	 */
 	private void updateChats() {
 		// Remove all the panels of other users
-		leftPanel.removeAll();
+
 		List<Chat> chats;
 		// Obtain all the chats of current user (already sorted by last message's date)
-		if(currentUser instanceof Driver) {
-			chats = facade.getChatsOfUser((Driver) currentUser);
-		} else {
-			chats = facade.getChatsOfUser(currentUser);
-		}
-		
+		chats = facade.getChatsOfUser(currentUser, asDriver);
+		// Si no hemos de actualizar nada
+		if(chats.size() <= numChats) return;
+		numChats = chats.size();
+		leftPanel.removeAll();
 		// Add all the eligible chats (JPanel)
 		for(Chat c : chats) {
 			JPanel choosableChat = otherUserPanel(c);
-			choosableChat.setPreferredSize(new Dimension(200, 50));
+			choosableChat.setPreferredSize(new Dimension(200, 55));
+			choosableChat.setMaximumSize(new Dimension(200, 55));
+			choosableChat.setBorder(new LineBorder(Color.black, 1));
 			leftPanel.add(choosableChat);
 		}
 		leftPanelScroll.setViewportView(leftPanel);
@@ -122,13 +128,14 @@ public class ChatGUI extends JFrame {
 	 */
 	private JPanel otherUserPanel(Chat chat) {
 		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		// Add a Label with the profile picture
 		Rider otherUser = chat.getOtherUser(currentUser);
 		ImageIcon profilePic = new ImageIcon(otherUser.getProfilePicIcon().getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 		JLabel profilePicLabel = new JLabel();
 		profilePicLabel.setIcon(profilePic);
 		profilePicLabel.setPreferredSize(new Dimension(50, 50));
+		profilePicLabel.setAlignmentY(CENTER_ALIGNMENT);
 		panel.add(profilePicLabel);
 		// Add a Label with the name of the other user
 		JLabel nameLabel = new JLabel(otherUser.getName());
@@ -157,6 +164,7 @@ public class ChatGUI extends JFrame {
 				repaint();
 			}
 		});
+
 		return panel;
 	}
 

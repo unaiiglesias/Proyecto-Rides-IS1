@@ -21,6 +21,7 @@ import javax.swing.*;
 import util.ImageManagerUtil;
 
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import org.omg.CORBA.CTX_RESTRICT_SCOPE;
 
@@ -60,20 +61,27 @@ public class ChatJPanel extends JPanel {
          */
 		
         otherUserPanel = new JPanel();
-        otherUserPanel.setBounds(0, 0, 799, 50);
-        otherUserPanel.setLayout(new BoxLayout(otherUserPanel, BoxLayout.X_AXIS));
+        otherUserPanel.setBounds(0, 0, 800, 90);
+        otherUserPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         this.add(otherUserPanel);
+        
+        Rider otherUser = chat.getOtherUser(currentUser);
         
         // JButton with the other user's account image
         JButton imageButton = new JButton();
-        imageButton.setPreferredSize(new Dimension(50, 50));
-        //imageButton.setIcon(); // TODO
+        imageButton.setPreferredSize(new Dimension(75, 75));
+        ImageIcon profilePic = otherUser.getProfilePicIcon();
+        imageButton.setIcon(new ImageIcon(profilePic.getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
+        imageButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+        
         otherUserPanel.add(imageButton);
         
-        otherUserPanel.add(Box.createHorizontalStrut(10));
+        otherUserPanel.add(Box.createHorizontalStrut(5));
         // JLabel with the name of the other user
-        JLabel otherName = new JLabel("Nombre");
+        JLabel otherName = new JLabel(otherUser.getName());
+        otherName.setAlignmentY(Component.CENTER_ALIGNMENT);
         otherUserPanel.add(otherName);
+        otherUserPanel.setBorder(new LineBorder(Color.BLACK, 1));
         
         
         /*
@@ -82,11 +90,11 @@ public class ChatJPanel extends JPanel {
         
         conversationPanel = new JPanel();
         conversationPanel.setLayout(new BoxLayout(conversationPanel, BoxLayout.Y_AXIS));
-        conversationPanel.setSize(new Dimension(799, 527));
         JScrollPane msgScroll = new JScrollPane(conversationPanel);
-        msgScroll.setBounds(0, 49, 799, 527);
+        msgScroll.setBounds(0, 90, 799, 488);
         msgScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.add(msgScroll);
+        updateMessages();
         
         msgUpdateTimer = new Timer(1000, e -> updateMessages());
         msgUpdateTimer.start();
@@ -159,7 +167,7 @@ public class ChatJPanel extends JPanel {
         	if(msgDate.until(lastDate).getDays() >= 1){
         		// Add a JLabel with the date sDate
         		JLabel dateLabel = new JLabel(sDate);
-        		dateLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        		dateLabel.setPreferredSize(new Dimension(50, 20));
         		conversationPanel.add(dateLabel);
         	}
         	
@@ -168,18 +176,20 @@ public class ChatJPanel extends JPanel {
         	JPanel contenedor = new JPanel();
         	contenedor.setOpaque(false);
         	if(m.getAuthor().getEmail().equals(currentUser.getEmail())){
+        		msgPanel.setBackground(new Color(168, 255, 134));
         		contenedor.setLayout(new FlowLayout(FlowLayout.RIGHT));
         		contenedor.add(msgPanel);
         	} else {
+        		msgPanel.setBackground(new Color(227, 230, 255));
         		contenedor.setLayout(new FlowLayout(FlowLayout.LEFT));
         		contenedor.add(msgPanel);
         	}
-    		contenedor.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    		//contenedor.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     		//contenedor.setPreferredSize(new Dimension(650, msgPanel.getHeight()));
         	conversationPanel.add(contenedor);
         	
         	// Add a separator
-        	conversationPanel.add(Box.createVerticalStrut(5));
+        	// bconversationPanel.add(Box.createVerticalStrut(1));
         	
         }
         // Force the graphics to update the components of the conversation panel

@@ -713,17 +713,14 @@ public class DataAccess  {
 		db.getTransaction().commit();
 	}
 	
-	public List<Chat> getChatsOfUser(Rider rider) {
-		Rider r = db.find(Rider.class, rider);
-		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.rider.email = ?1 ORDER BY c.lastMessage DESC", Chat.class);
-		query.setParameter(1, r.getEmail());
-		List<Chat> l = query.getResultList();
-		return l;
-	}
-	
-	public List<Chat> getChatsOfUser(Driver driver) {
-		Driver dr = db.find(Driver.class, driver);
-		TypedQuery<Chat> query = db.createQuery("SELECT c FROM Chat c WHERE c.driver.email = ?1 ORDER BY c.lastMessage DESC", Chat.class);
+	public List<Chat> getChatsOfUser(Rider driver, boolean asDriver) {
+		Rider dr = db.find(Rider.class, driver);
+		TypedQuery<Chat> query;
+		if(asDriver) {
+			query = db.createQuery("SELECT c FROM Chat c WHERE c.driver.email = ?1 ORDER BY c.lastMessage DESC", Chat.class);
+		} else {
+			query = db.createQuery("SELECT c FROM Chat c WHERE c.rider.email = ?1 ORDER BY c.lastMessage DESC", Chat.class);
+		}
 		query.setParameter(1, dr.getEmail());
 		List<Chat> l = query.getResultList();
 		return l;

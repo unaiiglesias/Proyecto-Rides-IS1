@@ -10,10 +10,13 @@ import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import domain.Driver;
 import domain.Rider;
 import util.ImageManagerUtil;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 
@@ -125,16 +128,7 @@ public class RiderGUI extends MainGUI {
 		showReservationsButton.setBounds(0, 204, 644, 97);
 		jContentPane.add(showReservationsButton);
 		
-		messagesButton = new JButton();
-		messagesButton.setIcon(new ImageIcon(ImageManagerUtil.readImageFromFile("src/main/resources/messageIcon.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-		messagesButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChatGUI a = new ChatGUI(currentSession);
-				a.setVisible(true);
-			}
-		});
-		messagesButton.setBounds(445, 59, 50, 50);
-		getContentPane().add(messagesButton);
+
 		showReservationsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new ReservationHistoryGUI(currentSession);
@@ -148,6 +142,26 @@ public class RiderGUI extends MainGUI {
 				a.setVisible(true);
 			}
 		});
+		
+		// Button to enter the chat's GUI
+		messagesButton = new JButton();
+		messagesButton.setIcon(new ImageIcon(ImageManagerUtil.readImageFromFile("src/main/resources/messageIcon.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+		messagesButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// En caso de ser un conductor, podremos escoger entre los chats como Rider y como Driver
+				int sesionChoosed = 0;
+				if(currentSession instanceof Driver) {
+					sesionChoosed = JOptionPane.showOptionDialog(null, "¿Which role's messages would you like to be shown?", "Select a role", 
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Rider", "Driver"}, "Rider");
+				}
+				ChatGUI a;
+				if(sesionChoosed == 1) a = new ChatGUI(currentSession, true);
+				else a = new ChatGUI(currentSession, false);
+				a.setVisible(true);
+			}
+		});
+		messagesButton.setBounds(445, 59, 50, 50);
+		getContentPane().add(messagesButton);
 		
 	}
 

@@ -238,20 +238,14 @@ public interface BLFacade  {
 	 * @param msg
 	 */
 	public void addDriverAnswer(Review review, String msg);
-	
-	/**
-	 * Get the chats in which the rider given is a participant
-	 * @param rider The rider whose chats want to be found
-	 * @return A list with all the chats
-	 */
-	public List<Chat> getChatsOfUser(Rider rider);
-	
+
 	/**
 	 * Get the chats in which the driver given is a participant
 	 * @param driver The driver whose chats want to be found
+	 * @param asRider Indicates if the current Driver wants to see his Rider's role's chats
 	 * @return A list with all the chats
 	 */
-	public List<Chat> getChatsOfUser(Driver driver);
+	public List<Chat> getChatsOfUser(Rider driver, boolean asRider);
 	
 	/**
 	 * Find the chat given in the DB
