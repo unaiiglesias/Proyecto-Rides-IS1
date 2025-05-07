@@ -16,6 +16,7 @@ import exceptions.IncorrectCredentialsException;
 import exceptions.RideAlreadyExistException;
 import exceptions.UserAlreadyExistException;
 import exceptions.UserDoesNotExistException;
+import util.EmailManager;
 
 /**
  * It implements the business logic as a web service.
@@ -293,8 +294,10 @@ public class BLFacadeImplementation  implements BLFacade {
 	 */
 	public boolean modifyReservationRequestState(ReservationRequest rr, String newStatus) {
 		dbManager.open();
-		Boolean accepted = dbManager.modifyReservationRequest(rr, newStatus);
+		boolean accepted = dbManager.modifyReservationRequest(rr, newStatus);
 		dbManager.close();
+		if (accepted && newStatus.equals("accepted"))
+			EmailManager.sendRequestAcceptedEmail(rr);
 		return accepted;
 	}
 	
