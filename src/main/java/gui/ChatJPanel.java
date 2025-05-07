@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.FontMetrics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,8 @@ import javax.swing.*;
 import util.ImageManagerUtil;
 
 import javax.swing.border.EmptyBorder;
+
+import org.omg.CORBA.CTX_RESTRICT_SCOPE;
 
 import businessLogic.*;
 import domain.*;
@@ -135,42 +138,7 @@ public class ChatJPanel extends JPanel {
 		this.msgUpdateTimer.stop();
 	}
 	
-	/*
-	 * Método auxiliar para generar el panel que encapsula a cada mensaje
-	 */
-	private JPanel createMessagePanel(Message msg) {
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		
-		JTextArea msgArea = new JTextArea();
-		msgArea.setText(msg.getMessage());
-		msgArea.setEditable(false);
-		msgArea.setWrapStyleWord(true);
-		msgArea.setLineWrap(true);
-		// Set its height automatically
-		FontMetrics fontMetrics = msgArea.getFontMetrics(msgArea.getFont());
-		int rows = (int) Math.ceil(fontMetrics.stringWidth(msg.getMessage()) / 400.0);
-		int height = rows * fontMetrics.getHeight(); // number of rows that the message will occupy * height of each row
-		// Update the size of the panel
-		int width =  400;
-		if(rows == 1) width = fontMetrics.stringWidth(msg.getMessage());
-		msgArea.setSize(new Dimension(width, height));
-		msgArea.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
-		msgArea.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel.add(msgArea);
-		
-		JLabel dateLabel = new JLabel(msg.getStringDateHourMin());
-		dateLabel.setSize(new Dimension(30, 15));
-		dateLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel.add(dateLabel);
-		
-		// modifications
-		panel.setBackground(Color.white);
-		panel.setSize(new Dimension(msgArea.getWidth(), msgArea.getHeight() + dateLabel.getHeight()));
-		return panel;		
-	}
-	
+
 	// Auxiliary method to update chat's messages
 	private void updateMessages() {
         
@@ -195,15 +163,20 @@ public class ChatJPanel extends JPanel {
         		conversationPanel.add(dateLabel);
         	}
         	
-        	JPanel msgPanel = createMessagePanel(m);
+        	MessagePanel msgPanel = new MessagePanel(m);
+        	// Introducimos el panel con el mensaje en otro contenedor, para poder ajustar la alineación según el emisor
+        	JPanel contenedor = new JPanel();
+        	contenedor.setOpaque(false);
         	if(m.getAuthor().getEmail().equals(currentUser.getEmail())){
-        		msgPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        		contenedor.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        		contenedor.add(msgPanel);
         	} else {
-        		msgPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        		contenedor.setLayout(new FlowLayout(FlowLayout.LEFT));
+        		contenedor.add(msgPanel);
         	}
-    		msgPanel.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
-    		
-        	conversationPanel.add(msgPanel);
+    		contenedor.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    		//contenedor.setPreferredSize(new Dimension(650, msgPanel.getHeight()));
+        	conversationPanel.add(contenedor);
         	
         	// Add a separator
         	conversationPanel.add(Box.createVerticalStrut(5));
