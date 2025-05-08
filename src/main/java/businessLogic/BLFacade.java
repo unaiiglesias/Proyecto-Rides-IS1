@@ -219,11 +219,12 @@ public interface BLFacade  {
 	
 	/**
 	 * Changes a given riders profile picture to the one given
+	 * Returns null if everything went well and a String detailling the error otherwise
 	 * 
 	 * @param r
 	 * @param icon
 	 */
-	public void setRiderProfilePic(Rider r, ImageIcon icon);
+	public String setRiderProfilePic(Rider r, ImageIcon icon);
 	
 	/**
 	 * Updates attributes of Rider instance on DB

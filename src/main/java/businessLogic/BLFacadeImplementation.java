@@ -17,6 +17,7 @@ import exceptions.RideAlreadyExistException;
 import exceptions.UserAlreadyExistException;
 import exceptions.UserDoesNotExistException;
 import util.EmailManager;
+import util.ImageManagerUtil;
 
 /**
  * It implements the business logic as a web service.
@@ -404,10 +405,17 @@ public class BLFacadeImplementation  implements BLFacade {
 		return UtilDate.newDate(year, month, today.get(Calendar.DAY_OF_MONTH));
 	}
 	
-	public void setRiderProfilePic(Rider r, ImageIcon icon) {
+	public String setRiderProfilePic(Rider r, ImageIcon icon) {
+		String verification = ImageManagerUtil.verifyIcon(icon);
+		
+		if (verification != null)
+			return verification;
+			
 		dbManager.open();
 		dbManager.setRiderProfilePic(r, icon);
 		dbManager.close();
+		
+		return null;
 	}
 	
 	

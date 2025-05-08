@@ -77,14 +77,11 @@ public class ManageRiderGUI extends JFrame {
 					// File chosen, check that it's correct and apply it
 					ImageIcon icon = ImageManagerUtil.readImageFromFile(selectedImage.getAbsolutePath());
 					
-					String verification = verifyIcon(icon);
+					String verification = bl.setRiderProfilePic(r, icon);
 					errorLabel.setText("");
 					
 					if (verification == null)
-					{
-						bl.setRiderProfilePic(r, icon);
 						updateProfilePic(r);
-					}
 					else
 						errorLabel.setText(verification);
 				}
@@ -225,16 +222,5 @@ public class ManageRiderGUI extends JFrame {
 		this.profileImage.setIcon(r.getProfilePicIcon());
 	}
 	
-	private String verifyIcon (ImageIcon icon) {
-		/**
-		 * Verifies that icon is correct
-		 * 
-		 * Returns null if everything OK, string detailing error otherwise
-		 */
-		
-		if (icon.getIconWidth() != 64 || icon.getIconHeight() != 64)
-			return ResourceBundle.getBundle("Etiquetas").getString("ManageRiderGUI.iconSizeError");
-		
-		return null;
-	}
+
 }

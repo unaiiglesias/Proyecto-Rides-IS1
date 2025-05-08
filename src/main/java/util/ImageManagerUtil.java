@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -75,6 +76,19 @@ public class ImageManagerUtil {
 	
 	public static byte[] getDefaultIconArr() {
 		return convertImageIconToByteArr(getDefaultIcon());
+	}
+	
+	public static String verifyIcon (ImageIcon icon) {
+		/**
+		 * Verifies that icon is correct
+		 * 
+		 * Returns null if everything OK, string detailing error otherwise
+		 */
+		
+		if (icon.getIconWidth() != 64 || icon.getIconHeight() != 64)
+			return ResourceBundle.getBundle("Etiquetas").getString("ManageRiderGUI.iconSizeError");
+		
+		return null;
 	}
 	
 	public static void main (String[] args) {
