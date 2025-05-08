@@ -39656,7 +39656,7 @@
 													"font": "Arial;13;0",
 													"parentStyle": true,
 													"left": 680.72998046875,
-													"top": 277,
+													"top": 293,
 													"width": 62.13720703125,
 													"height": 13,
 													"text": "verification"
@@ -39670,7 +39670,7 @@
 													"font": "Arial;13;1",
 													"parentStyle": true,
 													"left": 661,
-													"top": 277,
+													"top": 293,
 													"width": 13.72998046875,
 													"height": 13,
 													"text": "alt"
@@ -39704,7 +39704,7 @@
 																	"font": "Arial;13;0",
 																	"parentStyle": true,
 																	"left": 676,
-																	"top": 310,
+																	"top": 326,
 																	"width": 105.49169921875,
 																	"height": 13,
 																	"text": "[mensaje de error]"
@@ -39713,9 +39713,9 @@
 															"font": "Arial;13;0",
 															"parentStyle": true,
 															"left": 656,
-															"top": 295,
-															"width": 1888,
-															"height": 89,
+															"top": 311,
+															"width": 1488,
+															"height": 65,
 															"guardLabel": {
 																"$ref": "AAAAAAGWrPCf3NLZ7Ls="
 															}
@@ -39739,7 +39739,7 @@
 																	"font": "Arial;13;0",
 																	"parentStyle": true,
 																	"left": 676,
-																	"top": 399,
+																	"top": 391,
 																	"width": 27.4599609375,
 																	"height": 13,
 																	"text": "[null]"
@@ -39748,8 +39748,8 @@
 															"font": "Arial;13;0",
 															"parentStyle": true,
 															"left": 656,
-															"top": 384,
-															"width": 1888,
+															"top": 376,
+															"width": 1488,
 															"height": 43,
 															"guardLabel": {
 																"$ref": "AAAAAAGWrPBfE9LOq6Y="
@@ -39759,17 +39759,17 @@
 													"font": "Arial;13;0",
 													"parentStyle": true,
 													"left": 656,
-													"top": 295,
-													"width": 1888,
-													"height": 132
+													"top": 311,
+													"width": 1488,
+													"height": 108
 												}
 											],
 											"font": "Arial;13;0",
 											"parentStyle": false,
 											"left": 656,
-											"top": 272,
-											"width": 1888,
-											"height": 432,
+											"top": 288,
+											"width": 1488,
+											"height": 416,
 											"nameLabel": {
 												"$ref": "AAAAAAGWrO6hkNKZSNs="
 											},
