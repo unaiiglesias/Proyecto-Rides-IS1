@@ -72,10 +72,13 @@ public class QueryRidesGUI extends JFrame {
 	@SuppressWarnings("serial")
 	public QueryRidesGUI(Rider rider)
 	{
+		
+		
+		BLFacade facade = MainGUI.getBusinessLogic();
+		JFrame parent = this;
 		/*
 		 * Auxiliar clases
 		 */
-		BLFacade facade = MainGUI.getBusinessLogic();
 	    class ButtonRenderer extends JButton implements TableCellRenderer {
 	        public ButtonRenderer() {
 	            setOpaque(true); 
@@ -100,6 +103,7 @@ public class QueryRidesGUI extends JFrame {
 	    				int selectedRow = tableRides.getSelectedRow();
 	                    Driver d = ((Ride) tableModelRides.getValueAt(selectedRow, 4)).getDriver();
 	                    ShowReviews a = new ShowReviews(d);
+	    				a.setLocationRelativeTo(parent);
 	    				a.setVisible(true);
 	                    fireEditingStopped(); 
 	                }

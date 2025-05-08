@@ -74,6 +74,7 @@ public class CreatedRidesHistoryGUI extends JFrame {
 		// DEBUG
 		System.out.println("Openning: RemoveRidesGUI");
 		
+		JFrame parent = this;
 		// Generic class variables
 		this.driver = d;
 		facade = MainGUI.getBusinessLogic();
@@ -232,6 +233,7 @@ public class CreatedRidesHistoryGUI extends JFrame {
 				
 				Ride r = (Ride) ridesTableModel.getValueAt(selectedRow, 3);
 				ShowReviews a = new ShowReviews(r);
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 				
 			}

@@ -22,7 +22,7 @@ public class DriverGUI extends RiderGUI {
 		
 		super(d);
 		this.currentSession = d;
-		
+		JFrame parent = this;
 		// DriverGUI has plenty of functionality, so we need to extend the window for all the buttons to fit
 		this.setSize(656, 628);
 
@@ -41,6 +41,7 @@ public class DriverGUI extends RiderGUI {
 		createRideButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				JFrame a = new CreateRideGUI((Driver) currentSession);
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 			}
 		});
@@ -54,6 +55,7 @@ public class DriverGUI extends RiderGUI {
 		removeRideButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new CreatedRidesHistoryGUI((Driver) currentSession);
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 			}
 		});
@@ -67,6 +69,7 @@ public class DriverGUI extends RiderGUI {
 		showRequestsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new InboundRequestsGUI((Driver) currentSession);
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 			}
 		});

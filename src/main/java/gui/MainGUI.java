@@ -13,6 +13,7 @@ import businessLogic.BLFacade;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -56,6 +57,13 @@ public class MainGUI extends JFrame {
 		// Current session is received as parameter, depending on what kind of session is received (rider, driver or 
 		// null) the GUI is adapted, showing only the allowed use cases
 		currentSession=d;
+		JFrame parent = this;
+		this.setSize(656, 543);
+		
+		// Center the frame in the center of the monitor
+		int screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		int screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.setLocation(screenWidth/2 - this.getWidth()/2, screenHeight/2 - this.getHeight()/2);
 		
 		// Update the text that shows in the window's label
 		String windowText = ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MainTitle");
@@ -70,9 +78,6 @@ public class MainGUI extends JFrame {
 		jContentPane = new JPanel();
 		jContentPane.setLayout(null);
 		setContentPane(jContentPane);
-		
-		// this.setSize(271, 295);
-		this.setSize(656, 543);
 		
 		// HEADER label
 		headerLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.HeaderLabel"));
@@ -89,6 +94,7 @@ public class MainGUI extends JFrame {
 		queryRidesButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				JFrame a = new QueryRidesGUI(currentSession);
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 			}
 		});
@@ -119,6 +125,7 @@ public class MainGUI extends JFrame {
 		loginJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new LoginGUI();
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 				dispose();
 			}
@@ -132,6 +139,7 @@ public class MainGUI extends JFrame {
 		signUpJButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new RegisterGUI();
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 				dispose();
 			}

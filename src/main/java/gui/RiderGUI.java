@@ -44,6 +44,7 @@ public class RiderGUI extends MainGUI {
 	public RiderGUI (Rider d) {
 		super(d);
 
+		JFrame parent = this;
 		this.currentSession = d;
 		System.out.println("GUI overloading: RiderGUI");
 		
@@ -72,6 +73,7 @@ public class RiderGUI extends MainGUI {
 				    	menuButton.setIcon(d.getProfilePicIcon());
 				    }
 				});
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 			}
 		});
@@ -87,6 +89,7 @@ public class RiderGUI extends MainGUI {
 				ChatGUI a;
 				if(sesionChoosed == 1) a = new ChatGUI(currentSession, true);
 				else a = new ChatGUI(currentSession, false);
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 			}
 		});
@@ -94,6 +97,7 @@ public class RiderGUI extends MainGUI {
 		logoutItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame a = new MainGUI(null);
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 				dispose();
 			}
@@ -101,8 +105,7 @@ public class RiderGUI extends MainGUI {
 		
 		menu.add(profileItem);
 		menu.add(messagesItem);
-		menu.add(logoutItem);
-		
+		menu.add(logoutItem);	
 		
 		// Button to show the menu
 		menuButton = new JButton(d.getProfilePicIcon());
@@ -111,6 +114,7 @@ public class RiderGUI extends MainGUI {
 				menu.show(menuButton, 0, menuButton.getHeight());
 			}
 		});
+		
 		// Make button transparent as well
 		menuButton.setContentAreaFilled(false);
 		menuButton.setBounds(547, 4, 64, 64);
@@ -142,6 +146,7 @@ public class RiderGUI extends MainGUI {
 				    	balanceAmount.setText("" + currentSession.getBalance());
 				    }
 				});
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 			}
 		});
@@ -173,6 +178,7 @@ public class RiderGUI extends MainGUI {
 				    	balanceAmount.setText("" + currentSession.getBalance());
 				    }
 				});
+				a.setLocationRelativeTo(parent);
 				a.setVisible(true);
 			}
 		});		
