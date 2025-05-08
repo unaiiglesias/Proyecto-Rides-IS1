@@ -183,6 +183,12 @@ public class DataAccess  {
 			addReservationRequest(reservationIglesias);
 			ReservationRequest reservationDorronsoro = new ReservationRequest(riderEmailDorronsoro, ride1, 1);
 			addReservationRequest(reservationDorronsoro);
+			// Add some chat DEMO (betweeen example1@rider.com and example1@driver.com)
+			ReservationRequest reservationChat = new ReservationRequest(rider1, ride3, 1);
+			addReservationRequest(reservationChat);
+			modifyReservationRequest(reservationChat, "accepted");
+			modifyReservationRequest(reservationChat, "paid");
+			
 			
 			
 			System.out.println("SUCCESS: Db initialized with example data");
@@ -487,7 +493,6 @@ public class DataAccess  {
 		 * Once a reservation is paid, automatically a chat will be created between the Rider and Driver of that ride
 		 */
 		if(newState.equals("paid")) {
-			System.out.println("Entered here!");
 			Driver dr = db.find(Driver.class, rr.getRide().getDriver());
 			Rider r = db.find(Rider.class, rr.getRider());
 			// If there is no chat between current rider and driver, create a new one.

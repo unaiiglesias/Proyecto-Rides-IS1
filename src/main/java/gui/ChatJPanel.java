@@ -78,7 +78,7 @@ public class ChatJPanel extends JPanel {
         
         otherUserPanel.add(Box.createHorizontalStrut(5));
         // JLabel with the name of the other user
-        JLabel otherName = new JLabel(otherUser.getName());
+        JLabel otherName = new JLabel(otherUser.getName() + " (" + otherUser.getEmail() + ")");
         otherName.setAlignmentY(Component.CENTER_ALIGNMENT);
         otherUserPanel.add(otherName);
         otherUserPanel.setBorder(new LineBorder(Color.BLACK, 1));

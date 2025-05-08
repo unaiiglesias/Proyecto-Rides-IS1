@@ -75,3 +75,112 @@ New type java.util.ArrayList<domain.Message>
 [2025-05-08 11:45:50 #25 type.registry] 
 New type java.util.ArrayList<domain.Ride>
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-05-08 12:17:34 #1 store] 
+Database 'E:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\compiled (entregable)\Iteracion 3\src\main\resources\rides.temp' has been recovered (tr. 1-27)
+
+[2025-05-08 12:17:34 #2 store] 
+Database 'E:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\compiled (entregable)\Iteracion 3\src\main\resources\rides.temp' is opened by 6128@UnaiPC
+
+[2025-05-08 12:17:34 #3 type] 
+Type domain.Rider is not enhanced.
+
+[2025-05-08 12:17:34 #4 type] 
+Type domain.Driver is not enhanced.
+
+[2025-05-08 12:17:34 #5 type] 
+Type domain.Message is not enhanced.
+
+[2025-05-08 12:17:34 #6 type] 
+Type domain.Chat is not enhanced.
+
+[2025-05-08 12:17:34 #7 type] 
+Type domain.ReviewRating is not enhanced.
+
+[2025-05-08 12:17:34 #8 type] 
+Type domain.Review is not enhanced.
+
+[2025-05-08 12:17:34 #9 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-05-08 12:17:34 #10 type] 
+Type domain.Ride is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-05-08 12:18:03 #1 store] 
+Database 'E:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\compiled (entregable)\Iteracion 3\src\main\resources\rides.temp' is opened by 5764@UnaiPC
+
+[2025-05-08 12:18:04 #2 type.registry] 
+New type domain.Rider
+
+[2025-05-08 12:18:04 #3 type.registry] 
+New type domain.Driver
+
+[2025-05-08 12:18:04 #4 type] 
+Type domain.Rider is not enhanced.
+
+[2025-05-08 12:18:04 #5 type.registry] 
+New type domain.Message
+
+[2025-05-08 12:18:04 #6 type.registry] 
+New type domain.Chat
+
+[2025-05-08 12:18:04 #7 type.registry] 
+New type domain.ReviewRating
+
+[2025-05-08 12:18:04 #8 type.registry] 
+New type domain.Review
+
+[2025-05-08 12:18:04 #9 type.registry] 
+New type domain.ReservationRequest
+
+[2025-05-08 12:18:04 #10 type.registry] 
+New type byte[]
+
+[2025-05-08 12:18:04 #11 type] 
+Type domain.Driver is not enhanced.
+
+[2025-05-08 12:18:04 #12 type.registry] 
+New type domain.Ride
+
+[2025-05-08 12:18:04 #13 type] 
+Type domain.Message is not enhanced.
+
+[2025-05-08 12:18:04 #14 type] 
+Type domain.Chat is not enhanced.
+
+[2025-05-08 12:18:04 #15 type] 
+Type domain.ReviewRating is not enhanced.
+
+[2025-05-08 12:18:04 #16 type] 
+Type domain.Review is not enhanced.
+
+[2025-05-08 12:18:04 #17 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-05-08 12:18:04 #18 type] 
+Type domain.Ride is not enhanced.
+
+[2025-05-08 12:18:04 #19 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2025-05-08 12:18:04 #20 type.registry] 
+New type java.util.ArrayList<domain.ReservationRequest>
+
+[2025-05-08 12:18:04 #21 type.registry] 
+New type java.util.ArrayList<domain.Review>
+
+[2025-05-08 12:18:04 #22 type.registry] 
+New type java.util.ArrayList<domain.ReviewRating>
+
+[2025-05-08 12:18:04 #23 type.registry] 
+New type java.util.ArrayList<domain.Chat>
+
+[2025-05-08 12:18:04 #24 type.registry] 
+New type java.util.ArrayList<domain.Message>
+
+[2025-05-08 12:18:04 #25 type.registry] 
+New type java.util.ArrayList<domain.Ride>
+
