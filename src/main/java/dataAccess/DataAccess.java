@@ -95,6 +95,8 @@ public class DataAccess  {
 		   Rider rider1 = new Rider("example1@rider.com", "rider", "Jon", "Pelaio", 15);
 		   Rider rider2 = new Rider("example2@rider.com", "rider", "Matias", "Gutierrez", 30);
 		   Rider rider3 = new Rider("example3@rider.com", "rider", "Javier", "Jimenez", 45);
+		   Rider riderEmailIglesias = new Rider("uiglesias011@ikasle.ehu.eus", "12345", "Unai", "Iglesias", 20);
+		   Rider riderEmailDorronsoro = new Rider("udorronsoro003@ikasle.ehu.eus", "12345", "Unai", "Dorronsoro", 20);
 		   
 		   // Create some Drivers
 			Driver driver1=new Driver("example1@driver.com", "driver", "Aitor", "Fernandez", 34, "00000X", "Peugeot 360");
@@ -126,6 +128,8 @@ public class DataAccess  {
 			db.persist(rider1);
 			db.persist(rider2);
 			db.persist(rider3);
+			db.persist(riderEmailIglesias);
+			db.persist(riderEmailDorronsoro);
 
 			db.getTransaction().commit();
 			
@@ -173,6 +177,12 @@ public class DataAccess  {
 			addReview(review2);
 			Review review3 = new Review(3, "No esta mal", ride10, rider3, ride10.getDriver());
 			addReview(review3);
+			
+			// Iteration 3: Add requests to accept to for EMAIl send email to ourselves
+			ReservationRequest reservationIglesias = new ReservationRequest(riderEmailIglesias, ride1, 1);
+			addReservationRequest(reservationIglesias);
+			ReservationRequest reservationDorronsoro = new ReservationRequest(riderEmailDorronsoro, ride1, 1);
+			addReservationRequest(reservationDorronsoro);
 			
 			
 			System.out.println("SUCCESS: Db initialized with example data");

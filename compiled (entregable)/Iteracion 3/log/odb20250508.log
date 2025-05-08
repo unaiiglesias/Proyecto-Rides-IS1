@@ -1,0 +1,77 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2025-05-08 11:45:50 #1 store] 
+Database 'E:\EHU\Laboratorios\IS1 (2ndo)\Iteracion-1\compiled (entregable)\Iteracion 3\src\main\resources\rides.temp' is opened by 17004@UnaiPC
+
+[2025-05-08 11:45:50 #2 type.registry] 
+New type domain.Rider
+
+[2025-05-08 11:45:50 #3 type.registry] 
+New type domain.Driver
+
+[2025-05-08 11:45:50 #4 type] 
+Type domain.Rider is not enhanced.
+
+[2025-05-08 11:45:50 #5 type.registry] 
+New type domain.Message
+
+[2025-05-08 11:45:50 #6 type.registry] 
+New type domain.Chat
+
+[2025-05-08 11:45:50 #7 type.registry] 
+New type domain.ReviewRating
+
+[2025-05-08 11:45:50 #8 type.registry] 
+New type domain.Review
+
+[2025-05-08 11:45:50 #9 type.registry] 
+New type domain.ReservationRequest
+
+[2025-05-08 11:45:50 #10 type.registry] 
+New type byte[]
+
+[2025-05-08 11:45:50 #11 type] 
+Type domain.Driver is not enhanced.
+
+[2025-05-08 11:45:50 #12 type.registry] 
+New type domain.Ride
+
+[2025-05-08 11:45:50 #13 type] 
+Type domain.Message is not enhanced.
+
+[2025-05-08 11:45:50 #14 type] 
+Type domain.Chat is not enhanced.
+
+[2025-05-08 11:45:50 #15 type] 
+Type domain.ReviewRating is not enhanced.
+
+[2025-05-08 11:45:50 #16 type] 
+Type domain.Review is not enhanced.
+
+[2025-05-08 11:45:50 #17 type] 
+Type domain.ReservationRequest is not enhanced.
+
+[2025-05-08 11:45:50 #18 type] 
+Type domain.Ride is not enhanced.
+
+[2025-05-08 11:45:50 #19 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2025-05-08 11:45:50 #20 type.registry] 
+New type java.util.ArrayList<domain.ReservationRequest>
+
+[2025-05-08 11:45:50 #21 type.registry] 
+New type java.util.ArrayList<domain.Review>
+
+[2025-05-08 11:45:50 #22 type.registry] 
+New type java.util.ArrayList<domain.ReviewRating>
+
+[2025-05-08 11:45:50 #23 type.registry] 
+New type java.util.ArrayList<domain.Chat>
+
+[2025-05-08 11:45:50 #24 type.registry] 
+New type java.util.ArrayList<domain.Message>
+
+[2025-05-08 11:45:50 #25 type.registry] 
+New type java.util.ArrayList<domain.Ride>
+
